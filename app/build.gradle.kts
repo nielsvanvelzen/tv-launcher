@@ -40,5 +40,5 @@ dependencies {
 	implementation("androidx.leanback:leanback:1.0.0")
 	implementation("androidx.fragment:fragment-ktx:1.3.3")
 	implementation("androidx.cardview:cardview:1.0.0")
-//	implementation("androidx.legacy:legacy-support-v4:1.0.0")
+	implementation("androidx.constraintlayout:constraintlayout:2.0.4")
 }
