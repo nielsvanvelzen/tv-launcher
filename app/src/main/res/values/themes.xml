@@ -1,0 +1,7 @@
+<resources>
+
+	<style name="Theme.TVLauncher" parent="@style/Theme.Leanback">
+		<item name="android:windowShowWallpaper">true</item>
+		<item name="android:windowBackground">@android:color/transparent</item>
+	</style>
+</resources>

@@ -1,0 +1,9 @@
+*.iml
+/.idea
+
+.gradle
+local.properties
+
+build/
+
+java_*.hprof
