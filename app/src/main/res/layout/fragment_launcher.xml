@@ -11,8 +11,12 @@
 		android:id="@+id/button"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_marginTop="27dp"
+		android:layout_marginEnd="12dp"
+		android:background="@color/transparent"
 		android:contentDescription="Settings"
 		android:src="@drawable/ic_settings"
+		android:tint="@color/lb_grey"
 		app:layout_constraintEnd_toStartOf="@id/clock"
 		app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,14 +24,19 @@
 		android:id="@+id/clock"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:padding="16dp"
+		android:layout_marginEnd="48dp"
+		android:textColor="@color/lb_grey"
+		android:textSize="20sp"
+		app:layout_constraintBottom_toBottomOf="@id/button"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
+		app:layout_constraintTop_toTopOf="@id/button"
+		tools:text="13:37" />
 
 	<HorizontalScrollView
 		android:id="@+id/apps_scroller"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginTop="32dp"
 		android:scrollbars="none"
 		app:layout_constraintTop_toBottomOf="@id/button">
 
@@ -35,6 +44,9 @@
 			android:id="@+id/apps"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal" />
+			android:clipToPadding="false"
+			android:focusedByDefault="true"
+			android:orientation="horizontal"
+			android:paddingHorizontal="48dp" />
 	</HorizontalScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
