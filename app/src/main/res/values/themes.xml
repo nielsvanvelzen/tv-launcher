@@ -1,6 +1,6 @@
 <resources>
 
 	<style name="Theme.TVLauncher" parent="@style/Theme.LeanbackBase">
-		<item name="android:windowBackground">#000000</item>
+		<item name="android:windowBackground">@color/black</item>
 	</style>
 </resources>

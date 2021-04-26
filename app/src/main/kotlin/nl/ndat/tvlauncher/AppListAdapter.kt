@@ -42,8 +42,10 @@ class AppListAdapter(
 
 		// Set click action
 		holder.container.setOnClickListener {
-			val appIntent = packageManager.getLaunchIntentForPackage(resolveInfo.activityInfo.packageName)
-			context.startActivity(appIntent)
+			val appIntent = packageManager.getLeanbackLaunchIntentForPackage(resolveInfo.activityInfo.packageName)
+				?: packageManager.getLaunchIntentForPackage(resolveInfo.activityInfo.packageName)
+
+			if (appIntent != null) context.startActivity(appIntent)
 		}
 	}
 
