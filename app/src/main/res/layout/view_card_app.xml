@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/container"
+	android:layout_width="160dp"
+	android:layout_height="wrap_content"
+	android:focusable="true"
+	android:orientation="vertical"
+	android:padding="6dp">
+
+	<androidx.cardview.widget.CardView
+		android:layout_width="160dp"
+		android:layout_height="90dp"
+		app:cardCornerRadius="4dp">
+
+		<ImageView
+			android:id="@+id/banner"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:scaleType="fitCenter"
+			tools:src="@drawable/ic_launcher_banner" />
+	</androidx.cardview.widget.CardView>
+
+	<TextView
+		android:id="@+id/label"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:ellipsize="marquee"
+		android:marqueeRepeatLimit="marquee_forever"
+		android:padding="4dp"
+		android:singleLine="true"
+		tools:text="@string/app_name" />
+</LinearLayout>

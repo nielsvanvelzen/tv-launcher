@@ -3,17 +3,12 @@ package nl.ndat.tvlauncher
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.cardview.widget.CardView
-import androidx.core.view.setMargins
 import androidx.fragment.app.Fragment
 import nl.ndat.tvlauncher.databinding.FragmentLauncherBinding
+import nl.ndat.tvlauncher.databinding.ViewCardAppBinding
 
 class LauncherFragment : Fragment() {
 	private var _binding: FragmentLauncherBinding? = null
@@ -44,55 +39,29 @@ class LauncherFragment : Fragment() {
 		val packageManager = requireContext().packageManager
 		val activities = packageManager.queryIntentActivities(intent, 0)
 		activities.sortedBy { it.activityInfo.loadLabel(packageManager).toString() }.forEach { resolveInfo ->
-			val container = LinearLayout(requireContext()).apply {
-				isFocusable = true
-				orientation = LinearLayout.VERTICAL
-				layoutParams = LinearLayout.LayoutParams(320, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
-					setMargins(16)
-				}
-			}
+			val appCard = ViewCardAppBinding.inflate(layoutInflater)
+			appCard.banner.setImageDrawable(resolveInfo.activityInfo.loadBanner(packageManager))
+			appCard.label.text = resolveInfo.loadLabel(packageManager)
 
-			val card = CardView(requireContext()).apply {
-				radius = 16f
-//				cardElevation = 0f
-				layoutParams = LinearLayout.LayoutParams(320, 180)
-
-				container.addView(this)
-			}
-
-			val image = ImageView(requireContext()).apply {
-				setImageDrawable(resolveInfo.activityInfo.loadBanner(packageManager))
-				scaleType = ImageView.ScaleType.FIT_CENTER
-
-				card.addView(this)
-			}
-
-			val label = TextView(requireContext()).apply {
-				text = resolveInfo.loadLabel(packageManager)
-				setPadding(16, 8, 16, 8)
-				maxLines = 1
-				ellipsize = TextUtils.TruncateAt.END
-
-				container.addView(this)
-			}
-
-			container.setOnFocusChangeListener { _, hasFocus ->
+			appCard.container.setOnFocusChangeListener { _, hasFocus ->
 				val scale = if (hasFocus) 1.1f else 1.0f
 
-				container.animate().apply {
+				appCard.container.animate().apply {
 					scaleX(scale)
 					scaleY(scale)
 					duration = 200
 					withLayer()
 				}.start()
+
+				appCard.label.isSelected = hasFocus
 			}
 
-			container.setOnClickListener {
-				val intent = packageManager.getLaunchIntentForPackage(resolveInfo.activityInfo.packageName)
-				requireContext().startActivity(intent)
+			appCard.container.setOnClickListener {
+				val appIntent = packageManager.getLaunchIntentForPackage(resolveInfo.activityInfo.packageName)
+				requireContext().startActivity(appIntent)
 			}
 
-			binding.apps.addView(container)
+			binding.apps.addView(appCard.root)
 		}
 	}
 
