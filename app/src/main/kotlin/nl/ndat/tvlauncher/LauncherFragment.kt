@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import nl.ndat.tvlauncher.databinding.FragmentLauncherBinding
-import nl.ndat.tvlauncher.databinding.ViewCardAppBinding
 
 class LauncherFragment : Fragment() {
 	private var _binding: FragmentLauncherBinding? = null
@@ -38,6 +37,7 @@ class LauncherFragment : Fragment() {
 			animator.duration = 200
 			animator.start()
 		}
+
 		binding.button.setOnClickListener {
 			startActivity(Intent(Settings.ACTION_SETTINGS))
 		}
@@ -50,31 +50,9 @@ class LauncherFragment : Fragment() {
 
 		val packageManager = requireContext().packageManager
 		val activities = packageManager.queryIntentActivities(intent, 0)
-		activities.sortedBy { it.activityInfo.loadLabel(packageManager).toString() }.forEach { resolveInfo ->
-			val appCard = ViewCardAppBinding.inflate(layoutInflater)
-			appCard.banner.setImageDrawable(resolveInfo.activityInfo.loadBanner(packageManager))
-			appCard.label.text = resolveInfo.loadLabel(packageManager)
+		activities.sortBy { it.activityInfo.loadLabel(packageManager).toString() }
 
-			appCard.container.setOnFocusChangeListener { _, hasFocus ->
-				val scale = if (hasFocus) 1.1f else 1.0f
-
-				appCard.container.animate().apply {
-					scaleX(scale)
-					scaleY(scale)
-					duration = 200
-					withLayer()
-				}.start()
-
-				appCard.label.isSelected = hasFocus
-			}
-
-			appCard.container.setOnClickListener {
-				val appIntent = packageManager.getLaunchIntentForPackage(resolveInfo.activityInfo.packageName)
-				requireContext().startActivity(appIntent)
-			}
-
-			binding.apps.addView(appCard.root)
-		}
+		binding.apps.adapter = AppListAdapter(requireContext(), packageManager, activities)
 	}
 
 	override fun onDestroyView() {
@@ -82,3 +60,4 @@ class LauncherFragment : Fragment() {
 		_binding = null
 	}
 }
+

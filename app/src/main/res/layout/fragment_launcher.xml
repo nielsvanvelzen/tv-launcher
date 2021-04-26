@@ -32,21 +32,22 @@
 		app:layout_constraintTop_toTopOf="@id/button"
 		tools:text="13:37" />
 
-	<HorizontalScrollView
-		android:id="@+id/apps_scroller"
+	<androidx.leanback.widget.HorizontalGridView
+		android:id="@+id/apps"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="32dp"
+		android:clipToPadding="false"
+		android:focusedByDefault="true"
+		android:paddingHorizontal="48dp"
 		android:scrollbars="none"
-		app:layout_constraintTop_toBottomOf="@id/button">
+		app:layout_constraintTop_toBottomOf="@id/button" />
 
-		<LinearLayout
-			android:id="@+id/apps"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:clipToPadding="false"
-			android:focusedByDefault="true"
-			android:orientation="horizontal"
-			android:paddingHorizontal="48dp" />
-	</HorizontalScrollView>
+	<androidx.leanback.widget.SpeechOrbView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="48dp"
+		android:layout_marginTop="27dp"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
