@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+	<item
+		android:width="320dp"
+		android:height="180dp"
+		android:drawable="@drawable/ic_launcher_background" />
+	<item
+		android:width="128dp"
+		android:height="128dp"
+		android:drawable="@drawable/ic_scart"
+		android:gravity="center" />
+</layer-list>

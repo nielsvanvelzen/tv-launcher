@@ -20,7 +20,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:scaleType="fitCenter"
-			tools:src="@drawable/ic_launcher_banner" />
+			tools:src="@drawable/banner_launcher" />
 	</androidx.cardview.widget.CardView>
 
 	<TextView
