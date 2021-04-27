@@ -11,7 +11,7 @@
 		android:id="@+id/button"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="27dp"
+		android:layout_marginTop="@dimen/overscan_top"
 		android:layout_marginEnd="12dp"
 		android:background="@color/transparent"
 		android:contentDescription="Settings"
@@ -24,7 +24,7 @@
 		android:id="@+id/clock"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginEnd="48dp"
+		android:layout_marginEnd="@dimen/overscan_end"
 		android:textColor="@color/lb_grey"
 		android:textSize="20sp"
 		app:layout_constraintBottom_toBottomOf="@id/button"
@@ -46,7 +46,7 @@
 	<androidx.leanback.widget.SpeechOrbView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="48dp"
+		android:layout_marginStart="@dimen/overscan_start"
 		android:layout_marginTop="27dp"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />

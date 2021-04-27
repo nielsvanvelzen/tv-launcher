@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Overscan dimensions -->
+	<dimen name="overscan_top">27dp</dimen>
+	<dimen name="overscan_bottom">27dp</dimen>
+	<dimen name="overscan_start">48dp</dimen>
+	<dimen name="overscan_end">48dp</dimen>
+</resources>
