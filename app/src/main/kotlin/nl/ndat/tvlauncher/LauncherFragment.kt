@@ -27,6 +27,7 @@ class LauncherFragment : Fragment() {
 		savedInstanceState: Bundle?
 	): View {
 		_binding = FragmentLauncherBinding.inflate(inflater, container, false)
+		binding.apps.requestFocus()
 		addEventListeners()
 		addApps()
 		return binding.root
