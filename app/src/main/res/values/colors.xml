@@ -2,7 +2,7 @@
 <resources>
 	<!-- Default -->
 	<color name="transparent">#00000000</color>
-	<color name="black">#000000FF</color>
+	<color name="black">#FF000000</color>
 
 	<!-- Banners & Icons -->
 	<color name="banner_background">#333333</color>
