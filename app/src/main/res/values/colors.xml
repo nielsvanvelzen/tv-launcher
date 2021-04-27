@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<!-- Default -->
 	<color name="transparent">#00000000</color>
 	<color name="black">#000000FF</color>
+
+	<!-- Banners & Icons -->
+	<color name="banner_background">#333333</color>
+	<color name="banner_foreground">#FF9800</color>
+
+	<color name="icon">#FFFFFF</color>
 </resources>
