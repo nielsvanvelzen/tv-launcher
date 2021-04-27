@@ -1,8 +1,6 @@
 package nl.ndat.tvlauncher
 
 import android.content.Context
-import android.content.pm.PackageManager
-import android.content.pm.ResolveInfo
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,8 +8,7 @@ import nl.ndat.tvlauncher.databinding.ViewCardAppBinding
 
 class AppListAdapter(
 	private val context: Context,
-	private val packageManager: PackageManager,
-	private val activities: List<ResolveInfo>
+	private val apps: List<AppInfo>
 ) : RecyclerView.Adapter<AppListAdapter.ViewHolder>() {
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 		val inflater = LayoutInflater.from(context)
@@ -20,11 +17,11 @@ class AppListAdapter(
 	}
 
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-		val resolveInfo = activities[position]
+		val appInfo = apps[position]
 
 		// Set info
-		holder.banner.setImageDrawable(resolveInfo.activityInfo.loadBanner(packageManager))
-		holder.label.text = resolveInfo.loadLabel(packageManager)
+		holder.banner.setImageDrawable(appInfo.banner)
+		holder.label.text = appInfo.label
 
 		// Set animation
 		holder.container.setOnFocusChangeListener { _, hasFocus ->
@@ -42,14 +39,11 @@ class AppListAdapter(
 
 		// Set click action
 		holder.container.setOnClickListener {
-			val appIntent = packageManager.getLeanbackLaunchIntentForPackage(resolveInfo.activityInfo.packageName)
-				?: packageManager.getLaunchIntentForPackage(resolveInfo.activityInfo.packageName)
-
-			if (appIntent != null) context.startActivity(appIntent)
+			if (appInfo.intent != null) context.startActivity(appInfo.intent)
 		}
 	}
 
-	override fun getItemCount(): Int = activities.size
+	override fun getItemCount(): Int = apps.size
 
 	class ViewHolder(binding: ViewCardAppBinding) : RecyclerView.ViewHolder(binding.root) {
 		val container = binding.container
