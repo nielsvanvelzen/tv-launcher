@@ -3,9 +3,9 @@ package nl.ndat.tvlauncher.utils
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.media.tv.TvContract
 import android.media.tv.TvInputInfo
 import androidx.core.content.ContextCompat
+import androidx.tvprovider.media.tv.TvContractCompat
 import nl.ndat.tvlauncher.R
 
 fun TvInputInfo.loadPreferredLabel(context: Context): String {
@@ -35,7 +35,7 @@ fun TvInputInfo.loadBanner(context: Context): Drawable = loadIcon(context) ?: wh
 
 fun TvInputInfo.createSwitchIntent(): Intent = Intent(
 	Intent.ACTION_VIEW,
-	TvContract.buildChannelUriForPassthroughInput(id)
+	TvContractCompat.buildChannelUriForPassthroughInput(id)
 ).apply {
 	addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 }

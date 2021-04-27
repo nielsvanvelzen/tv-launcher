@@ -41,4 +41,5 @@ dependencies {
 	implementation("androidx.fragment:fragment-ktx:1.3.3")
 	implementation("androidx.cardview:cardview:1.0.0")
 	implementation("androidx.constraintlayout:constraintlayout:2.0.4")
+	implementation("androidx.tvprovider:tvprovider:1.0.0")
 }
