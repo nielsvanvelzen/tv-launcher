@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import nl.ndat.tvlauncher.databinding.FragmentLauncherBinding
+import nl.ndat.tvlauncher.utils.createSwitchIntent
 import nl.ndat.tvlauncher.utils.loadPreferredLabel
 
 class LauncherFragment : Fragment() {
@@ -88,7 +89,7 @@ class LauncherFragment : Fragment() {
 							requireContext(),
 							R.drawable.ic_launcher_foreground
 						)!!,
-						intent = tvInputInfo.createSetupIntent()
+						intent = tvInputInfo.createSwitchIntent()
 					)
 				}
 				.let { addAll(it) }

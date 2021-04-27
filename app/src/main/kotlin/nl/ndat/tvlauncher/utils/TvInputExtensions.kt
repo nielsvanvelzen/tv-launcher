@@ -1,6 +1,8 @@
 package nl.ndat.tvlauncher.utils
 
 import android.content.Context
+import android.content.Intent
+import android.media.tv.TvContract
 import android.media.tv.TvInputInfo
 
 fun TvInputInfo.loadPreferredLabel(context: Context): String {
@@ -12,5 +14,12 @@ fun TvInputInfo.loadPreferredLabel(context: Context): String {
 
 	val preferredLabel = customLabel ?: loadLabel(context)
 	return preferredLabel.toString()
+}
+
+fun TvInputInfo.createSwitchIntent(): Intent = Intent(
+	Intent.ACTION_VIEW,
+	TvContract.buildChannelUriForPassthroughInput(id)
+).apply {
+	addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 }
 
