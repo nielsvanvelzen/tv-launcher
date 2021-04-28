@@ -3,6 +3,7 @@ package nl.ndat.tvlauncher
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import nl.ndat.tvlauncher.databinding.ViewCardAppBinding
 
@@ -39,7 +40,16 @@ class AppListAdapter(
 
 		// Set click action
 		holder.container.setOnClickListener {
-			if (appInfo.intent != null) context.startActivity(appInfo.intent)
+			if (appInfo.intent != null) context.startActivity(
+				appInfo.intent,
+				ActivityOptionsCompat.makeScaleUpAnimation(
+					holder.banner,
+					0,
+					0,
+					holder.banner.width,
+					holder.banner.height
+				).toBundle()
+			)
 		}
 	}
 
