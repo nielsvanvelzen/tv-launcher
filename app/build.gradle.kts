@@ -19,10 +19,6 @@ android {
 	sourceSets["main"].java.srcDirs("src/main/kotlin")
 	sourceSets["test"].java.srcDirs("src/test/kotlin")
 
-	kotlinOptions {
-		jvmTarget = JavaVersion.VERSION_1_8.toString()
-	}
-
 	buildFeatures {
 		viewBinding = true
 	}
@@ -35,11 +31,11 @@ android {
 }
 
 dependencies {
-	implementation("androidx.core:core-ktx:1.3.2")
-	implementation("androidx.core:core-role:1.0.0")
-	implementation("androidx.leanback:leanback:1.0.0")
-	implementation("androidx.fragment:fragment-ktx:1.3.3")
-	implementation("androidx.cardview:cardview:1.0.0")
-	implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-	implementation("androidx.tvprovider:tvprovider:1.0.0")
+	implementation(libs.androidx.core.core)
+	implementation(libs.androidx.core.role)
+	implementation(libs.androidx.leanback)
+	implementation(libs.androidx.fragment)
+	implementation(libs.androidx.cardview)
+	implementation(libs.androidx.constraintlayout)
+	implementation(libs.androidx.tvprovider)
 }

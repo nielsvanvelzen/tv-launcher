@@ -12,5 +12,5 @@ have a proper name yet.
 
 - "Watch Next" and other channels
   
-  This feature would require the `com.android.providers.tv.permission.ACCESS_ALL_EPG_DATA` permission. Google decided
-  that this permission should only be available for system apps.
+  This feature would require the `com.android.providers.tv.permission.ACCESS_ALL_EPG_DATA` permission which is only
+  available for system apps.
