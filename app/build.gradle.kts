@@ -5,7 +5,6 @@ plugins {
 
 android {
 	compileSdkVersion(30)
-	buildToolsVersion("30.0.3")
 
 	defaultConfig {
 		minSdkVersion(21)
@@ -16,18 +15,12 @@ android {
 		versionName = "1.0"
 	}
 
-	sourceSets["main"].java.srcDirs("src/main/kotlin")
-	sourceSets["test"].java.srcDirs("src/test/kotlin")
-
 	buildFeatures {
 		viewBinding = true
 	}
 
-	buildTypes {
-		val release by getting {
-			minifyEnabled(false)
-		}
-	}
+	sourceSets["main"].java.srcDirs("src/main/kotlin")
+	sourceSets["test"].java.srcDirs("src/test/kotlin")
 }
 
 dependencies {
