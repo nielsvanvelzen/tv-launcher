@@ -5,6 +5,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import nl.ndat.tvlauncher.databinding.ActivityLauncherBinding
+import nl.ndat.tvlauncher.ui.LauncherFragment
+import nl.ndat.tvlauncher.util.DefaultLauncherHelper
 
 class LauncherActivity : FragmentActivity() {
 	private lateinit var binding: ActivityLauncherBinding
@@ -19,13 +21,13 @@ class LauncherActivity : FragmentActivity() {
 			replace<LauncherFragment>(R.id.content)
 		}
 
-//		validateLauncher()
+		validateLauncher()
 	}
 
 	private fun validateLauncher() {
-		val launcherController = LauncherController(this)
-		if (!launcherController.isLauncher() && launcherController.canRequestLauncher()) {
-			startActivityForResult(launcherController.requestLauncherIntent(), 0)
+		val defaultLauncherHelper = DefaultLauncherHelper(applicationContext)
+		if (!defaultLauncherHelper.isDefaultLauncher() && defaultLauncherHelper.canRequestDefaultLauncher()) {
+			startActivityForResult(defaultLauncherHelper.requestDefaultLauncherIntent(), 0)
 		}
 	}
 }

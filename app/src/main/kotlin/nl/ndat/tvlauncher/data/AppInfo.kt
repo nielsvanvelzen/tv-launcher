@@ -1,4 +1,4 @@
-package nl.ndat.tvlauncher
+package nl.ndat.tvlauncher.data
 
 import android.content.Intent
 import android.graphics.drawable.Drawable

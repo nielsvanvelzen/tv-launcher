@@ -1,10 +1,11 @@
-package nl.ndat.tvlauncher
+package nl.ndat.tvlauncher.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
+import nl.ndat.tvlauncher.data.AppInfo
 import nl.ndat.tvlauncher.databinding.ViewCardAppBinding
 
 class AppListAdapter(

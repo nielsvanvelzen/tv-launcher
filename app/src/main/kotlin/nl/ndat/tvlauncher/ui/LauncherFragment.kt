@@ -1,4 +1,4 @@
-package nl.ndat.tvlauncher
+package nl.ndat.tvlauncher.ui
 
 import android.animation.ValueAnimator
 import android.content.Intent
@@ -12,6 +12,9 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
+import nl.ndat.tvlauncher.data.AppInfo
+import nl.ndat.tvlauncher.ui.adapter.AppListAdapter
+import nl.ndat.tvlauncher.R
 import nl.ndat.tvlauncher.databinding.FragmentLauncherBinding
 import nl.ndat.tvlauncher.utils.createSwitchIntent
 import nl.ndat.tvlauncher.utils.loadBanner

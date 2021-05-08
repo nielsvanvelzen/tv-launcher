@@ -1,4 +1,4 @@
-package nl.ndat.tvlauncher
+package nl.ndat.tvlauncher.util
 
 import android.annotation.SuppressLint
 import android.app.role.RoleManager
@@ -8,21 +8,21 @@ import android.os.Build
 import androidx.core.content.getSystemService
 import androidx.core.role.RoleManagerCompat
 
-class LauncherController(
+class DefaultLauncherHelper(
 	context: Context
 ) {
 	private val roleManager = context.getSystemService<RoleManager>()
 	private val isCompatible = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && roleManager != null
 
 	@SuppressLint("NewApi")
-	fun isLauncher(): Boolean = isCompatible && roleManager!!.isRoleHeld(RoleManagerCompat.ROLE_HOME)
+	fun isDefaultLauncher(): Boolean = isCompatible && roleManager!!.isRoleHeld(RoleManagerCompat.ROLE_HOME)
 
 	@SuppressLint("NewApi")
-	fun canRequestLauncher(): Boolean =
+	fun canRequestDefaultLauncher(): Boolean =
 		isCompatible && roleManager!!.isRoleAvailable(RoleManagerCompat.ROLE_HOME)
 
 	@SuppressLint("NewApi")
-	fun requestLauncherIntent(): Intent? =
+	fun requestDefaultLauncherIntent(): Intent? =
 		if (isCompatible) roleManager!!.createRequestRoleIntent(RoleManagerCompat.ROLE_HOME)
 		else null
 }
