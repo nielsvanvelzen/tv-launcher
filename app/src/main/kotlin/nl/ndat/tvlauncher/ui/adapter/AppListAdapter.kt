@@ -9,18 +9,17 @@ import nl.ndat.tvlauncher.data.AppInfo
 import nl.ndat.tvlauncher.databinding.ViewCardAppBinding
 
 class AppListAdapter(
-	private val context: Context,
-	private val apps: List<AppInfo>
-) : RecyclerView.Adapter<AppListAdapter.ViewHolder>() {
+	private val context: Context
+) : ListAdapter<AppInfo, AppListAdapter.ViewHolder>() {
+	override fun areItemsTheSame(old: AppInfo, new: AppInfo): Boolean = old.label == new.label
+
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 		val inflater = LayoutInflater.from(context)
 		val appCard = ViewCardAppBinding.inflate(inflater)
 		return ViewHolder(appCard)
 	}
 
-	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-		val appInfo = apps[position]
-
+	override fun onBindViewHolder(holder: ViewHolder, appInfo: AppInfo) {
 		// Set info
 		holder.banner.setImageDrawable(appInfo.banner)
 		holder.label.text = appInfo.label
@@ -53,8 +52,6 @@ class AppListAdapter(
 			)
 		}
 	}
-
-	override fun getItemCount(): Int = apps.size
 
 	class ViewHolder(binding: ViewCardAppBinding) : RecyclerView.ViewHolder(binding.root) {
 		val container = binding.container

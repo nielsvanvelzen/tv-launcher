@@ -3,26 +3,25 @@ package nl.ndat.tvlauncher.ui
 import android.animation.ValueAnimator
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.media.tv.TvInputManager
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
-import nl.ndat.tvlauncher.data.AppInfo
-import nl.ndat.tvlauncher.ui.adapter.AppListAdapter
 import nl.ndat.tvlauncher.R
+import nl.ndat.tvlauncher.data.AppRepository
 import nl.ndat.tvlauncher.databinding.FragmentLauncherBinding
-import nl.ndat.tvlauncher.utils.createSwitchIntent
-import nl.ndat.tvlauncher.utils.loadBanner
-import nl.ndat.tvlauncher.utils.loadPreferredLabel
+import nl.ndat.tvlauncher.ui.adapter.AppListAdapter
 
 class LauncherFragment : Fragment() {
 	private var _binding: FragmentLauncherBinding? = null
 	private val binding get() = _binding!!
+
+	private val appRepository by lazy {
+		AppRepository(requireContext())
+	}
 
 	override fun onCreateView(
 		inflater: LayoutInflater,
@@ -30,9 +29,13 @@ class LauncherFragment : Fragment() {
 		savedInstanceState: Bundle?
 	): View {
 		_binding = FragmentLauncherBinding.inflate(inflater, container, false)
-		binding.apps.requestFocus()
 		addEventListeners()
-		addApps()
+		binding.apps.adapter = AppListAdapter(requireContext()).apply {
+			appRepository.getAllApps().observe(viewLifecycleOwner) { apps ->
+				items = apps
+			}
+		}
+		binding.apps.requestFocus()
 		return binding.root
 	}
 
@@ -51,56 +54,6 @@ class LauncherFragment : Fragment() {
 			startActivity(Intent(Settings.ACTION_SETTINGS))
 		}
 	}
-
-	@OptIn(ExperimentalStdlibApi::class)
-	private fun addApps() {
-		val intent = Intent(Intent.ACTION_MAIN, null).apply {
-			addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER)
-		}
-
-		val packageManager = requireContext().packageManager
-		val tvInputManager = requireContext().getSystemService<TvInputManager>()
-		val activities = packageManager.queryIntentActivities(intent, 0)
-		val tvInputs = tvInputManager?.tvInputList.orEmpty()
-
-		val apps = buildList {
-			// Add leanback apps
-			activities
-				.sortedBy {
-					it.activityInfo.loadLabel(packageManager).toString()
-				}
-				.map { resolveInfo ->
-					val banner = resolveInfo.activityInfo.loadBanner(packageManager)
-						?: resolveInfo.activityInfo.loadIcon(packageManager)
-
-					val appIntent =
-						packageManager.getLeanbackLaunchIntentForPackage(resolveInfo.activityInfo.packageName)
-							?: packageManager.getLaunchIntentForPackage(resolveInfo.activityInfo.packageName)
-
-					AppInfo(
-						label = resolveInfo.activityInfo.loadLabel(packageManager).toString(),
-						banner = banner,
-						intent = appIntent,
-					)
-				}
-				.let { addAll(it) }
-
-			// Add inputs as app
-			tvInputs
-				.map { tvInputInfo ->
-					AppInfo(
-						label = tvInputInfo.loadPreferredLabel(requireContext()),
-						banner = tvInputInfo.loadBanner(requireContext()),
-						intent = tvInputInfo.createSwitchIntent()
-					)
-				}
-				.let { addAll(it) }
-
-		}
-
-		binding.apps.adapter = AppListAdapter(requireContext(), apps)
-	}
-
 	override fun onDestroyView() {
 		super.onDestroyView()
 		_binding = null

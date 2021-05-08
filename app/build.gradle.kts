@@ -37,5 +37,6 @@ dependencies {
 	implementation(libs.androidx.fragment)
 	implementation(libs.androidx.cardview)
 	implementation(libs.androidx.constraintlayout)
+	implementation(libs.androidx.lifecycle.livedata)
 	implementation(libs.androidx.tvprovider)
 }
