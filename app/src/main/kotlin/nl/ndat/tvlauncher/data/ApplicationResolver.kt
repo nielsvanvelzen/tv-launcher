@@ -4,9 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.media.tv.TvInputManager
 import androidx.core.content.getSystemService
-import nl.ndat.tvlauncher.utils.createSwitchIntent
-import nl.ndat.tvlauncher.utils.loadBanner
-import nl.ndat.tvlauncher.utils.loadPreferredLabel
+import nl.ndat.tvlauncher.util.createSwitchIntent
+import nl.ndat.tvlauncher.util.loadBanner
+import nl.ndat.tvlauncher.util.loadPreferredLabel
 
 class ApplicationResolver {
 	fun getApps(context: Context): List<AppInfo> {

@@ -1,4 +1,4 @@
-package nl.ndat.tvlauncher.utils
+package nl.ndat.tvlauncher.util
 
 import android.content.Context
 import android.content.Intent
