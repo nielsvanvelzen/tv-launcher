@@ -21,10 +21,10 @@ class LauncherActivity : FragmentActivity() {
 			replace<LauncherFragment>(R.id.content)
 		}
 
-		validateLauncher()
+		validateDefaultLauncher()
 	}
 
-	private fun validateLauncher() {
+	private fun validateDefaultLauncher() {
 		val defaultLauncherHelper = DefaultLauncherHelper(applicationContext)
 		if (!defaultLauncherHelper.isDefaultLauncher() && defaultLauncherHelper.canRequestDefaultLauncher()) {
 			startActivityForResult(defaultLauncherHelper.requestDefaultLauncherIntent(), 0)
