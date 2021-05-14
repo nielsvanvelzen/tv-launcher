@@ -1,6 +1,8 @@
 package nl.ndat.tvlauncher.ui
 
+import android.Manifest
 import android.animation.ValueAnimator
+import android.app.WallpaperManager
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -8,6 +10,7 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import nl.ndat.tvlauncher.R
@@ -18,6 +21,10 @@ import nl.ndat.tvlauncher.ui.adapter.AppListAdapter
 class LauncherFragment : Fragment() {
 	private var _binding: FragmentLauncherBinding? = null
 	private val binding get() = _binding!!
+
+	private val backgroundContract = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+		binding.container.background = WallpaperManager.getInstance(requireContext()).drawable
+	}
 
 	private val appRepository by lazy {
 		AppRepository(requireContext())
@@ -30,6 +37,7 @@ class LauncherFragment : Fragment() {
 	): View {
 		_binding = FragmentLauncherBinding.inflate(inflater, container, false)
 		addEventListeners()
+		backgroundContract.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
 		binding.apps.adapter = AppListAdapter(requireContext()).apply {
 			appRepository.getAllApps().observe(viewLifecycleOwner) { apps ->
 				items = apps

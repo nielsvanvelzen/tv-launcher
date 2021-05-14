@@ -14,3 +14,8 @@ have a proper name yet.
   
   This feature would require the `com.android.providers.tv.permission.ACCESS_ALL_EPG_DATA` permission which is only
   available for system apps.
+
+- Wallpapers
+
+  Android TV does not allow apps to set a wallpaper since there is no implementation for the
+  [WallpaperManager actions](https://developer.android.com/reference/android/app/WallpaperManager.html).
