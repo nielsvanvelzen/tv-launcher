@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import nl.ndat.tvlauncher.R
-import nl.ndat.tvlauncher.data.AppRepository
+import nl.ndat.tvlauncher.data.repository.AppRepository
 import nl.ndat.tvlauncher.databinding.FragmentLauncherBinding
 import nl.ndat.tvlauncher.ui.adapter.AppListAdapter
 
@@ -54,6 +54,7 @@ class LauncherFragment : Fragment() {
 			startActivity(Intent(Settings.ACTION_SETTINGS))
 		}
 	}
+
 	override fun onDestroyView() {
 		super.onDestroyView()
 		_binding = null

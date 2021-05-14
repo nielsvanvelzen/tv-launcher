@@ -1,14 +1,15 @@
-package nl.ndat.tvlauncher.data
+package nl.ndat.tvlauncher.data.service
 
 import android.content.Context
 import android.content.Intent
 import android.media.tv.TvInputManager
 import androidx.core.content.getSystemService
+import nl.ndat.tvlauncher.data.model.AppInfo
 import nl.ndat.tvlauncher.util.createSwitchIntent
 import nl.ndat.tvlauncher.util.loadBanner
 import nl.ndat.tvlauncher.util.loadPreferredLabel
 
-class ApplicationResolver {
+class ApplicationResolverService {
 	fun getApps(context: Context): List<AppInfo> {
 		val intent = Intent(Intent.ACTION_MAIN, null).apply {
 			addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER)

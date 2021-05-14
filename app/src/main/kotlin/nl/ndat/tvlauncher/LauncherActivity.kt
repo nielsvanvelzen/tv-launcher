@@ -27,8 +27,8 @@ class LauncherActivity : FragmentActivity() {
 	private fun validateDefaultLauncher() {
 		val defaultLauncherHelper = DefaultLauncherHelper(applicationContext)
 		if (!defaultLauncherHelper.isDefaultLauncher() && defaultLauncherHelper.canRequestDefaultLauncher()) {
+			@Suppress("DEPRECATION")
 			startActivityForResult(defaultLauncherHelper.requestDefaultLauncherIntent(), 0)
 		}
 	}
 }
-
