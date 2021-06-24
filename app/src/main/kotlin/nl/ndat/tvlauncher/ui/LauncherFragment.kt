@@ -48,17 +48,17 @@ class LauncherFragment : Fragment() {
 	}
 
 	private fun addEventListeners() {
-		binding.button.setOnFocusChangeListener { _, hasFocus ->
+		binding.settings.setOnFocusChangeListener { _, hasFocus ->
 			val color = ContextCompat.getColor(requireContext(), if (hasFocus) R.color.lb_tv_white else R.color.lb_grey)
-			val animator = ValueAnimator.ofArgb(binding.button.imageTintList!!.defaultColor, color)
+			val animator = ValueAnimator.ofArgb(binding.settings.imageTintList!!.defaultColor, color)
 			animator.addUpdateListener {
-				binding.button.imageTintList = ColorStateList.valueOf(it.animatedValue as Int)
+				binding.settings.imageTintList = ColorStateList.valueOf(it.animatedValue as Int)
 			}
 			animator.duration = 200
 			animator.start()
 		}
 
-		binding.button.setOnClickListener {
+		binding.settings.setOnClickListener {
 			startActivity(Intent(Settings.ACTION_SETTINGS))
 		}
 	}
