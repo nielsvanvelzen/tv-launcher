@@ -4,7 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
+import nl.ndat.tvlauncher.R
 import nl.ndat.tvlauncher.data.model.AppInfo
 import nl.ndat.tvlauncher.databinding.ViewCardAppBinding
 
@@ -26,12 +28,13 @@ class AppListAdapter(
 
 		// Set animation
 		holder.container.setOnFocusChangeListener { _, hasFocus ->
-			val scale = if (hasFocus) 1.125f else 1.0f
+			val scale = if (hasFocus) ResourcesCompat.getFloat(context.resources, R.dimen.app_scale_focused)
+			else ResourcesCompat.getFloat(context.resources, R.dimen.app_scale_default)
 
 			holder.container.animate().apply {
 				scaleX(scale)
 				scaleY(scale)
-				duration = 200
+				duration = context.resources.getInteger(R.integer.app_animation_duration).toLong()
 				withLayer()
 			}.start()
 

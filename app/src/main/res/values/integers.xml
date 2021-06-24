@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Animation durations -->
+	<integer name="button_animation_duration">200</integer>
+	<integer name="app_animation_duration">200</integer>
+</resources>

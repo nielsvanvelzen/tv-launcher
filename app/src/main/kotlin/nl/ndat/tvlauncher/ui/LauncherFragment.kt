@@ -54,7 +54,7 @@ class LauncherFragment : Fragment() {
 			animator.addUpdateListener {
 				binding.settings.imageTintList = ColorStateList.valueOf(it.animatedValue as Int)
 			}
-			animator.duration = 200
+			animator.duration = resources.getInteger(R.integer.button_animation_duration).toLong()
 			animator.start()
 		}
 

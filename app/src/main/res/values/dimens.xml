@@ -5,4 +5,8 @@
 	<dimen name="overscan_bottom">27dp</dimen>
 	<dimen name="overscan_start">48dp</dimen>
 	<dimen name="overscan_end">48dp</dimen>
+
+	<!-- App card scales -->
+	<item name="app_scale_default" format="float" type="dimen">1.0</item>
+	<item name="app_scale_focused" format="float" type="dimen">1.125</item>
 </resources>

@@ -45,7 +45,7 @@ class ApplicationResolverService {
 			AppInfo(
 				label = tvInputInfo.loadPreferredLabel(context),
 				banner = tvInputInfo.loadBanner(context),
-				intent = tvInputInfo.createSwitchIntent()
+				intent = tvInputInfo.createSwitchIntent(),
 			)
 		}
 	}
