@@ -7,8 +7,10 @@ import androidx.fragment.app.replace
 import nl.ndat.tvlauncher.databinding.ActivityLauncherBinding
 import nl.ndat.tvlauncher.ui.LauncherFragment
 import nl.ndat.tvlauncher.util.DefaultLauncherHelper
+import org.koin.android.ext.android.inject
 
 class LauncherActivity : FragmentActivity() {
+	private val defaultLauncherHelper: DefaultLauncherHelper by inject()
 	private lateinit var binding: ActivityLauncherBinding
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +27,6 @@ class LauncherActivity : FragmentActivity() {
 	}
 
 	private fun validateDefaultLauncher() {
-		val defaultLauncherHelper = DefaultLauncherHelper(applicationContext)
 		if (!defaultLauncherHelper.isDefaultLauncher() && defaultLauncherHelper.canRequestDefaultLauncher()) {
 			@Suppress("DEPRECATION")
 			startActivityForResult(defaultLauncherHelper.requestDefaultLauncherIntent(), 0)

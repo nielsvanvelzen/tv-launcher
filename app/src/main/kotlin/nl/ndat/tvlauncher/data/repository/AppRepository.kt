@@ -7,9 +7,9 @@ import nl.ndat.tvlauncher.data.model.AppInfo
 import nl.ndat.tvlauncher.data.service.ApplicationResolverService
 
 class AppRepository(
-	private val context: Context
+	private val context: Context,
+	private val applicationResolver: ApplicationResolverService,
 ) {
-	private val applicationResolver = ApplicationResolverService()
 
 	fun getAllApps(): LiveData<List<AppInfo>> = liveData {
 		val apps = applicationResolver.getApps(context)

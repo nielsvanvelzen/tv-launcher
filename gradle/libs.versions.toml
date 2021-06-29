@@ -7,3 +7,4 @@ androidx-cardview = { group = "androidx.cardview", name = "cardview", version = 
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version = "2.0.4" }
 androidx-lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version = "2.3.1" }
 androidx-tvprovider = { group = "androidx.tvprovider", name = "tvprovider", version = "1.0.0" }
+koin = { group = "io.insert-koin", name = "koin-android", version = "3.0.2" }

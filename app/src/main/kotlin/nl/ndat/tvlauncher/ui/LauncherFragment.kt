@@ -17,6 +17,7 @@ import nl.ndat.tvlauncher.R
 import nl.ndat.tvlauncher.data.repository.AppRepository
 import nl.ndat.tvlauncher.databinding.FragmentLauncherBinding
 import nl.ndat.tvlauncher.ui.adapter.AppListAdapter
+import org.koin.android.ext.android.inject
 
 class LauncherFragment : Fragment() {
 	private var _binding: FragmentLauncherBinding? = null
@@ -26,14 +27,12 @@ class LauncherFragment : Fragment() {
 		binding.container.background = WallpaperManager.getInstance(requireContext()).drawable
 	}
 
-	private val appRepository by lazy {
-		AppRepository(requireContext())
-	}
+	private val appRepository: AppRepository by inject()
 
 	override fun onCreateView(
 		inflater: LayoutInflater,
 		container: ViewGroup?,
-		savedInstanceState: Bundle?
+		savedInstanceState: Bundle?,
 	): View {
 		_binding = FragmentLauncherBinding.inflate(inflater, container, false)
 		addEventListeners()

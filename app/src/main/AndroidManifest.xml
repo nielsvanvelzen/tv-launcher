@@ -16,6 +16,7 @@
 		android:required="false" />
 
 	<application
+		android:name=".LauncherApplication"
 		android:allowBackup="true"
 		android:banner="@drawable/banner_launcher"
 		android:fullBackupContent="true"
@@ -25,9 +26,9 @@
 		android:theme="@style/Theme.TVLauncher">
 		<activity
 			android:name=".LauncherActivity"
-			android:stateNotNeeded="true"
 			android:excludeFromRecents="true"
-			android:launchMode="singleTask">
+			android:launchMode="singleTask"
+			android:stateNotNeeded="true">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 

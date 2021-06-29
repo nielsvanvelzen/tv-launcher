@@ -32,4 +32,5 @@ dependencies {
 	implementation(libs.androidx.constraintlayout)
 	implementation(libs.androidx.lifecycle.livedata)
 	implementation(libs.androidx.tvprovider)
+	implementation(libs.koin)
 }
