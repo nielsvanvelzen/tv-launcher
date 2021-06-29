@@ -9,7 +9,7 @@ import androidx.core.content.getSystemService
 import androidx.core.role.RoleManagerCompat
 
 class DefaultLauncherHelper(
-	context: Context
+	context: Context,
 ) {
 	private val roleManager by lazy { context.getSystemService<RoleManager>() }
 	private val isCompatible = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && roleManager != null

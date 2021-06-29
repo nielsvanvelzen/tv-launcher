@@ -7,13 +7,15 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import nl.ndat.tvlauncher.R
-import nl.ndat.tvlauncher.data.model.AppInfo
+import nl.ndat.tvlauncher.data.entity.Tile
 import nl.ndat.tvlauncher.databinding.ViewCardAppBinding
+import nl.ndat.tvlauncher.util.createDrawable
+import nl.ndat.tvlauncher.util.getIntent
 
-class AppListAdapter(
-	private val context: Context
-) : ListAdapter<AppInfo, AppListAdapter.ViewHolder>() {
-	override fun areItemsTheSame(old: AppInfo, new: AppInfo): Boolean = old.label == new.label
+class TileListAdapter(
+	private val context: Context,
+) : ListAdapter<Tile, TileListAdapter.ViewHolder>() {
+	override fun areItemsTheSame(old: Tile, new: Tile): Boolean = old.id == new.id
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 		val inflater = LayoutInflater.from(context)
@@ -21,10 +23,10 @@ class AppListAdapter(
 		return ViewHolder(appCard)
 	}
 
-	override fun onBindViewHolder(holder: ViewHolder, appInfo: AppInfo) {
+	override fun onBindViewHolder(holder: ViewHolder, tile: Tile) {
 		// Set info
-		holder.banner.setImageDrawable(appInfo.banner)
-		holder.label.text = appInfo.label
+		holder.banner.setImageDrawable(tile.createDrawable(holder.banner.context))
+		holder.name.text = tile.name
 
 		// Set animation
 		holder.container.setOnFocusChangeListener { _, hasFocus ->
@@ -38,13 +40,13 @@ class AppListAdapter(
 				withLayer()
 			}.start()
 
-			holder.label.isSelected = hasFocus
+			holder.name.isSelected = hasFocus
 		}
 
 		// Set click action
 		holder.container.setOnClickListener {
-			if (appInfo.intent != null) context.startActivity(
-				appInfo.intent,
+			if (tile.uri != null) context.startActivity(
+				tile.getIntent(),
 				ActivityOptionsCompat.makeScaleUpAnimation(
 					holder.banner,
 					0,
@@ -59,6 +61,6 @@ class AppListAdapter(
 	class ViewHolder(binding: ViewCardAppBinding) : RecyclerView.ViewHolder(binding.root) {
 		val container = binding.container
 		val banner = binding.banner
-		val label = binding.label
+		val name = binding.name
 	}
 }

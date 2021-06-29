@@ -11,12 +11,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import nl.ndat.tvlauncher.R
-import nl.ndat.tvlauncher.data.repository.AppRepository
+import nl.ndat.tvlauncher.data.repository.TileRepository
 import nl.ndat.tvlauncher.databinding.FragmentLauncherBinding
-import nl.ndat.tvlauncher.ui.adapter.AppListAdapter
+import nl.ndat.tvlauncher.ui.adapter.TileListAdapter
 import org.koin.android.ext.android.inject
 
 class LauncherFragment : Fragment() {
@@ -27,7 +30,7 @@ class LauncherFragment : Fragment() {
 		binding.container.background = WallpaperManager.getInstance(requireContext()).drawable
 	}
 
-	private val appRepository: AppRepository by inject()
+	private val tileRepository: TileRepository by inject()
 
 	override fun onCreateView(
 		inflater: LayoutInflater,
@@ -35,18 +38,8 @@ class LauncherFragment : Fragment() {
 		savedInstanceState: Bundle?,
 	): View {
 		_binding = FragmentLauncherBinding.inflate(inflater, container, false)
-		addEventListeners()
 		backgroundContract.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
-		binding.apps.adapter = AppListAdapter(requireContext()).apply {
-			appRepository.getAllApps().observe(viewLifecycleOwner) { apps ->
-				items = apps
-			}
-		}
-		binding.apps.requestFocus()
-		return binding.root
-	}
 
-	private fun addEventListeners() {
 		binding.settings.setOnFocusChangeListener { _, hasFocus ->
 			val color = ContextCompat.getColor(requireContext(), if (hasFocus) R.color.lb_tv_white else R.color.lb_grey)
 			val animator = ValueAnimator.ofArgb(binding.settings.imageTintList!!.defaultColor, color)
@@ -58,8 +51,31 @@ class LauncherFragment : Fragment() {
 		}
 
 		binding.settings.setOnClickListener {
-			startActivity(Intent(Settings.ACTION_SETTINGS))
+			startActivity(
+				Intent(Settings.ACTION_SETTINGS),
+				ActivityOptionsCompat.makeScaleUpAnimation(
+					binding.settings,
+					0,
+					0,
+					binding.settings.width,
+					binding.settings.height
+				).toBundle()
+			)
 		}
+
+		val tileAdapter = TileListAdapter(requireContext())
+		with(binding.tiles) {
+			adapter = tileAdapter
+			requestFocus()
+		}
+
+		lifecycleScope.launch {
+			tileRepository.getAllApps().observe(viewLifecycleOwner) { tiles ->
+				tileAdapter.items = tiles
+			}
+		}
+
+		return binding.root
 	}
 
 	override fun onDestroyView() {

@@ -1,6 +1,7 @@
 plugins {
 	id("com.android.application")
 	id("kotlin-android")
+	id("kotlin-kapt")
 }
 
 android {
@@ -24,13 +25,20 @@ android {
 }
 
 dependencies {
+	// System
 	implementation(libs.androidx.core.core)
 	implementation(libs.androidx.core.role)
-	implementation(libs.androidx.leanback)
-	implementation(libs.androidx.fragment)
-	implementation(libs.androidx.cardview)
-	implementation(libs.androidx.constraintlayout)
 	implementation(libs.androidx.lifecycle.livedata)
 	implementation(libs.androidx.tvprovider)
 	implementation(libs.koin)
+
+	// Data
+	implementation(libs.androidx.room.ktx)
+	kapt(libs.androidx.room.compiler)
+
+	// UI
+	implementation(libs.androidx.cardview)
+	implementation(libs.androidx.constraintlayout)
+	implementation(libs.androidx.fragment)
+	implementation(libs.androidx.leanback)
 }

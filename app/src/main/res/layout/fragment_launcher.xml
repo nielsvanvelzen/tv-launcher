@@ -34,7 +34,7 @@
 		tools:text="13:37" />
 
 	<androidx.leanback.widget.HorizontalGridView
-		android:id="@+id/apps"
+		android:id="@+id/tiles"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="32dp"

@@ -19,7 +19,7 @@ fun TvInputInfo.loadPreferredLabel(context: Context): String {
 	return preferredLabel.toString()
 }
 
-fun TvInputInfo.loadBanner(context: Context): Drawable = loadIcon(context) ?: when (type) {
+fun TvInputInfo?.loadBanner(context: Context): Drawable = this?.loadIcon(context) ?: when (this?.type) {
 	TvInputInfo.TYPE_TUNER -> R.drawable.banner_input // FIXME: Add banner
 	TvInputInfo.TYPE_OTHER -> R.drawable.banner_input // FIXME: Add banner
 	TvInputInfo.TYPE_COMPOSITE -> R.drawable.banner_composite
