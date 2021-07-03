@@ -67,7 +67,6 @@ class TileResolver {
 		id = APP_ID_PREFIX + resolveInfo.activityInfo.name,
 		type = Tile.TileType.APPLICATION,
 		packageId = resolveInfo.activityInfo.packageName,
-		hasLeanbackCategory = resolveInfo.filter?.hasCategory(Intent.CATEGORY_LEANBACK_LAUNCHER) == true,
 		name = resolveInfo.activityInfo.loadLabel(packageManager).toString(),
 		uri = resolveInfo.createLaunchIntent(packageManager)?.toUri(0),
 	)
@@ -76,7 +75,6 @@ class TileResolver {
 		id = INPUT_ID_PREFIX + tvInputInfo.id,
 		type = Tile.TileType.INPUT,
 		packageId = tvInputInfo.serviceInfo?.packageName,
-		hasLeanbackCategory = false,
 		name = tvInputInfo.loadPreferredLabel(context),
 		uri = tvInputInfo.createSwitchIntent().toUri(0),
 	)

@@ -2,7 +2,6 @@ package nl.ndat.tvlauncher.data.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import nl.ndat.tvlauncher.data.entity.Tile.TileType
 
 @Entity(
 	tableName = "tile",
@@ -32,12 +31,6 @@ data class Tile(
 	 * The name for this tile from the operating system.
 	 */
 	val name: String,
-
-	/**
-	 * When [type] is [TileType.APPLICATION] this indicates if the app contains
-	 * an entrypoint for televisions (leanback). `false` otherwise.
-	 */
-	val hasLeanbackCategory: Boolean,
 ) {
 	/**
 	 * Type of tile, used to determine behavior for resolving drawables or launching the intent.
