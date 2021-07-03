@@ -19,6 +19,11 @@ data class Tile(
 	val type: TileType,
 
 	/**
+	 * Id of the package containing this application or input.
+	 */
+	val packageId: String?,
+
+	/**
 	 * Intent uri.
 	 */
 	val uri: String?,

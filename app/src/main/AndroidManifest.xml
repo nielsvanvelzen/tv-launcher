@@ -4,6 +4,7 @@
 
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 	<uses-permission android:name="com.android.providers.tv.permission.ACCESS_ALL_EPG_DATA" />
 	<uses-permission android:name="com.android.providers.tv.permission.READ_EPG_DATA" />
 
@@ -27,6 +28,7 @@
 		<activity
 			android:name=".LauncherActivity"
 			android:excludeFromRecents="true"
+			android:exported="true"
 			android:launchMode="singleTask"
 			android:stateNotNeeded="true">
 			<intent-filter>
@@ -41,6 +43,22 @@
 				<category android:name="android.intent.category.MONKEY" />
 			</intent-filter>
 		</activity>
+
+		<receiver
+			android:name=".data.receiver.PackageChangeReceiver"
+			android:exported="true">
+			<intent-filter>
+				<action android:name="android.intent.action.PACKAGE_ADDED" />
+				<action android:name="android.intent.action.PACKAGE_CHANGED" />
+				<action android:name="android.intent.action.PACKAGE_FULLY_REMOVED" />
+				<action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+				<data android:scheme="package" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+			</intent-filter>
+		</receiver>
 	</application>
 
 	<queries>

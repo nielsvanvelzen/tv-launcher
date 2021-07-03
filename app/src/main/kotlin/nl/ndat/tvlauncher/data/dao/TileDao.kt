@@ -13,8 +13,11 @@ interface TileDao {
 	fun getAll(): LiveData<List<Tile>>
 
 	@Query("SELECT * FROM tile WHERE id = :id LIMIT 1")
-	fun getById(id: Int): LiveData<Tile?>
+	fun getById(id: String): LiveData<Tile?>
 
 	@Insert(onConflict = OnConflictStrategy.REPLACE)
 	suspend fun insert(vararg tiles: Tile)
+
+	@Query("DELETE FROM tile WHERE packageId = :packageId")
+	suspend fun removeByPackageId(packageId: String)
 }

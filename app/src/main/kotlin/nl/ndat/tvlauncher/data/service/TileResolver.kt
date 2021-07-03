@@ -22,6 +22,22 @@ class TileResolver {
 		const val INPUT_ID_PREFIX = "input:"
 	}
 
+	fun getApplication(context: Context, packageId: String): Tile? {
+		val packageManager = context.packageManager
+
+		return launcherCategories
+			.map { category ->
+				val intent = Intent(Intent.ACTION_MAIN, null)
+					.addCategory(category)
+					.setPackage(packageId)
+				packageManager.queryIntentActivities(intent, 0)
+			}
+			.flatten()
+			.distinctBy { it.activityInfo.name }
+			.map { resolveInfo -> createTile(packageManager, resolveInfo) }
+			.firstOrNull()
+	}
+
 	fun getApplications(context: Context): List<Tile> {
 		val packageManager = context.packageManager
 
@@ -50,6 +66,7 @@ class TileResolver {
 	private fun createTile(packageManager: PackageManager, resolveInfo: ResolveInfo) = Tile(
 		id = APP_ID_PREFIX + resolveInfo.activityInfo.name,
 		type = Tile.TileType.APPLICATION,
+		packageId = resolveInfo.activityInfo.packageName,
 		hasLeanbackCategory = resolveInfo.filter?.hasCategory(Intent.CATEGORY_LEANBACK_LAUNCHER) == true,
 		name = resolveInfo.activityInfo.loadLabel(packageManager).toString(),
 		uri = resolveInfo.createLaunchIntent(packageManager)?.toUri(0),
@@ -58,6 +75,7 @@ class TileResolver {
 	private fun createTile(context: Context, tvInputInfo: TvInputInfo) = Tile(
 		id = INPUT_ID_PREFIX + tvInputInfo.id,
 		type = Tile.TileType.INPUT,
+		packageId = tvInputInfo.serviceInfo?.packageName,
 		hasLeanbackCategory = false,
 		name = tvInputInfo.loadPreferredLabel(context),
 		uri = tvInputInfo.createSwitchIntent().toUri(0),
