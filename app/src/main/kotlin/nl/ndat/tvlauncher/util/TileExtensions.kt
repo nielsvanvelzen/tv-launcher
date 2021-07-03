@@ -6,8 +6,8 @@ import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.media.tv.TvInputManager
 import androidx.core.content.getSystemService
+import nl.ndat.tvlauncher.data.TileResolver
 import nl.ndat.tvlauncher.data.entity.Tile
-import nl.ndat.tvlauncher.data.service.TileResolver
 
 fun Tile.createDrawable(context: Context): Drawable = when (type) {
 	Tile.TileType.INPUT -> {

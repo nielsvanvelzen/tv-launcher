@@ -19,6 +19,8 @@ class PackageChangeReceiver : BroadcastReceiver(), KoinComponent {
 		runBlocking {
 			if (packageId != null) tileRepository.refreshApplication(packageId)
 			else tileRepository.refreshAllApplications()
+
+			tileRepository.refreshAllInputs()
 		}
 	}
 

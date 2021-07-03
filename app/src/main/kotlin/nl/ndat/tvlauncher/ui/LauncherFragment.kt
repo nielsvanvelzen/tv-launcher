@@ -14,8 +14,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.launch
 import nl.ndat.tvlauncher.R
 import nl.ndat.tvlauncher.data.repository.TileRepository
 import nl.ndat.tvlauncher.databinding.FragmentLauncherBinding
@@ -68,11 +66,8 @@ class LauncherFragment : Fragment() {
 			adapter = tileAdapter
 			requestFocus()
 		}
-
-		lifecycleScope.launch {
-			tileRepository.getAllApps().observe(viewLifecycleOwner) { tiles ->
-				tileAdapter.items = tiles
-			}
+		tileRepository.getAllApps().observe(viewLifecycleOwner) { tiles ->
+			tileAdapter.items = tiles
 		}
 
 		return binding.root
