@@ -1,14 +1,18 @@
 package nl.ndat.tvlauncher.data.repository
 
 import android.content.Context
+import androidx.lifecycle.map
 import nl.ndat.tvlauncher.data.TileResolver
+import nl.ndat.tvlauncher.data.dao.CollectionDao
 import nl.ndat.tvlauncher.data.dao.TileDao
+import nl.ndat.tvlauncher.data.entity.CollectionTile
 import nl.ndat.tvlauncher.data.entity.Tile
 
 class TileRepository(
 	private val context: Context,
 	private val tileResolver: TileResolver,
 	private val tileDao: TileDao,
+	private val collectionDao: CollectionDao,
 ) {
 	private suspend fun commitTiles(type: Tile.TileType, tiles: Array<Tile>) {
 		// Remove missing tiles from database
@@ -22,7 +26,16 @@ class TileRepository(
 	private suspend fun commitTile(tile: Tile) {
 		val current = tileDao.getById(tile.id)
 		if (current != null) tileDao.update(tile)
-		else tileDao.insert(tile)
+		else {
+			tileDao.insert(tile)
+			// All tiles should be added to the drawer
+			collectionDao.insertTile(CollectionTile.CollectionType.DRAWER, tile)
+
+			// Only apps are added to home by default
+			if (tile.type == Tile.TileType.APPLICATION) {
+				collectionDao.insertTile(CollectionTile.CollectionType.HOME, tile)
+			}
+		}
 	}
 
 	suspend fun refreshAllInputs() {
@@ -42,5 +55,5 @@ class TileRepository(
 		else commitTile(tile)
 	}
 
-	fun getAllApps() = tileDao.getAll()
+	fun getHomeTiles() = collectionDao.getCollection(CollectionTile.CollectionType.HOME).map { it.map { it.tile } }
 }

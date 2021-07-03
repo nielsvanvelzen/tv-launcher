@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import nl.ndat.tvlauncher.data.dao.CollectionDao
 import nl.ndat.tvlauncher.data.dao.TileDao
+import nl.ndat.tvlauncher.data.entity.CollectionTile
 import nl.ndat.tvlauncher.data.entity.Tile
 
 /**
@@ -13,7 +15,8 @@ import nl.ndat.tvlauncher.data.entity.Tile
 @Database(
 	version = 1,
 	entities = [
-		Tile::class
+		Tile::class,
+		CollectionTile::class
 	],
 )
 abstract class SharedDatabase : RoomDatabase() {
@@ -25,5 +28,6 @@ abstract class SharedDatabase : RoomDatabase() {
 			.build()
 	}
 
-	abstract fun virtualAppDao(): TileDao
+	abstract fun tileDao(): TileDao
+	abstract fun collectionDao(): CollectionDao
 }

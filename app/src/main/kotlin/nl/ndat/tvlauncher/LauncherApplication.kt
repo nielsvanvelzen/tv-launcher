@@ -13,7 +13,7 @@ import org.koin.dsl.module
 
 private val launcherModule = module {
 	single { DefaultLauncherHelper(get()) }
-	single { TileRepository(get(), get(), get()) }
+	single { TileRepository(get(), get(), get(), get()) }
 	single { TileResolver() }
 }
 
@@ -22,7 +22,8 @@ private val databaseModule = module {
 	single { SharedDatabase.build(get()) }
 
 	// Add DAOs for easy access
-	single { get<SharedDatabase>().virtualAppDao() }
+	single { get<SharedDatabase>().tileDao() }
+	single { get<SharedDatabase>().collectionDao() }
 }
 
 @Suppress("unused")

@@ -66,7 +66,7 @@ class LauncherFragment : Fragment() {
 			adapter = tileAdapter
 			requestFocus()
 		}
-		tileRepository.getAllApps().observe(viewLifecycleOwner) { tiles ->
+		tileRepository.getHomeTiles().observe(viewLifecycleOwner) { tiles ->
 			tileAdapter.items = tiles
 		}
 
