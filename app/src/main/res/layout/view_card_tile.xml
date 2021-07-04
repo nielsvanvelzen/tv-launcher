@@ -35,5 +35,6 @@
 		android:marqueeRepeatLimit="marquee_forever"
 		android:padding="4dp"
 		android:singleLine="true"
+		android:textAlignment="center"
 		tools:text="@string/app_name" />
 </LinearLayout>

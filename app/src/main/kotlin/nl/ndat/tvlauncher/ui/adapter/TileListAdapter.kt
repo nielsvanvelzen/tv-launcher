@@ -8,7 +8,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import nl.ndat.tvlauncher.R
 import nl.ndat.tvlauncher.data.entity.Tile
-import nl.ndat.tvlauncher.databinding.ViewCardAppBinding
+import nl.ndat.tvlauncher.databinding.ViewCardTileBinding
 import nl.ndat.tvlauncher.util.createDrawable
 
 class TileListAdapter(
@@ -21,7 +21,7 @@ class TileListAdapter(
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 		val inflater = LayoutInflater.from(context)
-		val appCard = ViewCardAppBinding.inflate(inflater)
+		val appCard = ViewCardTileBinding.inflate(inflater)
 		return ViewHolder(appCard)
 	}
 
@@ -59,7 +59,7 @@ class TileListAdapter(
 		}
 	}
 
-	class ViewHolder(binding: ViewCardAppBinding) : RecyclerView.ViewHolder(binding.root) {
+	class ViewHolder(binding: ViewCardTileBinding) : RecyclerView.ViewHolder(binding.root) {
 		val container = binding.container
 		val banner = binding.banner
 		val name = binding.name
