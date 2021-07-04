@@ -8,6 +8,7 @@ import android.media.tv.TvInputInfo
 import android.media.tv.TvInputManager
 import androidx.core.content.getSystemService
 import nl.ndat.tvlauncher.data.entity.Tile
+import nl.ndat.tvlauncher.util.createLaunchIntent
 import nl.ndat.tvlauncher.util.createSwitchIntent
 import nl.ndat.tvlauncher.util.loadPreferredLabel
 
@@ -57,11 +58,6 @@ class TileResolver {
 
 		return tvInputs.map { createTile(context, it) }
 	}
-
-	// TODO move to extensions file
-	private fun ResolveInfo.createLaunchIntent(packageManager: PackageManager) =
-		packageManager.getLeanbackLaunchIntentForPackage(activityInfo.packageName)
-			?: packageManager.getLaunchIntentForPackage(activityInfo.packageName)
 
 	private fun createTile(packageManager: PackageManager, resolveInfo: ResolveInfo) = Tile(
 		id = APP_ID_PREFIX + resolveInfo.activityInfo.name,
