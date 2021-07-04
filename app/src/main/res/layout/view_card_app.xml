@@ -6,6 +6,7 @@
 	android:layout_width="160dp"
 	android:layout_height="wrap_content"
 	android:focusable="true"
+	android:focusableInTouchMode="true"
 	android:orientation="vertical"
 	android:paddingHorizontal="6dp"
 	android:paddingVertical="8dp">
@@ -13,12 +14,14 @@
 	<androidx.cardview.widget.CardView
 		android:layout_width="160dp"
 		android:layout_height="90dp"
+		android:duplicateParentState="true"
 		app:cardCornerRadius="4dp">
 
 		<ImageView
 			android:id="@+id/banner"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
+			android:duplicateParentState="true"
 			android:scaleType="fitCenter"
 			tools:src="@drawable/banner_launcher" />
 	</androidx.cardview.widget.CardView>
@@ -27,6 +30,7 @@
 		android:id="@+id/name"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:duplicateParentState="true"
 		android:ellipsize="marquee"
 		android:marqueeRepeatLimit="marquee_forever"
 		android:padding="4dp"
