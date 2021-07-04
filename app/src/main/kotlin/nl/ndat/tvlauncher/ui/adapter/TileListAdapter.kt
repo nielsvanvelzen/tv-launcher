@@ -2,19 +2,21 @@ package nl.ndat.tvlauncher.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import nl.ndat.tvlauncher.R
 import nl.ndat.tvlauncher.data.entity.Tile
 import nl.ndat.tvlauncher.databinding.ViewCardAppBinding
 import nl.ndat.tvlauncher.util.createDrawable
-import nl.ndat.tvlauncher.util.getIntent
 
 class TileListAdapter(
 	private val context: Context,
 ) : ListAdapter<Tile, TileListAdapter.ViewHolder>() {
+	var onActivate: ((tile: Tile, container: View) -> Unit)? = null
+	var onMenu: ((tile: Tile, container: View) -> Unit)? = null
+
 	override fun areItemsTheSame(old: Tile, new: Tile): Boolean = old.id == new.id
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -45,16 +47,15 @@ class TileListAdapter(
 
 		// Set click action
 		holder.container.setOnClickListener {
-			if (tile.uri != null) context.startActivity(
-				tile.getIntent(),
-				ActivityOptionsCompat.makeScaleUpAnimation(
-					holder.banner,
-					0,
-					0,
-					holder.banner.width,
-					holder.banner.height
-				).toBundle()
-			)
+			onActivate?.invoke(tile, it)
+		}
+
+		holder.container.setOnLongClickListener {
+			if (onMenu == null) false
+			else {
+				onMenu?.invoke(tile, it)
+				true
+			}
 		}
 	}
 

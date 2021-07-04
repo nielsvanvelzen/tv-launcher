@@ -7,17 +7,24 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.provider.Settings
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import nl.ndat.tvlauncher.R
+import nl.ndat.tvlauncher.data.entity.CollectionTile
+import nl.ndat.tvlauncher.data.entity.Tile
 import nl.ndat.tvlauncher.data.repository.TileRepository
 import nl.ndat.tvlauncher.databinding.FragmentLauncherBinding
 import nl.ndat.tvlauncher.ui.adapter.TileListAdapter
+import nl.ndat.tvlauncher.util.getIntent
 import org.koin.android.ext.android.inject
 
 class LauncherFragment : Fragment() {
@@ -61,14 +68,45 @@ class LauncherFragment : Fragment() {
 			)
 		}
 
-		val tileAdapter = TileListAdapter(requireContext())
-		with(binding.tiles) {
-			adapter = tileAdapter
-			requestFocus()
+		val tileAdapter = TileListAdapter(requireContext()).apply {
+			onActivate = { tile: Tile, view: View ->
+				if (tile.uri != null) startActivity(
+					tile.getIntent(),
+					ActivityOptionsCompat.makeScaleUpAnimation(
+						view,
+						0,
+						0,
+						view.width,
+						view.height
+					).toBundle()
+				)
+			}
+
+			onMenu = { tile: Tile, view: View ->
+				// FIXME: Add more fancy menu design
+				PopupMenu(requireContext(), view, Gravity.BOTTOM).apply {
+					menu.add(0, 2, 2, R.string.move_left)
+					menu.add(0, 3, 3, R.string.move_right)
+					setOnMenuItemClickListener { item ->
+						lifecycleScope.launch {
+							when (item.itemId) {
+								2 -> tileRepository.moveCollectionTile(CollectionTile.CollectionType.HOME, tile, -1)
+								3 -> tileRepository.moveCollectionTile(CollectionTile.CollectionType.HOME, tile, 1)
+							}
+						}
+
+						true
+					}
+				}.show()
+			}
 		}
+
 		tileRepository.getHomeTiles().observe(viewLifecycleOwner) { tiles ->
 			tileAdapter.items = tiles
 		}
+
+		binding.tiles.adapter = tileAdapter
+		binding.tiles.requestFocus()
 
 		return binding.root
 	}

@@ -55,5 +55,8 @@ class TileRepository(
 		else commitTile(tile)
 	}
 
-	fun getHomeTiles() = collectionDao.getCollection(CollectionTile.CollectionType.HOME).map { it.map { it.tile } }
+	fun getHomeTiles() = collectionDao.getByType(CollectionTile.CollectionType.HOME).map { it.map { it.tile } }
+
+	suspend fun moveCollectionTile(type: CollectionTile.CollectionType, tile: Tile, movement: Int) =
+		collectionDao.setOrder(type, tile, movement)
 }
