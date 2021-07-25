@@ -8,30 +8,17 @@
 	android:orientation="vertical"
 	tools:context=".ui.LauncherFragment">
 
-	<ImageButton
-		android:id="@+id/settings"
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/toolbar"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_marginStart="@dimen/overscan_start"
 		android:layout_marginTop="@dimen/overscan_top"
-		android:layout_marginEnd="12dp"
-		android:background="@color/transparent"
-		android:contentDescription="@string/settings"
-		android:src="@drawable/ic_settings"
-		android:tint="@color/lb_grey"
-		app:layout_constraintEnd_toStartOf="@id/clock"
-		app:layout_constraintTop_toTopOf="parent" />
-
-	<TextClock
-		android:id="@+id/clock"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
 		android:layout_marginEnd="@dimen/overscan_end"
-		android:textColor="@color/lb_grey"
-		android:textSize="20sp"
-		app:layout_constraintBottom_toBottomOf="@id/settings"
+		android:orientation="horizontal"
+		app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintTop_toTopOf="@id/settings"
-		tools:text="13:37" />
+		app:layout_constraintTop_toTopOf="parent" />
 
 	<androidx.leanback.widget.HorizontalGridView
 		android:id="@+id/tiles"
@@ -42,6 +29,6 @@
 		android:focusedByDefault="true"
 		android:paddingHorizontal="48dp"
 		android:scrollbars="none"
-		app:layout_constraintTop_toBottomOf="@id/settings" />
+		app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
