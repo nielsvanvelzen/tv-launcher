@@ -7,6 +7,7 @@ import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
 import nl.ndat.tvlauncher.data.model.ToolbarItem
 import nl.ndat.tvlauncher.ui.toolbar.ToolbarClockView
+import nl.ndat.tvlauncher.ui.toolbar.ToolbarNetworkStateView
 import nl.ndat.tvlauncher.ui.toolbar.ToolbarSettingsView
 
 class ToolbarAdapter : ListAdapter<ToolbarItem, ToolbarAdapter.ViewHolder>() {
@@ -25,6 +26,7 @@ class ToolbarAdapter : ListAdapter<ToolbarItem, ToolbarAdapter.ViewHolder>() {
 		val view = when (item) {
 			is ToolbarItem.Clock -> ToolbarClockView(holder.container.context)
 			is ToolbarItem.Settings -> ToolbarSettingsView(holder.container.context)
+			is ToolbarItem.Network -> ToolbarNetworkStateView(holder.container.context)
 		}
 
 		// Keep existing view if the type didn't change

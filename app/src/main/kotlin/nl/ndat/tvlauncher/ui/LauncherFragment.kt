@@ -43,7 +43,7 @@ class LauncherFragment : Fragment() {
 		backgroundContract.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
 
 		val toolbarAdapter = ToolbarAdapter().apply {
-			items = listOf(ToolbarItem.Settings, ToolbarItem.Clock)
+			items = listOf(ToolbarItem.Network, ToolbarItem.Settings, ToolbarItem.Clock)
 		}
 		binding.toolbar.apply {
 			addItemDecoration(SpacingItemDecoration(12, 0))
