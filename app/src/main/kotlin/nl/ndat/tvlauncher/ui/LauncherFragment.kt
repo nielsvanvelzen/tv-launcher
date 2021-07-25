@@ -52,7 +52,7 @@ class LauncherFragment : Fragment() {
 			adapter = toolbarAdapter
 		}
 
-		val tileAdapter = TileListAdapter(requireContext()).apply {
+		val tileAdapter = TileListAdapter().apply {
 			onActivate = { tile: Tile, view: View ->
 				if (tile.uri != null) startActivity(
 					tile.getIntent(),

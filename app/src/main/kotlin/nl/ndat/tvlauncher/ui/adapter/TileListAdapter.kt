@@ -1,6 +1,5 @@
 package nl.ndat.tvlauncher.ui.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +10,14 @@ import nl.ndat.tvlauncher.data.entity.Tile
 import nl.ndat.tvlauncher.databinding.ViewCardTileBinding
 import nl.ndat.tvlauncher.util.createDrawable
 
-class TileListAdapter(
-	private val context: Context,
-) : ListAdapter<Tile, TileListAdapter.ViewHolder>() {
+class TileListAdapter : ListAdapter<Tile, TileListAdapter.ViewHolder>() {
 	var onActivate: ((tile: Tile, container: View) -> Unit)? = null
 	var onMenu: ((tile: Tile, container: View) -> Unit)? = null
 
 	override fun areItemsTheSame(old: Tile, new: Tile): Boolean = old.id == new.id
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-		val inflater = LayoutInflater.from(context)
+		val inflater = LayoutInflater.from(parent.context)
 		val appCard = ViewCardTileBinding.inflate(inflater)
 		return ViewHolder(appCard)
 	}
@@ -32,13 +29,13 @@ class TileListAdapter(
 
 		// Set animation
 		holder.container.setOnFocusChangeListener { _, hasFocus ->
-			val scale = if (hasFocus) ResourcesCompat.getFloat(context.resources, R.dimen.app_scale_focused)
-			else ResourcesCompat.getFloat(context.resources, R.dimen.app_scale_default)
+			val scale = if (hasFocus) ResourcesCompat.getFloat(holder.container.resources, R.dimen.app_scale_focused)
+			else ResourcesCompat.getFloat(holder.container.resources, R.dimen.app_scale_default)
 
 			holder.container.animate().apply {
 				scaleX(scale)
 				scaleY(scale)
-				duration = context.resources.getInteger(R.integer.app_animation_duration).toLong()
+				duration = holder.container.resources.getInteger(R.integer.app_animation_duration).toLong()
 				withLayer()
 			}.start()
 
