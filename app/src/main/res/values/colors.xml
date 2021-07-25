@@ -3,6 +3,8 @@
 	<!-- Default -->
 	<color name="transparent">#00000000</color>
 	<color name="black">#FF000000</color>
+	<color name="grey">#888888</color>
+	<color name="white">#FFCCCCCC</color>
 
 	<!-- Banners & Icons -->
 	<color name="banner_background">#333333</color>

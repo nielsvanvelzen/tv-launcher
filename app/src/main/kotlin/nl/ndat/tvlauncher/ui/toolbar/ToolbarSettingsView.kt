@@ -15,8 +15,8 @@ class ToolbarSettingsView @JvmOverloads constructor(
 	context: Context,
 	attrs: AttributeSet? = null,
 ) : AppCompatImageButton(context, attrs) {
-	private val normalColor = ContextCompat.getColor(context, R.color.lb_grey)
-	private val focusColor = ContextCompat.getColor(context, R.color.lb_tv_white)
+	private val normalColor = ContextCompat.getColor(context, R.color.grey)
+	private val focusColor = ContextCompat.getColor(context, R.color.white)
 
 	init {
 		setBackgroundResource(R.color.transparent)

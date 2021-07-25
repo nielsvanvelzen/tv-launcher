@@ -12,7 +12,7 @@ class ToolbarClockView @JvmOverloads constructor(
 	attrs: AttributeSet? = null,
 ) : TextClock(context, attrs) {
 	init {
-		setTextColor(ContextCompat.getColor(context, R.color.lb_grey))
+		setTextColor(ContextCompat.getColor(context, R.color.grey))
 		setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
 	}
 }
