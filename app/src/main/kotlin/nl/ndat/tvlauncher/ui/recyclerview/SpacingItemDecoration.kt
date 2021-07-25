@@ -1,4 +1,4 @@
-package nl.ndat.tvlauncher.ui
+package nl.ndat.tvlauncher.ui.recyclerview
 
 import android.graphics.Rect
 import android.view.View

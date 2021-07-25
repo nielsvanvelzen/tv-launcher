@@ -21,6 +21,8 @@ import nl.ndat.tvlauncher.data.repository.TileRepository
 import nl.ndat.tvlauncher.databinding.FragmentLauncherBinding
 import nl.ndat.tvlauncher.ui.adapter.TileListAdapter
 import nl.ndat.tvlauncher.ui.adapter.ToolbarAdapter
+import nl.ndat.tvlauncher.ui.recyclerview.AutoGridLayoutManager
+import nl.ndat.tvlauncher.ui.recyclerview.SpacingItemDecoration
 import nl.ndat.tvlauncher.util.getIntent
 import org.koin.android.ext.android.inject
 
@@ -87,6 +89,7 @@ class LauncherFragment : Fragment() {
 			tileAdapter.items = tiles
 		}
 
+		binding.tiles.layoutManager = AutoGridLayoutManager(requireContext(), resources.getDimensionPixelSize(R.dimen.card_tile_width))
 		binding.tiles.adapter = tileAdapter
 		binding.tiles.requestFocus()
 
