@@ -40,5 +40,5 @@ dependencies {
 	implementation(libs.androidx.cardview)
 	implementation(libs.androidx.constraintlayout)
 	implementation(libs.androidx.fragment)
-	implementation(libs.androidx.leanback)
+	implementation(libs.androidx.recyclerview)
 }
