@@ -1,15 +1,18 @@
 package nl.ndat.tvlauncher.ui
 
 import android.Manifest
+import android.animation.LayoutTransition
 import android.app.WallpaperManager
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
@@ -17,6 +20,8 @@ import nl.ndat.tvlauncher.R
 import nl.ndat.tvlauncher.data.entity.CollectionTile
 import nl.ndat.tvlauncher.data.entity.Tile
 import nl.ndat.tvlauncher.data.model.ToolbarItem
+import nl.ndat.tvlauncher.data.model.ToolbarLocation
+import nl.ndat.tvlauncher.data.repository.PreferenceRepository
 import nl.ndat.tvlauncher.data.repository.TileRepository
 import nl.ndat.tvlauncher.databinding.FragmentLauncherBinding
 import nl.ndat.tvlauncher.ui.adapter.TileListAdapter
@@ -35,6 +40,7 @@ class LauncherFragment : Fragment() {
 	}
 
 	private val tileRepository: TileRepository by inject()
+	private val preferenceRepository: PreferenceRepository by inject()
 
 	override fun onCreateView(
 		inflater: LayoutInflater,
@@ -44,12 +50,23 @@ class LauncherFragment : Fragment() {
 		_binding = FragmentLauncherBinding.inflate(inflater, container, false)
 		backgroundContract.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
 
+		binding.toolbarContainer.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
 		val toolbarAdapter = ToolbarAdapter().apply {
 			items = listOf(ToolbarItem.Settings, ToolbarItem.Clock)
 		}
 		binding.toolbar.apply {
 			addItemDecoration(SpacingItemDecoration(12, 0))
 			adapter = toolbarAdapter
+		}
+
+		preferenceRepository.toolbarLocation.observe(viewLifecycleOwner) { toolbarLocation ->
+			binding.toolbar.updateLayoutParams<FrameLayout.LayoutParams> {
+				gravity = when (toolbarLocation) {
+					ToolbarLocation.START -> Gravity.START
+					ToolbarLocation.CENTER -> Gravity.CENTER
+					ToolbarLocation.END, null -> Gravity.END
+				}
+			}
 		}
 
 		val tileAdapter = TileListAdapter().apply {

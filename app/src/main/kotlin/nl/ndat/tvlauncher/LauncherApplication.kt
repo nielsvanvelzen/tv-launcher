@@ -3,6 +3,7 @@ package nl.ndat.tvlauncher
 import android.app.Application
 import nl.ndat.tvlauncher.data.SharedDatabase
 import nl.ndat.tvlauncher.data.TileResolver
+import nl.ndat.tvlauncher.data.repository.PreferenceRepository
 import nl.ndat.tvlauncher.data.repository.TileRepository
 import nl.ndat.tvlauncher.util.DefaultLauncherHelper
 import org.koin.android.ext.koin.androidContext
@@ -14,6 +15,7 @@ import org.koin.dsl.module
 private val launcherModule = module {
 	single { DefaultLauncherHelper(get()) }
 	single { TileRepository(get(), get(), get(), get()) }
+	single { PreferenceRepository() }
 	single { TileResolver() }
 }
 
