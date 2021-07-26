@@ -1,6 +1,9 @@
 package nl.ndat.tvlauncher.ui.recyclerview
 
 import android.content.Context
+import android.view.FocusFinder
+import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Recycler
@@ -30,5 +33,17 @@ class AutoGridLayoutManager(
 		}
 
 		super.onLayoutChildren(recycler, state)
+	}
+
+	override fun onInterceptFocusSearch(focused: View, direction: Int): View? {
+		// Get next focus item if any
+		val view = FocusFinder.getInstance()
+			.findNextFocus(focused.parent as ViewGroup, focused, direction)
+			?.let(::findContainingItemView)
+			?: return null
+
+		// If found check if it's in the same axis as current
+		return if (view.x == focused.x || view.y == focused.y) view
+		else focused
 	}
 }
