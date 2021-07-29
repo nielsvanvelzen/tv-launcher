@@ -42,8 +42,13 @@ class AutoGridLayoutManager(
 			?.let(::findContainingItemView)
 			?: return null
 
-		// If found check if it's in the same axis as current
-		return if (view.x == focused.x || view.y == focused.y) view
+		val currentPosition = getPosition(focused)
+		val newPosition = getPosition(view)
+
+		val sameColumn = currentPosition % spanCount == newPosition % spanCount
+		val sameRow = currentPosition.floorDiv(spanCount) == newPosition.floorDiv(spanCount)
+
+		return if (sameColumn || sameRow) view
 		else focused
 	}
 }
