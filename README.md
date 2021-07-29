@@ -1,14 +1,30 @@
 # TV Launcher
 
-An attempt to create an open source launcher for the Android TV platform. The app is in an early stage and doesn't even
-have a proper name yet.
+TV Launcher (name to be determined) is an Android launcher meant for big screens like televisions. It can be used as a
+replacement for the default Leanback or Google TV launcher on various Android TV devices like the Nvidia Shield or
+Chromecast with Google TV.
+
+The app is currently in an early development stage.
+
+<img src="https://user-images.githubusercontent.com/2305178/127557717-ac3d46d6-acfc-400d-b4a8-2f4c0c8c0832.png" height="400" />
 
 ## Features
 
-- List all apps
-- Show input sources (hdmi etc.) as apps
+- Configurable toolbar
+
+  The toolbar is shown on the top of the screen and contains various items that can be hidden and reordered by the user.
+  The current items that can be shown are:
+
+  - Time display
+  - Settings button
+
+- Tiles
+
+  A tile can be either an app or an input like HDMI. They can be shown or hidden from the main screen and reordered.
 
 ### Missing features
+
+Some features are not implemented because of platform limitations. The following features can not be implemented:
 
 - "Watch Next" and other channels
   
@@ -19,3 +35,5 @@ have a proper name yet.
 
   Android TV does not allow apps to set a wallpaper since there is no implementation for the
   [WallpaperManager actions](https://developer.android.com/reference/android/app/WallpaperManager.html).
+
+- Search
