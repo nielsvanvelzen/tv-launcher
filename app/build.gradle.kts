@@ -5,15 +5,15 @@ plugins {
 }
 
 android {
-	compileSdkVersion(30)
+	compileSdk = 30
 
 	defaultConfig {
-		minSdkVersion(21)
-		targetSdkVersion(30)
+		minSdk = 21
+		targetSdk = 30
 
 		applicationId = "nl.ndat.tvlauncher"
-		versionCode = 1
-		versionName = "1.0"
+		versionCode = 1_00_00
+		versionName = "1.0.0"
 	}
 
 	buildFeatures {
