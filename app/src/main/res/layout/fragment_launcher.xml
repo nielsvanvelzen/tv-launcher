@@ -36,7 +36,6 @@
 		android:layout_marginTop="32dp"
 		android:clipToPadding="false"
 		android:focusedByDefault="true"
-		android:orientation="horizontal"
 		android:paddingHorizontal="48dp"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"

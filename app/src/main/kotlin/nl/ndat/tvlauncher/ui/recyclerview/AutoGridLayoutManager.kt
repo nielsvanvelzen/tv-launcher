@@ -20,8 +20,7 @@ class AutoGridLayoutManager(
 		val valuesChanged = columnWidth != lastColumnWidth || width != lastWidth || height != lastHeight
 
 		if (safeValues && valuesChanged) {
-			val totalSpace = if (orientation == VERTICAL) width - paddingRight - paddingLeft
-			else height - paddingTop - paddingBottom
+			val totalSpace = width - paddingRight - paddingLeft
 
 			spanCount = max(1, totalSpace / columnWidth)
 
@@ -34,15 +33,14 @@ class AutoGridLayoutManager(
 	}
 
 	override fun calculateExtraLayoutSpace(state: RecyclerView.State, extraLayoutSpace: IntArray) {
+		// Use the size of the first child
+		// assuming all items have equals sizes
 		val firstChild = getChildAt(0) ?: return super.calculateExtraLayoutSpace(state, extraLayoutSpace)
 
-		// Measure the size of a single item
-		// assuming all items have equals sizes
-		val singleItemSpace = if (orientation == VERTICAL) firstChild.height else firstChild.width
 
 		// Request 1 additional item to enable scrolling
-		extraLayoutSpace[0] = singleItemSpace // Start spacing (top/left)
-		extraLayoutSpace[1] = singleItemSpace // End spacing (bottom/right)
+		extraLayoutSpace[0] = firstChild.height // Start spacing (top/left)
+		extraLayoutSpace[1] = firstChild.height // End spacing (bottom/right)
 	}
 
 	private fun View.getRecyclerview(): RecyclerView {
