@@ -37,3 +37,27 @@ Some features are not implemented because of platform limitations. The following
   [WallpaperManager actions](https://developer.android.com/reference/android/app/WallpaperManager.html).
 
 - Search
+## Installation
+
+### Build
+
+prerequisites: Android SDK
+- `./gradlew --build-cache --no-daemon --info assembleDebug`
+
+### Install
+
+Install with adb to your android tv.
+- Enable adb on android tv
+- `adb connect <android_tv_IP>:5555`
+- `adb install app/build/outputs/apk/debug/app-debug.apk`
+
+### Define as default launcher
+
+Disable default launcher
+- `adb shell pm disable-user --user 0 com.google.android.tvlauncher`
+
+
+### Revert
+Enable default launcher
+- `adb shell pm enable-user --user 0 com.google.android.tvlauncher`
+
