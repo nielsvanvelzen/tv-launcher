@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-	compileSdk = 30
+	compileSdk = 31
 
 	defaultConfig {
 		minSdk = 21
-		targetSdk = 30
+		targetSdk = 31
 
 		applicationId = "nl.ndat.tvlauncher"
 		versionCode = 1_00_00
@@ -41,4 +41,5 @@ dependencies {
 	implementation(libs.androidx.constraintlayout)
 	implementation(libs.androidx.fragment)
 	implementation(libs.androidx.recyclerview)
+	implementation(libs.androidx.appcompat)
 }
