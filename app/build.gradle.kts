@@ -1,7 +1,7 @@
 plugins {
 	id("com.android.application")
 	id("kotlin-android")
-	id("kotlin-kapt")
+	id("com.google.devtools.ksp")
 }
 
 android {
@@ -34,7 +34,7 @@ dependencies {
 
 	// Data
 	implementation(libs.androidx.room.ktx)
-	kapt(libs.androidx.room.compiler)
+	ksp(libs.androidx.room.compiler)
 
 	// UI
 	implementation(libs.androidx.cardview)
