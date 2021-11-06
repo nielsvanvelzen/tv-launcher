@@ -1,7 +1,7 @@
 plugins {
 	alias(libs.plugins.kotlin.android)
+	alias(libs.plugins.kotlin.ksp)
 	alias(libs.plugins.android.app)
-	alias(libs.plugins.ksp)
 }
 
 android {
@@ -26,7 +26,7 @@ android {
 
 dependencies {
 	// System
-	implementation(libs.androidx.core.core)
+	implementation(libs.androidx.core)
 	implementation(libs.androidx.core.role)
 	implementation(libs.androidx.lifecycle.livedata)
 	implementation(libs.androidx.tvprovider)
