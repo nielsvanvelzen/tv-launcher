@@ -1,18 +1,18 @@
 [versions]
-android-plugin = "7.0.3"
-androidx-appcompat = "1.3.1"
+android-plugin = "7.0.4"
+androidx-appcompat = "1.4.1"
 androidx-cardview = "1.0.0"
-androidx-constraintlayout = "2.1.1"
+androidx-constraintlayout = "2.1.2"
 androidx-core = "1.7.0"
 androidx-core-role = "1.0.0"
-androidx-fragment = "1.3.6"
+androidx-fragment = "1.4.0"
 androidx-lifecycle = "2.4.0"
 androidx-recyclerview = "1.2.1"
-androidx-room = "2.4.0-beta01"
+androidx-room = "2.4.1"
 androidx-tvprovider = "1.1.0-alpha01"
-koin = "3.1.3"
-kotlin = "1.5.31"
-kotlin-ksp = "1.5.31-1.0.0"
+koin = "3.1.5"
+kotlin = "1.6.10"
+kotlin-ksp = "1.6.10-1.0.2"
 
 [plugins]
 android-app = { id = "com.android.application", version.ref = "android-plugin" }

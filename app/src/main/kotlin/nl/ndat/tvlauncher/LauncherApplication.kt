@@ -7,9 +7,7 @@ import nl.ndat.tvlauncher.data.repository.PreferenceRepository
 import nl.ndat.tvlauncher.data.repository.TileRepository
 import nl.ndat.tvlauncher.util.DefaultLauncherHelper
 import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import org.koin.core.logger.Level
 import org.koin.dsl.module
 
 private val launcherModule = module {
@@ -34,7 +32,8 @@ class LauncherApplication : Application() {
 		super.onCreate()
 
 		startKoin {
-			androidLogger(level = if (BuildConfig.DEBUG) Level.DEBUG else Level.INFO)
+			// TODO: Re-enable when Koin is updated for Kotlin 1.6.x
+			// androidLogger(level = if (BuildConfig.DEBUG) Level.DEBUG else Level.INFO)
 			androidContext(this@LauncherApplication)
 			modules(launcherModule, databaseModule)
 		}
