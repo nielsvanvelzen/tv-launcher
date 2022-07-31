@@ -8,7 +8,7 @@ The app is currently in an early development stage.
 
 <img src="https://user-images.githubusercontent.com/2305178/127557717-ac3d46d6-acfc-400d-b4a8-2f4c0c8c0832.png" height="400" />
 
-## Features
+## Planned features
 
 - Configurable toolbar
 
@@ -22,7 +22,7 @@ The app is currently in an early development stage.
 
   A tile can be either an app or an input like HDMI. They can be shown or hidden from the main screen and reordered.
 
-### Missing features
+### Unplanned features
 
 Some features are not implemented because of platform limitations. The following features can not be implemented:
 
