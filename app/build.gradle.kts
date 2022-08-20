@@ -5,6 +5,7 @@ plugins {
 }
 
 android {
+	namespace = "nl.ndat.tvlauncher"
 	compileSdk = 32
 
 	defaultConfig {
@@ -17,29 +18,27 @@ android {
 	}
 
 	buildFeatures {
-		viewBinding = true
+		compose = true
 	}
 
-	sourceSets["main"].java.srcDirs("src/main/kotlin")
-	sourceSets["test"].java.srcDirs("src/test/kotlin")
+	composeOptions {
+		kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
+	}
 }
 
 dependencies {
 	// System
 	implementation(libs.androidx.core)
 	implementation(libs.androidx.core.role)
-	implementation(libs.androidx.lifecycle.livedata)
 	implementation(libs.androidx.tvprovider)
-	implementation(libs.koin)
+	implementation(libs.bundles.koin)
 
 	// Data
 	implementation(libs.androidx.room.ktx)
 	ksp(libs.androidx.room.compiler)
 
 	// UI
-	implementation(libs.androidx.cardview)
-	implementation(libs.androidx.constraintlayout)
-	implementation(libs.androidx.fragment)
-	implementation(libs.androidx.recyclerview)
 	implementation(libs.androidx.appcompat)
+	implementation(libs.bundles.androidx.compose)
+	implementation(libs.coil.compose)
 }

@@ -1,10 +1,10 @@
 package nl.ndat.tvlauncher.data.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 import nl.ndat.tvlauncher.data.entity.CollectionTile
 import nl.ndat.tvlauncher.data.entity.RichCollectionTile
 import nl.ndat.tvlauncher.data.entity.Tile
@@ -12,7 +12,7 @@ import nl.ndat.tvlauncher.data.entity.Tile
 @Dao
 interface CollectionDao {
 	@Query("SELECT * FROM collection_tile, tile WHERE collectionType = :type AND tile.id = collection_tile.tileId ORDER BY `order` ASC")
-	fun getByType(type: CollectionTile.CollectionType): LiveData<List<RichCollectionTile>>
+	fun getByType(type: CollectionTile.CollectionType): Flow<List<RichCollectionTile>>
 
 	@Query("SELECT * FROM collection_tile, tile WHERE collectionType = :type AND tileId = :tileId AND tile.id = collection_tile.tileId LIMIT 1")
 	suspend fun getByTileId(type: CollectionTile.CollectionType, tileId: String): RichCollectionTile?

@@ -1,7 +1,7 @@
 package nl.ndat.tvlauncher.data.repository
 
 import android.content.Context
-import androidx.lifecycle.map
+import kotlinx.coroutines.flow.map
 import nl.ndat.tvlauncher.data.TileResolver
 import nl.ndat.tvlauncher.data.dao.CollectionDao
 import nl.ndat.tvlauncher.data.dao.TileDao
@@ -55,7 +55,8 @@ class TileRepository(
 		else commitTile(tile)
 	}
 
-	fun getHomeTiles() = collectionDao.getByType(CollectionTile.CollectionType.HOME).map { it.map { it.tile } }
+	fun getCollectionTiles(type: CollectionTile.CollectionType) = collectionDao.getByType(type)
+		.map { tiles -> tiles.map { richTile -> richTile.tile } }
 
 	suspend fun moveCollectionTile(type: CollectionTile.CollectionType, tile: Tile, movement: Int) =
 		collectionDao.setOrder(type, tile, movement)
