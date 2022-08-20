@@ -1,16 +1,16 @@
 package nl.ndat.tvlauncher.data.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 import nl.ndat.tvlauncher.data.entity.Tile
 
 @Dao
 interface TileDao {
 	@Query("SELECT * FROM tile")
-	fun getAll(): LiveData<List<Tile>>
+	fun getAll(): Flow<List<Tile>>
 
 	@Query("SELECT * FROM tile WHERE id = :id LIMIT 1")
 	suspend fun getById(id: String): Tile?
