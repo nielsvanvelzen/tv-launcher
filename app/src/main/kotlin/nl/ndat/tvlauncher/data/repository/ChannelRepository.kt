@@ -54,8 +54,8 @@ class ChannelRepository(
 	}
 
 	suspend fun refreshAllChannels() {
-		refreshPreviewChannels()
 		refreshWatchNextChannels()
+		refreshPreviewChannels()
 	}
 
 	suspend fun refreshPreviewChannels() {
@@ -85,4 +85,7 @@ class ChannelRepository(
 		val programs = channelResolver.getChannelPrograms(context, channel.channelId)
 		commitChannelPrograms(channel.id, programs)
 	}
+
+	fun getChannels() = channelDao.getAll()
+	fun getProgramsByChannel(channel: Channel) = channelProgramDao.getByChannel(channel.id)
 }

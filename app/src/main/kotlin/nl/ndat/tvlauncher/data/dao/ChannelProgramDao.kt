@@ -15,6 +15,9 @@ interface ChannelProgramDao {
 	@Query("SELECT * FROM channel_program WHERE id = :id LIMIT 1")
 	suspend fun getById(id: String): ChannelProgram?
 
+	@Query("SELECT * FROM channel_program WHERE channelId = :channelId")
+	fun getByChannel(channelId: String): Flow<List<ChannelProgram>>
+
 	@Insert
 	suspend fun insert(vararg channelPrograms: ChannelProgram)
 

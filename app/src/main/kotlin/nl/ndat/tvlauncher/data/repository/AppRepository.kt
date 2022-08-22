@@ -42,4 +42,5 @@ class AppRepository(
 	}
 
 	fun getApps() = appDao.getAll()
+	suspend fun getByPackageName(packageName: String) = appDao.getByPackageName(packageName)
 }

@@ -1,4 +1,4 @@
-package nl.ndat.tvlauncher.ui.component
+package nl.ndat.tvlauncher.ui.component.card
 
 import android.content.Intent
 import androidx.compose.animation.core.animateFloatAsState
