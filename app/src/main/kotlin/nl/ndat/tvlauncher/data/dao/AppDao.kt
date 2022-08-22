@@ -15,6 +15,9 @@ interface AppDao {
 	@Query("SELECT * FROM app WHERE id = :id LIMIT 1")
 	suspend fun getById(id: String): App?
 
+	@Query("SELECT * FROM app WHERE packageName = :packageName LIMIT 1")
+	suspend fun getByPackageName(packageName: String): App?
+
 	@Insert
 	suspend fun insert(vararg inputs: App)
 

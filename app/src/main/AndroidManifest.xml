@@ -27,7 +27,8 @@
 		android:icon="@drawable/ic_launcher"
 		android:label="@string/app_name"
 		android:supportsRtl="true"
-		android:theme="@style/Theme.TVLauncher">
+		android:theme="@style/Theme.TVLauncher"
+		android:usesCleartextTraffic="true">
 		<activity
 			android:name=".LauncherActivity"
 			android:excludeFromRecents="true"

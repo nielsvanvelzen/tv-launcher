@@ -1,10 +1,10 @@
 package nl.ndat.tvlauncher.data.model
 
-enum class ChannelProgramAspectRatio {
-	AR16_9,
-	AR3_2,
-	AR4_3,
-	AR1_1,
-	AR2_3,
-	AR1000_1441,
+enum class ChannelProgramAspectRatio(val floatValue: Float) {
+	AR16_9(16f / 9f),
+	AR3_2(3f / 2f),
+	AR4_3(4f / 3f),
+	AR1_1(1f / 1f),
+	AR2_3(2f / 3f),
+	AR1000_1441(1000f / 1441f),
 }

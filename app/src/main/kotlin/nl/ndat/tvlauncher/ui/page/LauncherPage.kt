@@ -4,13 +4,11 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Shapes
 import androidx.compose.material.Surface
@@ -22,8 +20,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import nl.ndat.tvlauncher.data.repository.AppRepository
-import nl.ndat.tvlauncher.ui.component.AppCard
+import nl.ndat.tvlauncher.data.repository.ChannelRepository
+import nl.ndat.tvlauncher.ui.component.row.AppCardRow
+import nl.ndat.tvlauncher.ui.component.row.ChannelProgramCardRow
 import nl.ndat.tvlauncher.ui.toolbar.Toolbar
 import org.koin.androidx.compose.inject
 
@@ -48,13 +47,18 @@ fun LauncherPage() {
 			Surface(
 				modifier = Modifier.padding(vertical = 27.dp)
 			) {
+				val scrollState = rememberScrollState()
 				Column(
-					verticalArrangement = Arrangement.spacedBy(8.dp)
+					verticalArrangement = Arrangement.spacedBy(8.dp),
+					modifier = Modifier
+						.verticalScroll(scrollState)
+						.fillMaxSize(),
 				) {
 					Toolbar(
 						modifier = Modifier.padding(horizontal = 48.dp)
 					)
-					AppGrid()
+					AppCardRow()
+					ChannelProgramCardRows()
 				}
 			}
 		}
@@ -62,24 +66,11 @@ fun LauncherPage() {
 }
 
 @Composable
-fun AppGrid() {
-	val appRepository: AppRepository by inject()
-	val apps by appRepository.getApps().collectAsState(initial = emptyList())
+fun ChannelProgramCardRows() {
+	val channelRepository: ChannelRepository by inject()
+	val channels by channelRepository.getChannels().collectAsState(initial = emptyList())
 
-	LazyVerticalGrid(
-		modifier = Modifier
-			.fillMaxSize(),
-		contentPadding = PaddingValues(
-			vertical = 16.dp,
-			horizontal = 48.dp,
-		),
-		horizontalArrangement = Arrangement.spacedBy(8.dp),
-		verticalArrangement = Arrangement.spacedBy(8.dp),
-		columns = GridCells.Adaptive(160.dp)
-	) {
-		items(apps) { app ->
-			AppCard(app = app)
-		}
+	for (channel in channels) {
+		ChannelProgramCardRow(channel)
 	}
 }
-
