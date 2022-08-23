@@ -1,16 +1,19 @@
 package nl.ndat.tvlauncher.data.repository
 
 import android.content.Context
+import nl.ndat.tvlauncher.data.SharedDatabase
 import nl.ndat.tvlauncher.data.dao.AppDao
 import nl.ndat.tvlauncher.data.entity.App
 import nl.ndat.tvlauncher.data.resolver.AppResolver
+import nl.ndat.tvlauncher.util.withSingleTransaction
 
 class AppRepository(
 	private val context: Context,
 	private val appResolver: AppResolver,
+	private val database: SharedDatabase,
 	private val appDao: AppDao,
 ) {
-	private suspend fun commitApps(apps: Collection<App>) {
+	private suspend fun commitApps(apps: Collection<App>) = database.withSingleTransaction {
 		// Remove missing apps from database
 		val currentIds = apps.map { it.id }
 		appDao.removeNotIn(currentIds)
