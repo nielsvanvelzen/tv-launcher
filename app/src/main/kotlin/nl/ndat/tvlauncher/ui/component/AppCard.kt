@@ -1,5 +1,6 @@
 package nl.ndat.tvlauncher.ui.component
 
+import android.content.Intent
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -30,19 +31,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import nl.ndat.tvlauncher.R
-import nl.ndat.tvlauncher.data.entity.Tile
+import nl.ndat.tvlauncher.data.entity.App
 import nl.ndat.tvlauncher.ui.theme.NoRippleTheme
 import nl.ndat.tvlauncher.util.createDrawable
-import nl.ndat.tvlauncher.util.getIntent
 
 @Composable
-fun TileCard(
-	tile: Tile,
+fun AppCard(
+	app: App,
 ) {
 	val context = LocalContext.current
-	val image = remember { tile.createDrawable(context) }
+	val image = remember { app.createDrawable(context) }
 	var focused by remember { mutableStateOf(false) }
 	val scale = animateFloatAsState(if (focused) 1.125f else 1.0f)
+
+	val launchIntentUri = app.launchIntentUriLeanback ?: app.launchIntentUriDefault
 
 	CompositionLocalProvider(
 		LocalRippleTheme provides NoRippleTheme
@@ -52,8 +54,8 @@ fun TileCard(
 				.width(160.dp)
 				.scale(scale.value)
 				.onFocusChanged { focused = it.hasFocus }
-				.clickable(enabled = tile.uri != null) {
-					if (tile.uri != null) context.startActivity(tile.getIntent())
+				.clickable(enabled = launchIntentUri != null) {
+					if (launchIntentUri != null) context.startActivity(Intent.parseUri(launchIntentUri, 0))
 				},
 			horizontalAlignment = Alignment.CenterHorizontally,
 		) {
@@ -67,13 +69,13 @@ fun TileCard(
 						.fillMaxSize()
 						.background(colorResource(id = R.color.banner_background)),
 					model = image,
-					contentDescription = tile.name
+					contentDescription = app.displayName
 				)
 			}
 
 			Text(
 				modifier = Modifier.padding(8.dp),
-				text = tile.name,
+				text = app.displayName,
 				fontSize = 13.sp,
 				maxLines = 1,
 				overflow = TextOverflow.Ellipsis,

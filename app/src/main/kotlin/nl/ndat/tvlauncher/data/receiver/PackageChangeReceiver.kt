@@ -4,23 +4,21 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import kotlinx.coroutines.runBlocking
-import nl.ndat.tvlauncher.data.repository.TileRepository
+import nl.ndat.tvlauncher.data.repository.AppRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class PackageChangeReceiver : BroadcastReceiver(), KoinComponent {
-	private val tileRepository: TileRepository by inject()
+	private val appRepository: AppRepository by inject()
 
 	override fun onReceive(context: Context, intent: Intent) {
-		val packageId =
+		val packageName =
 			if (intent.action in packageActions && intent.data?.scheme == "package") intent.data?.schemeSpecificPart
 			else null
 
 		runBlocking {
-			if (packageId != null) tileRepository.refreshApplication(packageId)
-			else tileRepository.refreshAllApplications()
-
-			tileRepository.refreshAllInputs()
+			if (packageName != null) appRepository.refreshApplication(packageName)
+			else appRepository.refreshAllApplications()
 		}
 	}
 

@@ -22,9 +22,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import nl.ndat.tvlauncher.data.entity.CollectionTile
-import nl.ndat.tvlauncher.data.repository.TileRepository
-import nl.ndat.tvlauncher.ui.component.TileCard
+import nl.ndat.tvlauncher.data.repository.AppRepository
+import nl.ndat.tvlauncher.ui.component.AppCard
 import nl.ndat.tvlauncher.ui.toolbar.Toolbar
 import org.koin.androidx.compose.inject
 
@@ -55,7 +54,7 @@ fun LauncherPage() {
 					Toolbar(
 						modifier = Modifier.padding(horizontal = 48.dp)
 					)
-					AppGrid(CollectionTile.CollectionType.HOME)
+					AppGrid()
 				}
 			}
 		}
@@ -63,11 +62,9 @@ fun LauncherPage() {
 }
 
 @Composable
-fun AppGrid(
-	collection: CollectionTile.CollectionType,
-) {
-	val tileRepository: TileRepository by inject()
-	val tiles by tileRepository.getCollectionTiles(collection).collectAsState(initial = emptyList())
+fun AppGrid() {
+	val appRepository: AppRepository by inject()
+	val apps by appRepository.getApps().collectAsState(initial = emptyList())
 
 	LazyVerticalGrid(
 		modifier = Modifier
@@ -80,10 +77,8 @@ fun AppGrid(
 		verticalArrangement = Arrangement.spacedBy(8.dp),
 		columns = GridCells.Adaptive(160.dp)
 	) {
-		items(tiles) { tile ->
-			TileCard(
-				tile = tile,
-			)
+		items(apps) { app ->
+			AppCard(app = app)
 		}
 	}
 }
