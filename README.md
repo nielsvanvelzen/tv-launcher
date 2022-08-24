@@ -6,30 +6,34 @@ Chromecast with Google TV.
 
 The app is currently in an early development stage.
 
-<img src="https://user-images.githubusercontent.com/2305178/127557717-ac3d46d6-acfc-400d-b4a8-2f4c0c8c0832.png" height="400" />
+<img src="https://user-images.githubusercontent.com/2305178/186512479-e94bf85d-ac09-4f9d-b54e-24bcf43c82da.png" height="400" />
 
 ## Planned features
 
 - Configurable toolbar
 
   The toolbar is shown on the top of the screen and contains various items that can be hidden and reordered by the user.
-  The current items that can be shown are:
+  The planned components that can be used are:
 
-  - Time display
-  - Settings button
+    - Clock
+    - Settings button
+    - Tv input sources switcher
 
-- Tiles
+- Favorite app list
 
-  A tile can be either an app or an input like HDMI. They can be shown or hidden from the main screen and reordered.
+  A list of bookmarked apps by the user. They can be shown or hidden from the main screen and reordered.
+
+- Channels
+
+  App provided channels and watch next information.
+
+- All apps
+
+  A grid with all installed apps. Ability to also show mobile app entries.
 
 ### Unplanned features
 
 Some features are not implemented because of platform limitations. The following features can not be implemented:
-
-- "Watch Next" and other channels
-  
-  This feature would require the `com.android.providers.tv.permission.ACCESS_ALL_EPG_DATA` permission which is only
-  available for system apps.
 
 - Wallpapers
 
