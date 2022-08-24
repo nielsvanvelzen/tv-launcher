@@ -38,9 +38,11 @@ fun ChannelProgramCardRow(
 		)
 	}
 
-	CardRow(title) {
-		items(programs) { program ->
-			ChannelProgramCard(program)
+	if (programs.isNotEmpty()) {
+		CardRow(title) {
+			items(programs) { program ->
+				ChannelProgramCard(program)
+			}
 		}
 	}
 }
