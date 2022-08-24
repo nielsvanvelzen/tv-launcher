@@ -34,7 +34,7 @@ fun CardRow(
 			vertical = 16.dp,
 			horizontal = 48.dp,
 		),
-		horizontalArrangement = Arrangement.spacedBy(8.dp),
+		horizontalArrangement = Arrangement.spacedBy(14.dp),
 	) {
 		content()
 	}
