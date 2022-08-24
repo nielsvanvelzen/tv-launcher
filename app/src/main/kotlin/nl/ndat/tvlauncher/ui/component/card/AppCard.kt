@@ -12,9 +12,7 @@ import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,7 +30,6 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import nl.ndat.tvlauncher.R
 import nl.ndat.tvlauncher.data.entity.App
-import nl.ndat.tvlauncher.ui.theme.NoRippleTheme
 import nl.ndat.tvlauncher.util.createDrawable
 
 @Composable
@@ -46,40 +43,36 @@ fun AppCard(
 
 	val launchIntentUri = app.launchIntentUriLeanback ?: app.launchIntentUriDefault
 
-	CompositionLocalProvider(
-		LocalRippleTheme provides NoRippleTheme
+	Column(
+		modifier = Modifier
+			.width(160.dp)
+			.scale(scale.value)
+			.onFocusChanged { focused = it.hasFocus }
+			.clickable(enabled = launchIntentUri != null) {
+				if (launchIntentUri != null) context.startActivity(Intent.parseUri(launchIntentUri, 0))
+			},
+		horizontalAlignment = Alignment.CenterHorizontally,
 	) {
-		Column(
+		Box(
 			modifier = Modifier
-				.width(160.dp)
-				.scale(scale.value)
-				.onFocusChanged { focused = it.hasFocus }
-				.clickable(enabled = launchIntentUri != null) {
-					if (launchIntentUri != null) context.startActivity(Intent.parseUri(launchIntentUri, 0))
-				},
-			horizontalAlignment = Alignment.CenterHorizontally,
+				.requiredSize(160.dp, 90.dp)
+				.clip(MaterialTheme.shapes.medium),
 		) {
-			Box(
+			AsyncImage(
 				modifier = Modifier
-					.requiredSize(160.dp, 90.dp)
-					.clip(MaterialTheme.shapes.medium),
-			) {
-				AsyncImage(
-					modifier = Modifier
-						.fillMaxSize()
-						.background(colorResource(id = R.color.banner_background)),
-					model = image,
-					contentDescription = app.displayName
-				)
-			}
-
-			Text(
-				modifier = Modifier.padding(8.dp),
-				text = app.displayName,
-				fontSize = 13.sp,
-				maxLines = 1,
-				overflow = TextOverflow.Ellipsis,
+					.fillMaxSize()
+					.background(colorResource(id = R.color.banner_background)),
+				model = image,
+				contentDescription = app.displayName
 			)
 		}
+
+		Text(
+			modifier = Modifier.padding(8.dp),
+			text = app.displayName,
+			fontSize = 13.sp,
+			maxLines = 1,
+			overflow = TextOverflow.Ellipsis,
+		)
 	}
 }

@@ -9,7 +9,7 @@ import androidx.tvprovider.media.tv.TvContractCompat
 import nl.ndat.tvlauncher.data.repository.AppRepository
 import nl.ndat.tvlauncher.data.repository.ChannelRepository
 import nl.ndat.tvlauncher.data.repository.InputRepository
-import nl.ndat.tvlauncher.ui.page.LauncherPage
+import nl.ndat.tvlauncher.ui.AppBase
 import nl.ndat.tvlauncher.util.DefaultLauncherHelper
 import org.koin.android.ext.android.inject
 
@@ -23,7 +23,7 @@ class LauncherActivity : ComponentActivity() {
 		super.onCreate(savedInstanceState)
 
 		setContent {
-			LauncherPage()
+			AppBase()
 		}
 
 		validateDefaultLauncher()
