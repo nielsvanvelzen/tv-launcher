@@ -18,7 +18,7 @@ jobs:
           distribution: adopt
           java-version: 11
       - name: Setup Gradle cache
-        uses: actions/cache@v2.1.6
+        uses: actions/cache@937d24475381cd9c75ae6db12cb4e79714b926ed # tag=v2.1.7
         with:
           path: |
             ~/.gradle/caches
