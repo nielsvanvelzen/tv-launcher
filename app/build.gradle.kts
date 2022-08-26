@@ -6,11 +6,11 @@ plugins {
 
 android {
 	namespace = "nl.ndat.tvlauncher"
-	compileSdk = 32
+	compileSdk = 33
 
 	defaultConfig {
 		minSdk = 21
-		targetSdk = 32
+		targetSdk = 33
 
 		applicationId = "nl.ndat.tvlauncher"
 		versionCode = 1_00_00
