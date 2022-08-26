@@ -1,5 +1,6 @@
 package nl.ndat.tvlauncher.data.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
@@ -17,14 +18,14 @@ import nl.ndat.tvlauncher.data.model.ChannelProgramType
 			onDelete = ForeignKey.CASCADE,
 			onUpdate = ForeignKey.CASCADE,
 		)
-	]
+	],
 )
 data class ChannelProgram(
 	@PrimaryKey var id: String,
-	val channelId: String,
-	val packageName: String,
+	@ColumnInfo(index = true) val channelId: String,
+	@ColumnInfo(index = true) val packageName: String,
 	val weight: Int,
-	val type: ChannelProgramType?,
+	@ColumnInfo(index = true) val type: ChannelProgramType?,
 	val posterArtUri: String?,
 	val posterArtAspectRatio: ChannelProgramAspectRatio?,
 	val lastPlaybackPositionMillis: Int?,

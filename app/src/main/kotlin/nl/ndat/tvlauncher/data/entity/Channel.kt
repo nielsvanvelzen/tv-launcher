@@ -1,5 +1,6 @@
 package nl.ndat.tvlauncher.data.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import nl.ndat.tvlauncher.data.model.ChannelType
@@ -9,10 +10,10 @@ import nl.ndat.tvlauncher.data.model.ChannelType
 )
 data class Channel(
 	@PrimaryKey var id: String,
-	val type: ChannelType,
+	@ColumnInfo(index = true) val type: ChannelType,
 	val channelId: Long,
 	val displayName: String,
 	val description: String?,
-	val packageName: String,
+	@ColumnInfo(index = true) val packageName: String,
 	val appLinkIntentUri: String?,
 )
