@@ -27,7 +27,10 @@ fun LauncherPage() {
 			.fillMaxSize(),
 	) {
 		Toolbar(
-			modifier = Modifier.padding(horizontal = 48.dp)
+			modifier = Modifier.padding(
+				vertical = 27.dp,
+				horizontal = 48.dp,
+			)
 		)
 		AppCardRow()
 		ChannelProgramCardRows()
