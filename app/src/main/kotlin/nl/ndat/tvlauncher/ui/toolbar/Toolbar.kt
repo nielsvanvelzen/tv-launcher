@@ -37,6 +37,7 @@ fun Toolbar(
 			horizontalArrangement = Arrangement.spacedBy(8.dp),
 			verticalAlignment = Alignment.CenterVertically,
 		) {
+			ToolbarInputsButton()
 			ToolbarSettingsButton()
 			ToolbarClock()
 		}

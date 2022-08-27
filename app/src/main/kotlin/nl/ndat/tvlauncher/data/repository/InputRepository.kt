@@ -33,4 +33,6 @@ class InputRepository(
 		val inputs = inputResolver.getInputs(context)
 		commitInputs(inputs)
 	}
+
+	fun getInputs() = inputDao.getAll()
 }
