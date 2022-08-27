@@ -25,6 +25,10 @@ fun ToolbarInputsButton() {
 	val context = LocalContext.current
 	val inputRepository: InputRepository by inject()
 	val inputs by inputRepository.getInputs().collectAsState(initial = emptyList())
+
+	// TODO: When toolbar is configurable this should be removed
+	if (inputs.isEmpty()) return
+
 	var expand by remember { mutableStateOf(false) }
 
 	IconButton(
