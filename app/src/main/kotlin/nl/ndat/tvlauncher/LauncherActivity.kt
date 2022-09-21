@@ -40,8 +40,9 @@ class LauncherActivity : ComponentActivity() {
 
 	private fun validateDefaultLauncher() {
 		if (!defaultLauncherHelper.isDefaultLauncher() && defaultLauncherHelper.canRequestDefaultLauncher()) {
+			val intent = defaultLauncherHelper.requestDefaultLauncherIntent()
 			@Suppress("DEPRECATION")
-			startActivityForResult(defaultLauncherHelper.requestDefaultLauncherIntent(), 0)
+			if (intent != null) startActivityForResult(intent, 0)
 		}
 	}
 }
