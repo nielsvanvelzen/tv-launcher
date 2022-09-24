@@ -16,14 +16,14 @@ import nl.ndat.tvlauncher.data.model.ChannelType
 import nl.ndat.tvlauncher.data.repository.AppRepository
 import nl.ndat.tvlauncher.data.repository.ChannelRepository
 import nl.ndat.tvlauncher.ui.component.card.ChannelProgramCard
-import org.koin.androidx.compose.inject
+import org.koin.androidx.compose.get
 
 @Composable
 fun ChannelProgramCardRow(
 	channel: Channel,
 ) {
-	val channelRepository: ChannelRepository by inject()
-	val appRepository: AppRepository by inject()
+	val channelRepository: ChannelRepository = get()
+	val appRepository: AppRepository = get()
 	val programs by channelRepository.getProgramsByChannel(channel).collectAsState(initial = emptyList())
 
 	var app by remember { mutableStateOf<App?>(null) }

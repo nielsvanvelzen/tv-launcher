@@ -15,7 +15,6 @@ import nl.ndat.tvlauncher.data.repository.ChannelRepository
 import nl.ndat.tvlauncher.ui.component.row.AppCardRow
 import nl.ndat.tvlauncher.ui.component.row.ChannelProgramCardRow
 import nl.ndat.tvlauncher.ui.toolbar.Toolbar
-import org.koin.androidx.compose.inject
 
 @Composable
 fun LauncherPage() {
@@ -39,7 +38,7 @@ fun LauncherPage() {
 
 @Composable
 fun ChannelProgramCardRows() {
-	val channelRepository: ChannelRepository by inject()
+	val channelRepository: ChannelRepository = get()
 	val channels by channelRepository.getChannels().collectAsState(initial = emptyList())
 
 	for (channel in channels) {

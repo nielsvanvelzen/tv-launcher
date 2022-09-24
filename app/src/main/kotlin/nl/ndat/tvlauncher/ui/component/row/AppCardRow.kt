@@ -6,11 +6,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import nl.ndat.tvlauncher.data.repository.AppRepository
 import nl.ndat.tvlauncher.ui.component.card.AppCard
-import org.koin.androidx.compose.inject
+import org.koin.androidx.compose.get
 
 @Composable
 fun AppCardRow() {
-	val appRepository: AppRepository by inject()
+	val appRepository: AppRepository = get()
 	val apps by appRepository.getApps().collectAsState(initial = emptyList())
 
 	CardRow {

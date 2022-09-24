@@ -12,13 +12,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import nl.ndat.tvlauncher.data.model.ToolbarLocation
 import nl.ndat.tvlauncher.data.repository.PreferenceRepository
-import org.koin.androidx.compose.inject
+import org.koin.androidx.compose.get
 
 @Composable
 fun Toolbar(
 	modifier: Modifier = Modifier,
 ) {
-	val preferenceRepository by inject<PreferenceRepository>()
+	val preferenceRepository = get<PreferenceRepository>()
 	val location by preferenceRepository.toolbarLocation.collectAsState()
 
 	Column(

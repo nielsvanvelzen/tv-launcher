@@ -18,12 +18,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import nl.ndat.tvlauncher.R
 import nl.ndat.tvlauncher.data.repository.InputRepository
-import org.koin.androidx.compose.inject
+import org.koin.androidx.compose.get
 
 @Composable
 fun ToolbarInputsButton() {
 	val context = LocalContext.current
-	val inputRepository: InputRepository by inject()
+	val inputRepository: InputRepository = get()
 	val inputs by inputRepository.getInputs().collectAsState(initial = emptyList())
 
 	// TODO: When toolbar is configurable this should be removed
