@@ -6,28 +6,24 @@ on:
       - master
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
       - name: Setup Java
         uses: actions/setup-java@d854b6da19cdadd9a010605529e522c2393ebd38 # tag=v3
         with:
-          distribution: adopt
+          distribution: temurin
           java-version: 11
-      - name: Setup Gradle cache
-        uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3.0.8
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@c295a4096e1d2c453eaf1f65c6f96686e26bd8be # tag=v2
       - name: Assemble debug APKs
-        run: ./gradlew --build-cache --no-daemon --info assembleDebug
+        run: ./gradlew assembleDebug
       - name: Upload artifacts
         uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # tag=v3
         with:
