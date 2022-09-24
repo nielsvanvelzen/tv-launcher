@@ -15,6 +15,7 @@ import nl.ndat.tvlauncher.data.repository.ChannelRepository
 import nl.ndat.tvlauncher.ui.component.row.AppCardRow
 import nl.ndat.tvlauncher.ui.component.row.ChannelProgramCardRow
 import nl.ndat.tvlauncher.ui.toolbar.Toolbar
+import org.koin.androidx.compose.get
 
 @Composable
 fun LauncherPage() {
