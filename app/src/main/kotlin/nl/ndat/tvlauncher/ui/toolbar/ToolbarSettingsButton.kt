@@ -2,6 +2,7 @@ package nl.ndat.tvlauncher.ui.toolbar
 
 import android.content.Intent
 import android.provider.Settings
+import androidx.compose.foundation.layout.Box
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
@@ -20,7 +21,7 @@ import androidx.compose.ui.res.stringResource
 import nl.ndat.tvlauncher.R
 
 @Composable
-fun ToolbarSettingsButton() {
+fun ToolbarSettingsButton() = Box {
 	val context = LocalContext.current
 	var expand by remember { mutableStateOf(false) }
 
