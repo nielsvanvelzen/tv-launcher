@@ -1,5 +1,7 @@
 package nl.ndat.tvlauncher.ui.toolbar
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.focusGroup
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +16,7 @@ import nl.ndat.tvlauncher.data.model.ToolbarLocation
 import nl.ndat.tvlauncher.data.repository.PreferenceRepository
 import org.koin.androidx.compose.get
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Toolbar(
 	modifier: Modifier = Modifier,
@@ -24,6 +27,7 @@ fun Toolbar(
 	Column(
 		modifier = Modifier
 			.fillMaxWidth()
+			.focusGroup()
 	) {
 		Row(
 			modifier = modifier

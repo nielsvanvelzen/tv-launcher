@@ -1,6 +1,9 @@
 package nl.ndat.tvlauncher.ui.component.row
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.focusGroup
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,10 +18,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import nl.ndat.tvlauncher.ui.theme.NoRippleTheme
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CardRow(
 	title: String? = null,
 	content: LazyListScope.() -> Unit,
+) = Column(
+	modifier = Modifier.focusGroup()
 ) {
 	CompositionLocalProvider(
 		LocalRippleTheme provides NoRippleTheme,
