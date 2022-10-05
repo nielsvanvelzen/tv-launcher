@@ -12,8 +12,8 @@ androidx-tvprovider = "1.1.0-alpha01"
 coil = "2.2.2"
 koin = "3.2.2"
 koin-compose = "3.2.1"
-kotlin = "1.7.10"
-kotlin-ksp = "1.7.10-1.0.6"
+kotlin = "1.7.20"
+kotlin-ksp = "1.7.20-1.0.6"
 
 [plugins]
 android-app = { id = "com.android.application", version.ref = "android-plugin" }
