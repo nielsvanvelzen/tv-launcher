@@ -40,5 +40,6 @@ dependencies {
 	// UI
 	implementation(libs.androidx.appcompat)
 	implementation(libs.bundles.androidx.compose)
+	implementation(libs.bundles.androidx.tv)
 	implementation(libs.coil.compose)
 }
