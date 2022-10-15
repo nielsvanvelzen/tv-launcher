@@ -14,6 +14,7 @@ import nl.ndat.tvlauncher.data.model.ChannelProgramInteractionType
 import nl.ndat.tvlauncher.data.model.ChannelProgramType
 import nl.ndat.tvlauncher.data.model.ChannelType
 
+
 class ChannelResolver {
 	companion object {
 		const val CHANNEL_ID_PREFIX = "channel:"
@@ -39,9 +40,14 @@ class ChannelResolver {
 			do {
 				try {
 					val packageName = cursor.getString(PreviewChannel.Columns.COL_PACKAGE_NAME)
-					if (packageName != "com.google.android.tvrecommendations") add(
-						PreviewChannel.fromCursor(cursor).toChannel()
-					)
+					val channelType = cursor.getString(PreviewChannel.Columns.COL_TYPE).toBoolean()
+					// Check if app has channel.
+					if(channelType)
+					{
+						if (packageName != "com.google.android.tvrecommendations") add(
+							PreviewChannel.fromCursor(cursor).toChannel()
+						)
+					}
 				} catch (err: NullPointerException) {
 					Log.e("ChannelResolver", "Unable to parse channel", err)
 				} catch (err: CursorIndexOutOfBoundsException) {
