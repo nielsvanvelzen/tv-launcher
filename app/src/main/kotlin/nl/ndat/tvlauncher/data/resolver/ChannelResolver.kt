@@ -76,7 +76,11 @@ class ChannelResolver {
 
 			do {
 				try {
-					add(PreviewProgram.fromCursor(cursor).toChannelProgram())
+					// Check if app has channel.
+					if (!cursor.getString(PreviewChannel.Columns.COL_APP_LINK_INTENT_URI).isNullOrEmpty())
+					{
+						add(PreviewProgram.fromCursor(cursor).toChannelProgram())
+					}
 				} catch (err: NullPointerException) {
 					Log.e("ChannelResolver", "Unable to parse channel program", err)
 				} catch (err: CursorIndexOutOfBoundsException) {
