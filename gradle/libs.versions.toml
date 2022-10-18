@@ -10,7 +10,7 @@ androidx-room = "2.4.3"
 androidx-tv = "1.0.0-alpha01"
 androidx-tvprovider = "1.1.0-alpha01"
 coil = "2.2.2"
-koin = "3.2.2"
+koin-android = "3.2.2"
 koin-compose = "3.2.1"
 kotlin = "1.7.20"
 kotlin-ksp = "1.7.20-1.0.7"
@@ -34,9 +34,8 @@ androidx-tv-foundation = { module = "androidx.tv:tv-foundation", version.ref = "
 androidx-tv-material = { module = "androidx.tv:tv-material", version.ref = "androidx.tv" }
 androidx-tvprovider = { module = "androidx.tvprovider:tvprovider", version.ref = "androidx-tvprovider" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
-koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-android" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin-compose" }
-koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 
 [bundles]
 androidx-compose = [
@@ -50,7 +49,6 @@ androidx-tv = [
     "androidx-compose-ui-tooling",
 ]
 koin = [
-    "koin-core",
     "koin-android",
     "koin-androidx-compose",
 ]
