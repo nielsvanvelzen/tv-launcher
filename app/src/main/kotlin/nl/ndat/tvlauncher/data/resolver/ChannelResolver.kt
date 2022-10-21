@@ -40,9 +40,9 @@ class ChannelResolver {
 				try {
 					val packageName = cursor.getString(PreviewChannel.Columns.COL_PACKAGE_NAME)
 					// Check if app has channel.
-					if (!cursor.getString(PreviewChannel.Columns.COL_APP_LINK_INTENT_URI).isNullOrEmpty()){
-						if (packageName != "com.google.android.tvrecommendations") add(
-							PreviewChannel.fromCursor(cursor).toChannel()
+					if (!cursor.getString(PreviewChannel.Columns.COL_APP_LINK_INTENT_URI).isNullOrEmpty() &&
+						packageName != "com.google.android.tvrecommendations"){
+							add(PreviewChannel.fromCursor(cursor).toChannel()
 						)
 					}
 				} catch (err: NullPointerException) {
