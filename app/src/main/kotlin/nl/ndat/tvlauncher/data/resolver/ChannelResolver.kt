@@ -38,12 +38,12 @@ class ChannelResolver {
 
 			do {
 				try {
-					val packageName = cursor.getString(PreviewChannel.Columns.COL_PACKAGE_NAME)
-					// Check if app has channel.
-					if (!cursor.getString(PreviewChannel.Columns.COL_APP_LINK_INTENT_URI).isNullOrEmpty() &&
-						packageName != "com.google.android.tvrecommendations"){
-							add(PreviewChannel.fromCursor(cursor).toChannel()
-						)
+					if (cursor.getString(PreviewChannel.Columns.COL_APP_LINK_INTENT_URI).isNullOrEmpty()) {
+						Log.d("ChannelResolver", "Ignoring channel ${cursor.getString(PreviewChannel.Columns.COL_PACKAGE_NAME)} due to missing intent uri")
+					} else if (cursor.getString(PreviewChannel.Columns.COL_DISPLAY_NAME).isNullOrEmpty()) {
+						Log.d("ChannelResolver", "Ignoring channel ${cursor.getString(PreviewChannel.Columns.COL_PACKAGE_NAME)} due to missing display name")
+					} else {
+						add(PreviewChannel.fromCursor(cursor).toChannel())
 					}
 				} catch (err: NullPointerException) {
 					Log.e("ChannelResolver", "Unable to parse channel", err)
