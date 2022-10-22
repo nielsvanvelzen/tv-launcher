@@ -2,6 +2,8 @@ package nl.ndat.tvlauncher.data.resolver
 
 import android.content.Context
 import android.database.CursorIndexOutOfBoundsException
+import android.net.Uri
+import android.util.Base64
 import androidx.tvprovider.media.tv.PreviewChannel
 import androidx.tvprovider.media.tv.PreviewProgram
 import androidx.tvprovider.media.tv.TvContractCompat
@@ -12,6 +14,7 @@ import nl.ndat.tvlauncher.data.model.ChannelProgramAspectRatio
 import nl.ndat.tvlauncher.data.model.ChannelProgramInteractionType
 import nl.ndat.tvlauncher.data.model.ChannelProgramType
 import nl.ndat.tvlauncher.data.model.ChannelType
+import org.json.JSONObject
 import timber.log.Timber
 
 class ChannelResolver {
@@ -129,7 +132,7 @@ class ChannelResolver {
 		channelId = "$CHANNEL_ID_PREFIX$channelId",
 		packageName = packageName,
 		weight = weight,
-		posterArtUri = posterArtUri?.toString(),
+		posterArtUri = decodeArtUri(posterArtUri),
 		posterArtAspectRatio = when (posterArtAspectRatio) {
 			TvContractCompat.PreviewPrograms.ASPECT_RATIO_16_9 -> ChannelProgramAspectRatio.AR16_9
 			TvContractCompat.PreviewPrograms.ASPECT_RATIO_3_2 -> ChannelProgramAspectRatio.AR3_2
@@ -188,7 +191,7 @@ class ChannelResolver {
 		channelId = CHANNEL_ID_WATCH_NEXT,
 		packageName = packageName,
 		weight = -1,
-		posterArtUri = posterArtUri?.toString(),
+		posterArtUri = decodeArtUri(posterArtUri),
 		posterArtAspectRatio = when (posterArtAspectRatio) {
 			TvContractCompat.PreviewPrograms.ASPECT_RATIO_16_9 -> ChannelProgramAspectRatio.AR16_9
 			TvContractCompat.PreviewPrograms.ASPECT_RATIO_3_2 -> ChannelProgramAspectRatio.AR3_2
@@ -241,4 +244,15 @@ class ChannelResolver {
 		description = description,
 		intentUri = intentUri?.toString()
 	)
+
+	private fun decodeArtUri(posterArtUri: Uri?): String? {
+		return try {
+			// Decode art Uri for Geforce Now
+			val uri = Uri.parse(posterArtUri.toString()).lastPathSegment
+			val bas64 = Base64.decode(uri, Base64.DEFAULT).toString(charset("UTF-8"))
+			JSONObject(bas64).getString("URL").toString()
+		}catch (err : Exception){
+			posterArtUri?.toString()
+		}
+	}
 }
