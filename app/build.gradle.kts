@@ -32,6 +32,7 @@ dependencies {
 	implementation(libs.androidx.core.role)
 	implementation(libs.androidx.tvprovider)
 	implementation(libs.bundles.koin)
+	implementation(libs.timber)
 
 	// Data
 	implementation(libs.androidx.room.ktx)

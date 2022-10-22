@@ -2,7 +2,6 @@ package nl.ndat.tvlauncher.data.resolver
 
 import android.content.Context
 import android.database.CursorIndexOutOfBoundsException
-import android.util.Log
 import androidx.tvprovider.media.tv.PreviewChannel
 import androidx.tvprovider.media.tv.PreviewProgram
 import androidx.tvprovider.media.tv.TvContractCompat
@@ -13,6 +12,7 @@ import nl.ndat.tvlauncher.data.model.ChannelProgramAspectRatio
 import nl.ndat.tvlauncher.data.model.ChannelProgramInteractionType
 import nl.ndat.tvlauncher.data.model.ChannelProgramType
 import nl.ndat.tvlauncher.data.model.ChannelType
+import timber.log.Timber
 
 class ChannelResolver {
 	companion object {
@@ -32,23 +32,23 @@ class ChannelResolver {
 
 		return buildList {
 			if (!cursor.moveToFirst()) {
-				Log.w("ChannelResolver", "Unable to move cursor")
+				Timber.w("Unable to move cursor")
 				return emptyList()
 			}
 
 			do {
 				try {
 					if (cursor.getString(PreviewChannel.Columns.COL_APP_LINK_INTENT_URI).isNullOrEmpty()) {
-						Log.d("ChannelResolver", "Ignoring channel ${cursor.getString(PreviewChannel.Columns.COL_PACKAGE_NAME)} due to missing intent uri")
+						Timber.d("Ignoring channel ${cursor.getString(PreviewChannel.Columns.COL_PACKAGE_NAME)} due to missing intent uri")
 					} else if (cursor.getString(PreviewChannel.Columns.COL_DISPLAY_NAME).isNullOrEmpty()) {
-						Log.d("ChannelResolver", "Ignoring channel ${cursor.getString(PreviewChannel.Columns.COL_PACKAGE_NAME)} due to missing display name")
+						Timber.d("Ignoring channel ${cursor.getString(PreviewChannel.Columns.COL_PACKAGE_NAME)} due to missing display name")
 					} else {
 						add(PreviewChannel.fromCursor(cursor).toChannel())
 					}
 				} catch (err: NullPointerException) {
-					Log.e("ChannelResolver", "Unable to parse channel", err)
+					Timber.e(err, "Unable to parse channel")
 				} catch (err: CursorIndexOutOfBoundsException) {
-					Log.e("ChannelResolver", "Unable to parse channel", err)
+					Timber.e(err, "Unable to parse channel")
 				}
 			} while (cursor.moveToNext())
 
@@ -67,7 +67,7 @@ class ChannelResolver {
 
 		return buildList {
 			if (!cursor.moveToFirst()) {
-				Log.w("ChannelResolver", "Unable to move cursor")
+				Timber.w("Unable to move cursor")
 				return emptyList()
 			}
 
@@ -75,9 +75,9 @@ class ChannelResolver {
 				try {
 					add(PreviewProgram.fromCursor(cursor).toChannelProgram())
 				} catch (err: NullPointerException) {
-					Log.e("ChannelResolver", "Unable to parse channel program", err)
+					Timber.e(err, "Unable to parse channel program")
 				} catch (err: CursorIndexOutOfBoundsException) {
-					Log.e("ChannelResolver", "Unable to parse channel program", err)
+					Timber.e(err, "Unable to parse channel program")
 				}
 			} while (cursor.moveToNext())
 
@@ -96,7 +96,7 @@ class ChannelResolver {
 
 		return buildList {
 			if (!cursor.moveToFirst()) {
-				Log.w("ChannelResolver", "Unable to move cursor")
+				Timber.w("Unable to move cursor")
 				return emptyList()
 			}
 
@@ -104,9 +104,9 @@ class ChannelResolver {
 				try {
 					add(WatchNextProgram.fromCursor(cursor).toChannelProgram())
 				} catch (err: NullPointerException) {
-					Log.e("ChannelResolver", "Unable to parse channel program", err)
+					Timber.e(err, "Unable to parse channel program")
 				} catch (err: CursorIndexOutOfBoundsException) {
-					Log.e("ChannelResolver", "Unable to parse channel program", err)
+					Timber.e(err, "Unable to parse channel program")
 				}
 			} while (cursor.moveToNext())
 
