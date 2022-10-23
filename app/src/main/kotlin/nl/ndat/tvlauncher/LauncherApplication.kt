@@ -1,6 +1,9 @@
 package nl.ndat.tvlauncher
 
 import android.app.Application
+import coil.ImageLoader
+import coil.ImageLoaderFactory
+import coil.util.DebugLogger
 import nl.ndat.tvlauncher.data.SharedDatabase
 import nl.ndat.tvlauncher.data.repository.AppRepository
 import nl.ndat.tvlauncher.data.repository.ChannelRepository
@@ -44,7 +47,7 @@ private val databaseModule = module {
 }
 
 @Suppress("unused")
-class LauncherApplication : Application() {
+class LauncherApplication : Application(), ImageLoaderFactory {
 	override fun onCreate() {
 		super.onCreate()
 
@@ -57,4 +60,8 @@ class LauncherApplication : Application() {
 			modules(launcherModule, databaseModule)
 		}
 	}
+
+	override fun newImageLoader()= ImageLoader.Builder(this)
+		.logger(DebugLogger())
+		.build()
 }
