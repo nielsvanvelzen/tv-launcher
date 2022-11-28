@@ -14,8 +14,8 @@ androidx-tvprovider = "1.1.0-alpha01"
 coil = "2.2.2"
 koin-android = "3.3.0"
 koin-compose = "3.3.0"
-kotlin = "1.7.21"
-kotlin-ksp = "1.7.21-1.0.8"
+kotlin = "1.7.22"
+kotlin-ksp = "1.7.22-1.0.8"
 timber = "5.0.1"
 
 [plugins]
