@@ -1,5 +1,5 @@
 [versions]
-android-plugin = "7.4.0"
+android-plugin = "7.4.1"
 androidx-activity = "1.6.1"
 androidx-appcompat = "1.6.0"
 androidx-compose-compiler = "1.4.0"
