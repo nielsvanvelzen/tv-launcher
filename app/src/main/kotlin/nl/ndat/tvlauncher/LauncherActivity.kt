@@ -4,8 +4,12 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.core.app.ActivityCompat
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.tvprovider.media.tv.TvContractCompat
+import kotlinx.coroutines.launch
 import nl.ndat.tvlauncher.data.repository.AppRepository
 import nl.ndat.tvlauncher.data.repository.ChannelRepository
 import nl.ndat.tvlauncher.data.repository.InputRepository
@@ -28,14 +32,16 @@ class LauncherActivity : ComponentActivity() {
 
 		validateDefaultLauncher()
 
-		lifecycleScope.launchWhenResumed {
-			appRepository.refreshAllApplications()
-			inputRepository.refreshAllInputs()
-			channelRepository.refreshAllChannels()
+		lifecycleScope.launch {
+			repeatOnLifecycle(Lifecycle.State.RESUMED) {
+				appRepository.refreshAllApplications()
+				inputRepository.refreshAllInputs()
+				channelRepository.refreshAllChannels()
+			}
 		}
 
 		if (checkCallingOrSelfPermission(TvContractCompat.PERMISSION_READ_TV_LISTINGS) != PackageManager.PERMISSION_GRANTED)
-			requestPermissions(arrayOf(TvContractCompat.PERMISSION_READ_TV_LISTINGS), 0)
+			ActivityCompat.requestPermissions(this, arrayOf(TvContractCompat.PERMISSION_READ_TV_LISTINGS), 0)
 	}
 
 	private fun validateDefaultLauncher() {

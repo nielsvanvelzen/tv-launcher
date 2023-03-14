@@ -46,7 +46,6 @@ private val databaseModule = module {
 	single { get<SharedDatabase>().inputDao() }
 }
 
-@Suppress("unused")
 class LauncherApplication : Application(), ImageLoaderFactory {
 	override fun onCreate() {
 		super.onCreate()

@@ -124,6 +124,7 @@ class ChannelResolver {
 		appLinkIntentUri = appLinkIntentUri.toString(),
 	)
 
+	@Suppress("USELESS_ELVIS")
 	private fun PreviewProgram.toChannelProgram() = ChannelProgram(
 		id = "$CHANNEL_PROGRAM_ID_PREFIX$id",
 		channelId = "$CHANNEL_ID_PREFIX$channelId",
@@ -183,6 +184,7 @@ class ChannelResolver {
 		intentUri = intentUri?.toString()
 	)
 
+	@Suppress("USELESS_ELVIS")
 	private fun WatchNextProgram.toChannelProgram() = ChannelProgram(
 		id = "$CHANNEL_PROGRAM_ID_PREFIX$id",
 		channelId = CHANNEL_ID_WATCH_NEXT,

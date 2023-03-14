@@ -1,5 +1,6 @@
 package nl.ndat.tvlauncher.ui.toolbar
 
+import android.os.Build
 import android.provider.Settings
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -12,7 +13,11 @@ import androidx.compose.ui.unit.sp
 fun ToolbarTitle() {
 	val context = LocalContext.current
 	val name = remember(context) {
-		Settings.Global.getString(context.contentResolver, Settings.Global.DEVICE_NAME).orEmpty()
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+			Settings.Global.getString(context.contentResolver, Settings.Global.DEVICE_NAME).orEmpty()
+		} else {
+			Build.MODEL
+		}
 	}
 
 	Text(
