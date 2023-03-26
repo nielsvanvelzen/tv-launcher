@@ -3,13 +3,13 @@ package nl.ndat.tvlauncher.ui.toolbar
 import android.content.Intent
 import android.provider.Settings
 import androidx.compose.foundation.layout.Box
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,15 +40,17 @@ fun ToolbarSettingsButton() = Box {
 		onDismissRequest = { expand = false },
 	) {
 		// TODO implement app settings
-		// DropdownMenuItem(onClick = { expand = false }) {
-		// 	Text(stringResource(R.string.settings_launcher))
-		// }
+//		DropdownMenuItem(
+//			text = { Text(stringResource(R.string.settings_launcher)) },
+//			onClick = { expand = false }
+//		)
 
-		DropdownMenuItem(onClick = {
-			context.startActivity(Intent(Settings.ACTION_SETTINGS))
-			expand = false
-		}) {
-			Text(stringResource(R.string.settings_system))
-		}
+		DropdownMenuItem(
+			text = { Text(stringResource(R.string.settings_system)) },
+			onClick = {
+				context.startActivity(Intent(Settings.ACTION_SETTINGS))
+				expand = false
+			}
+		)
 	}
 }

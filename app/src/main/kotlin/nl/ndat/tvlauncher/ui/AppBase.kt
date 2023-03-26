@@ -3,10 +3,10 @@ package nl.ndat.tvlauncher.ui
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Shapes
-import androidx.compose.material.Surface
-import androidx.compose.material.darkColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
+import androidx.compose.material3.Surface
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
@@ -17,7 +17,7 @@ import nl.ndat.tvlauncher.ui.page.LauncherPage
 @Composable
 fun AppBase() {
 	MaterialTheme(
-		colors = darkColors(
+		colorScheme = darkColorScheme(
 			background = Color.Black,
 			surface = Color.Black,
 		),

@@ -1,11 +1,11 @@
 package nl.ndat.tvlauncher.ui.toolbar
 
 import android.content.Intent
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -47,12 +47,13 @@ fun ToolbarInputsButton() {
 		onDismissRequest = { expand = false },
 	) {
 		for (input in inputs) {
-			DropdownMenuItem(onClick = {
-				if (input.switchIntentUri != null) context.startActivity(Intent.parseUri(input.switchIntentUri, 0))
-				expand = false
-			}) {
-				Text(input.displayName)
-			}
+			DropdownMenuItem(
+				text = { Text(input.displayName) },
+				onClick = {
+					if (input.switchIntentUri != null) context.startActivity(Intent.parseUri(input.switchIntentUri, 0))
+					expand = false
+				},
+			)
 		}
 	}
 }
