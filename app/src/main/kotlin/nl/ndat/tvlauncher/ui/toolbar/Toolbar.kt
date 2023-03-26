@@ -14,14 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import nl.ndat.tvlauncher.data.model.ToolbarLocation
 import nl.ndat.tvlauncher.data.repository.PreferenceRepository
-import org.koin.androidx.compose.get
+import org.koin.compose.rememberKoinInject
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Toolbar(
 	modifier: Modifier = Modifier,
 ) {
-	val preferenceRepository = get<PreferenceRepository>()
+	val preferenceRepository = rememberKoinInject<PreferenceRepository>()
 	val location by preferenceRepository.toolbarLocation.collectAsState()
 
 	Column(

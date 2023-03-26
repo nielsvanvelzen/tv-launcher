@@ -14,11 +14,11 @@ import nl.ndat.tvlauncher.data.repository.ChannelRepository
 import nl.ndat.tvlauncher.ui.component.row.AppCardRow
 import nl.ndat.tvlauncher.ui.component.row.ChannelProgramCardRow
 import nl.ndat.tvlauncher.ui.toolbar.Toolbar
-import org.koin.androidx.compose.get
+import org.koin.compose.rememberKoinInject
 
 @Composable
 fun LauncherPage() {
-	val channelRepository: ChannelRepository = get()
+	val channelRepository = rememberKoinInject<ChannelRepository>()
 	val channels by channelRepository.getChannels().collectAsState(initial = emptyList())
 
 	TvLazyColumn(
