@@ -31,7 +31,8 @@ dependencies {
 	implementation(libs.androidx.core)
 	implementation(libs.androidx.core.role)
 	implementation(libs.androidx.tvprovider)
-	implementation(libs.bundles.koin)
+	implementation(libs.koin.android)
+	implementation(libs.koin.androidx.compose)
 	implementation(libs.timber)
 
 	// Data
@@ -40,7 +41,12 @@ dependencies {
 
 	// UI
 	implementation(libs.androidx.appcompat)
-	implementation(libs.bundles.androidx.compose)
-	implementation(libs.bundles.androidx.tv)
+	implementation(libs.androidx.activity.compose)
+	implementation(libs.androidx.compose.foundation)
+	implementation(libs.androidx.compose.material3)
+	implementation(libs.androidx.compose.ui.tooling.preview)
+	debugImplementation(libs.androidx.compose.ui.tooling)
+	implementation(libs.androidx.tv.foundation)
+	implementation(libs.androidx.tv.material)
 	implementation(libs.coil.compose)
 }

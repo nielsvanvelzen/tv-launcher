@@ -30,6 +30,7 @@ androidx-compose-compiler = { module = "androidx.compose.compiler:compiler", ver
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose-foundation" }
 androidx-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "androidx-compose-material3" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-compose-ui" }
+androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-compose-ui" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-core-role = { module = "androidx.core:core-role", version.ref = "androidx-core-role" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
@@ -41,19 +42,3 @@ coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-android" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin-compose" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
-
-[bundles]
-androidx-compose = [
-    "androidx-activity-compose",
-    "androidx-compose-foundation",
-    "androidx-compose-material3",
-    "androidx-compose-ui-tooling",
-]
-androidx-tv = [
-    "androidx-tv-foundation",
-    "androidx-tv-material",
-]
-koin = [
-    "koin-android",
-    "koin-androidx-compose",
-]
