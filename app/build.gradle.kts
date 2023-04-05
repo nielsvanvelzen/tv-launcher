@@ -4,6 +4,8 @@ plugins {
 	alias(libs.plugins.kotlin.ksp)
 }
 
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(8))
+
 android {
 	namespace = "nl.ndat.tvlauncher"
 	compileSdk = 33
@@ -28,10 +30,6 @@ android {
 	compileOptions {
 		sourceCompatibility = JavaVersion.VERSION_1_8
 		targetCompatibility = JavaVersion.VERSION_1_8
-	}
-
-	kotlinOptions {
-		jvmTarget = JavaVersion.VERSION_1_8.toString()
 	}
 }
 
