@@ -9,10 +9,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyColumn
-import androidx.tv.foundation.lazy.list.items
 import nl.ndat.tvlauncher.data.repository.ChannelRepository
 import nl.ndat.tvlauncher.ui.component.row.AppCardRow
-import nl.ndat.tvlauncher.ui.component.row.ChannelProgramCardRow
 import nl.ndat.tvlauncher.ui.toolbar.Toolbar
 import org.koin.compose.rememberKoinInject
 
@@ -36,6 +34,7 @@ fun LauncherPage() {
 		}
 
 		item { AppCardRow() }
-		items(channels) { channel -> ChannelProgramCardRow(channel) }
+		// TODO: Re-enable when focus crash is fixed
+		// items(channels) { channel -> ChannelProgramCardRow(channel) }
 	}
 }
