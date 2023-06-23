@@ -35,13 +35,14 @@ import nl.ndat.tvlauncher.data.entity.ChannelProgram
 @Composable
 fun ChannelProgramCard(
 	program: ChannelProgram,
+	modifier: Modifier = Modifier,
 ) {
 	val context = LocalContext.current
 	var focused by remember { mutableStateOf(false) }
 	val scale = animateFloatAsState(if (focused) 1.125f else 1.0f)
 
 	Column(
-		modifier = Modifier
+		modifier = modifier
 			.width(90.dp * (program.posterArtAspectRatio?.floatValue ?: 1f))
 			.scale(scale.value)
 			.onFocusChanged { focused = it.hasFocus }

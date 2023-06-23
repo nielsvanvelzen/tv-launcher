@@ -35,6 +35,7 @@ import nl.ndat.tvlauncher.util.createDrawable
 @Composable
 fun AppCard(
 	app: App,
+	modifier: Modifier = Modifier,
 ) {
 	val context = LocalContext.current
 	val image = remember { app.createDrawable(context) }
@@ -44,7 +45,7 @@ fun AppCard(
 	val launchIntentUri = app.launchIntentUriLeanback ?: app.launchIntentUriDefault
 
 	Column(
-		modifier = Modifier
+		modifier = modifier
 			.width(160.dp)
 			.scale(scale.value)
 			.onFocusChanged { focused = it.hasFocus }
