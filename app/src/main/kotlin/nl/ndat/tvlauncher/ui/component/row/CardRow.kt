@@ -14,6 +14,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.tv.foundation.PivotOffsets
 import androidx.tv.foundation.lazy.list.TvLazyListScope
 import androidx.tv.foundation.lazy.list.TvLazyRow
 import nl.ndat.tvlauncher.ui.theme.NoRippleTheme
@@ -42,6 +43,7 @@ fun CardRow(
 
 		TvLazyRow(
 			modifier = Modifier.fillMaxWidth(),
+			pivotOffsets = PivotOffsets(0.1f),
 			contentPadding = PaddingValues(
 				vertical = 16.dp,
 				horizontal = 48.dp,
