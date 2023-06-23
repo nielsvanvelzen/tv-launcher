@@ -8,11 +8,11 @@ java.toolchain.languageVersion.set(JavaLanguageVersion.of(8))
 
 android {
 	namespace = "nl.ndat.tvlauncher"
-	compileSdk = 33
+	compileSdk = 34
 
 	defaultConfig {
 		minSdk = 21
-		targetSdk = 33
+		targetSdk = 34
 
 		applicationId = "nl.ndat.tvlauncher"
 		versionCode = 1_00_00
