@@ -10,13 +10,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusRestorer
 import androidx.compose.ui.unit.dp
 import nl.ndat.tvlauncher.data.model.ToolbarLocation
 import nl.ndat.tvlauncher.data.repository.PreferenceRepository
 import org.koin.compose.rememberKoinInject
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun Toolbar(
 	modifier: Modifier = Modifier,
@@ -28,6 +30,7 @@ fun Toolbar(
 		modifier = Modifier
 			.fillMaxWidth()
 			.focusGroup()
+			.focusRestorer()
 	) {
 		Row(
 			modifier = modifier

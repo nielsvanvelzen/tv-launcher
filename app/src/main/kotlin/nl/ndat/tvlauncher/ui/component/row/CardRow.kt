@@ -11,7 +11,9 @@ import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusRestorer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.tv.foundation.PivotOffsets
@@ -19,13 +21,15 @@ import androidx.tv.foundation.lazy.list.TvLazyListScope
 import androidx.tv.foundation.lazy.list.TvLazyRow
 import nl.ndat.tvlauncher.ui.theme.NoRippleTheme
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun CardRow(
 	title: String? = null,
 	content: TvLazyListScope.() -> Unit,
 ) = Column(
-	modifier = Modifier.focusGroup()
+	modifier = Modifier
+		.focusGroup()
+		.focusRestorer()
 ) {
 	CompositionLocalProvider(
 		LocalRippleTheme provides NoRippleTheme,
