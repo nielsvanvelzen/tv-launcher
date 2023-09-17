@@ -2,7 +2,9 @@ package nl.ndat.tvlauncher.ui.component.card
 
 import android.content.Intent
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,7 +33,9 @@ import coil.compose.AsyncImage
 import nl.ndat.tvlauncher.R
 import nl.ndat.tvlauncher.data.entity.App
 import nl.ndat.tvlauncher.util.createDrawable
+import nl.ndat.tvlauncher.util.ifElse
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AppCard(
 	app: App,
@@ -50,7 +54,12 @@ fun AppCard(
 			.scale(scale.value)
 			.onFocusChanged { focused = it.hasFocus }
 			.clickable(enabled = launchIntentUri != null) {
-				if (launchIntentUri != null) context.startActivity(Intent.parseUri(launchIntentUri, 0))
+				if (launchIntentUri != null) context.startActivity(
+					Intent.parseUri(
+						launchIntentUri,
+						0
+					)
+				)
 			},
 		horizontalAlignment = Alignment.CenterHorizontally,
 	) {
@@ -69,11 +78,20 @@ fun AppCard(
 		}
 
 		Text(
-			modifier = Modifier.padding(8.dp),
+			modifier = Modifier
+				.padding(3.dp, 6.dp)
+				.ifElse(
+					focused,
+					Modifier.basicMarquee(
+						iterations = Int.MAX_VALUE,
+						initialDelayMillis = 0,
+					),
+				),
 			text = app.displayName,
-			fontSize = 13.sp,
+			fontSize = 12.sp,
 			maxLines = 1,
-			overflow = TextOverflow.Ellipsis,
+			overflow = TextOverflow.Clip,
+			softWrap = false,
 		)
 	}
 }
