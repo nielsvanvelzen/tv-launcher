@@ -7,6 +7,7 @@ import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.FocusInteraction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,14 +18,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -45,8 +43,8 @@ fun AppCard(
 ) {
 	val context = LocalContext.current
 	val image = remember { app.createDrawable(context) }
-	var focused by remember { mutableStateOf(false) }
 	val interactionSource = remember { MutableInteractionSource() }
+	val focused = interactionSource.interactions.collectAsState(initial = null).value is FocusInteraction.Focus
 
 	val launchIntentUri = app.launchIntentUriLeanback ?: app.launchIntentUriDefault
 
@@ -55,7 +53,6 @@ fun AppCard(
 			.width(160.dp)
 			.focusable(true, interactionSource)
 			.indication(interactionSource, FocusScaleIndication(1.125f))
-			.onFocusChanged { focused = it.hasFocus }
 			.clickable(enabled = launchIntentUri != null) {
 				if (launchIntentUri != null) context.startActivity(
 					Intent.parseUri(
