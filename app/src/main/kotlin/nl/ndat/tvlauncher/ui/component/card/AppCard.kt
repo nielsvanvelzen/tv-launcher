@@ -1,11 +1,13 @@
 package nl.ndat.tvlauncher.ui.component.card
 
 import android.content.Intent
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,7 +24,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -32,6 +33,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import nl.ndat.tvlauncher.R
 import nl.ndat.tvlauncher.data.entity.App
+import nl.ndat.tvlauncher.ui.indication.FocusScaleIndication
 import nl.ndat.tvlauncher.util.createDrawable
 import nl.ndat.tvlauncher.util.ifElse
 
@@ -44,14 +46,15 @@ fun AppCard(
 	val context = LocalContext.current
 	val image = remember { app.createDrawable(context) }
 	var focused by remember { mutableStateOf(false) }
-	val scale = animateFloatAsState(if (focused) 1.125f else 1.0f)
+	val interactionSource = remember { MutableInteractionSource() }
 
 	val launchIntentUri = app.launchIntentUriLeanback ?: app.launchIntentUriDefault
 
 	Column(
 		modifier = modifier
 			.width(160.dp)
-			.scale(scale.value)
+			.focusable(true, interactionSource)
+			.indication(interactionSource, FocusScaleIndication(1.125f))
 			.onFocusChanged { focused = it.hasFocus }
 			.clickable(enabled = launchIntentUri != null) {
 				if (launchIntentUri != null) context.startActivity(
