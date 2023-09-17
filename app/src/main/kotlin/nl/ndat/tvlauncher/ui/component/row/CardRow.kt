@@ -1,6 +1,5 @@
 package nl.ndat.tvlauncher.ui.component.row
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.focusGroup
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,12 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRestorer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.tv.foundation.PivotOffsets
 import androidx.tv.foundation.lazy.list.TvLazyListScope
 import androidx.tv.foundation.lazy.list.TvLazyRow
 import nl.ndat.tvlauncher.ui.theme.NoRippleTheme
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun CardRow(
 	title: String? = null,
@@ -47,7 +45,6 @@ fun CardRow(
 
 		TvLazyRow(
 			modifier = Modifier.fillMaxWidth(),
-			pivotOffsets = PivotOffsets(0.1f),
 			contentPadding = PaddingValues(
 				vertical = 16.dp,
 				horizontal = 48.dp,
