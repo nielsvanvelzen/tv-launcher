@@ -1,7 +1,12 @@
 package nl.ndat.tvlauncher.data.resolver
 
+import android.content.ContentResolver
 import android.content.Context
+import android.database.Cursor
 import android.database.CursorIndexOutOfBoundsException
+import android.net.Uri
+import androidx.core.content.ContentResolverCompat
+import androidx.core.os.CancellationSignal
 import androidx.tvprovider.media.tv.PreviewChannel
 import androidx.tvprovider.media.tv.PreviewProgram
 import androidx.tvprovider.media.tv.TvContractCompat
@@ -21,13 +26,32 @@ class ChannelResolver {
 		const val CHANNEL_PROGRAM_ID_PREFIX = "channel_program:"
 	}
 
+	private fun ContentResolver.tryQuery(
+		uri: Uri,
+		projection: Array<String>? = null,
+		selection: String? = null,
+		selectionArgs: Array<String>? = null,
+		sortOrder: String? = null,
+		cancellationSignal: CancellationSignal? = null
+	): Cursor? = try {
+		ContentResolverCompat.query(
+			this,
+			uri,
+			projection,
+			selection,
+			selectionArgs,
+			sortOrder,
+			cancellationSignal
+		)
+	} catch (err: IllegalArgumentException) {
+		// Invalid URI - likely that this platform is not Android TV
+		null
+	}
+
 	fun getPreviewChannels(context: Context): List<Channel> {
-		val cursor = context.contentResolver.query(
+		val cursor = context.contentResolver.tryQuery(
 			TvContractCompat.Channels.CONTENT_URI,
 			PreviewChannel.Columns.PROJECTION,
-			null,
-			null,
-			null
 		) ?: return emptyList()
 
 		return buildList {
@@ -38,9 +62,13 @@ class ChannelResolver {
 
 			do {
 				try {
-					if (cursor.getString(PreviewChannel.Columns.COL_APP_LINK_INTENT_URI).isNullOrEmpty()) {
+					if (cursor.getString(PreviewChannel.Columns.COL_APP_LINK_INTENT_URI)
+							.isNullOrEmpty()
+					) {
 						Timber.d("Ignoring channel ${cursor.getString(PreviewChannel.Columns.COL_PACKAGE_NAME)} due to missing intent uri")
-					} else if (cursor.getString(PreviewChannel.Columns.COL_DISPLAY_NAME).isNullOrEmpty()) {
+					} else if (cursor.getString(PreviewChannel.Columns.COL_DISPLAY_NAME)
+							.isNullOrEmpty()
+					) {
 						Timber.d("Ignoring channel ${cursor.getString(PreviewChannel.Columns.COL_PACKAGE_NAME)} due to missing display name")
 					} else {
 						add(PreviewChannel.fromCursor(cursor).toChannel())
@@ -57,12 +85,9 @@ class ChannelResolver {
 	}
 
 	fun getChannelPrograms(context: Context, channelId: Long): List<ChannelProgram> {
-		val cursor = context.contentResolver.query(
+		val cursor = context.contentResolver.tryQuery(
 			TvContractCompat.buildPreviewProgramsUriForChannel(channelId),
 			PreviewProgram.PROJECTION,
-			null,
-			null,
-			null
 		) ?: return emptyList()
 
 		return buildList {
@@ -86,12 +111,9 @@ class ChannelResolver {
 	}
 
 	fun getWatchNextPrograms(context: Context): List<ChannelProgram> {
-		val cursor = context.contentResolver.query(
+		val cursor = context.contentResolver.tryQuery(
 			TvContractCompat.WatchNextPrograms.CONTENT_URI,
 			WatchNextProgram.PROJECTION,
-			null,
-			null,
-			null
 		) ?: return emptyList()
 
 		return buildList {
