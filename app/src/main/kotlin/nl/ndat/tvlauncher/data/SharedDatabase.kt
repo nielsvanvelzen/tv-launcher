@@ -17,7 +17,7 @@ import nl.ndat.tvlauncher.data.entity.Input
  * Primary database of the app.
  */
 @Database(
-	version = 1,
+	version = 2,
 	entities = [
 		App::class,
 		Channel::class,

@@ -15,4 +15,19 @@ data class App(
 
 	val launchIntentUriDefault: String?,
 	val launchIntentUriLeanback: String?,
+
+	@ColumnInfo(defaultValue = "false") val isFavorite: Boolean,
+)
+
+data class AppSystemDetails(
+	var id: String,
+	val displayName: String,
+	val packageName: String,
+	val launchIntentUriDefault: String?,
+	val launchIntentUriLeanback: String?,
+)
+
+data class AppFavorite(
+	var id: String,
+	val isFavorite: Boolean,
 )
