@@ -1,6 +1,7 @@
 package nl.ndat.tvlauncher.ui.component.card
 
 import android.content.Intent
+import android.view.KeyEvent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
@@ -30,6 +31,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
@@ -69,6 +71,17 @@ fun AppCard(
 			.width(160.dp)
 			.focusable(true, interactionSource)
 			.indication(interactionSource, FocusScaleIndication(1.125f))
+			.onKeyEvent(onKeyEvent = {
+				if (it.nativeKeyEvent.action == KeyEvent.ACTION_UP)
+					when(it.nativeKeyEvent.keyCode) {
+						KeyEvent.KEYCODE_MENU -> {
+							expanded.value = true;
+							true
+						}
+						else -> false
+					}
+				else false;
+			})
 			.combinedClickable(
 				enabled = launchIntentUri != null,
 				onClick = {
