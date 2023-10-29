@@ -58,7 +58,7 @@ fun AppCard(
 	val appRepository = rememberKoinInject<AppRepository>()
 	val coroutineScope = rememberCoroutineScope()
 
-	val image = remember { app.createDrawable(context) }
+	val image = remember(app.packageName) { app.createDrawable(context) }
 	val interactionSource = remember { MutableInteractionSource() }
 	val focused = interactionSource.interactions.collectAsState(initial = null).value is FocusInteraction.Focus
 	val expanded = remember { mutableStateOf(false) }
