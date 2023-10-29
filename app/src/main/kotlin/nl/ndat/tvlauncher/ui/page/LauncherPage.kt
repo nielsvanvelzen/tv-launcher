@@ -42,7 +42,7 @@ fun LauncherPage() {
 			)
 		}
 
-		item { AppCardRow(stringResource(R.string.favorites), favorites) }
+		if (favorites.size > 0) item { AppCardRow(stringResource(R.string.favorites), favorites) }
 		item { AppCardRow(stringResource(R.string.all_apps), apps) }
 		items(channels) { channel -> ChannelProgramCardRow(channel) }
 	}
