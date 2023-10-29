@@ -12,6 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.tv.foundation.lazy.list.TvLazyColumn
 import androidx.tv.foundation.lazy.list.items
 import nl.ndat.tvlauncher.R
+import nl.ndat.tvlauncher.data.entity.App
 import nl.ndat.tvlauncher.data.repository.ChannelRepository
 import nl.ndat.tvlauncher.data.repository.AppRepository
 import nl.ndat.tvlauncher.ui.component.row.AppCardRow
@@ -26,7 +27,7 @@ fun LauncherPage() {
 	
 	val appRepository = rememberKoinInject<AppRepository>()
 	val apps by appRepository.getApps().collectAsState(initial = emptyList())
-	val favorites = apps.filter { it.isFavorite }
+	val favorites = apps.filter { it.isFavorite }.sortedBy(App::displayName)
 
 	TvLazyColumn(
 		verticalArrangement = Arrangement.spacedBy(8.dp),
