@@ -124,6 +124,7 @@ fun AppCard(
 			DropdownMenuItem(
 				text = { Text(stringResource(if(app.isFavorite) R.string.favorites_remove else R.string.favorites_add)) },
 				onClick = {
+					expanded.value = false;
 					coroutineScope.launch {
 						appRepository.updateFavorite(app, !app.isFavorite)
 					}
