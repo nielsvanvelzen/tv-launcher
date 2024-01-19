@@ -15,7 +15,7 @@ coil = "2.5.0"
 koin-android = "3.5.3"
 koin-compose = "3.5.3"
 kotlin = "1.9.22"
-kotlin-ksp = "1.9.22-1.0.16"
+kotlin-ksp = "1.9.22-1.0.17"
 timber = "5.0.1"
 
 [plugins]
