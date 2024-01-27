@@ -6,7 +6,7 @@ import android.content.pm.PackageManager
 import android.content.pm.PackageManager.ResolveInfoFlags
 import android.content.pm.ResolveInfo
 import android.os.Build
-import nl.ndat.tvlauncher.data.entity.App
+import nl.ndat.tvlauncher.data.entity.AppSystemDetails
 
 class AppResolver {
 	companion object {
@@ -18,7 +18,7 @@ class AppResolver {
 		const val APP_ID_PREFIX = "app:"
 	}
 
-	fun getApplication(context: Context, packageId: String): App? {
+	fun getApplication(context: Context, packageId: String): AppSystemDetails? {
 		val packageManager = context.packageManager
 
 		return launcherCategories
@@ -34,7 +34,7 @@ class AppResolver {
 			.firstOrNull()
 	}
 
-	fun getApplications(context: Context): List<App> {
+	fun getApplications(context: Context): List<AppSystemDetails> {
 		val packageManager = context.packageManager
 
 		return launcherCategories
@@ -56,7 +56,7 @@ class AppResolver {
 			queryIntentActivities(intent, 0)
 	}
 
-	private fun ResolveInfo.toApp(packageManager: PackageManager) = App(
+	private fun ResolveInfo.toApp(packageManager: PackageManager) = AppSystemDetails(
 		id = "$APP_ID_PREFIX${activityInfo.name}",
 
 		displayName = activityInfo.loadLabel(packageManager).toString(),

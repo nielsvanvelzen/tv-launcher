@@ -6,6 +6,8 @@ import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 import nl.ndat.tvlauncher.data.entity.App
+import nl.ndat.tvlauncher.data.entity.AppSystemDetails
+import nl.ndat.tvlauncher.data.entity.AppFavorite
 
 @Dao
 interface AppDao {
@@ -18,11 +20,14 @@ interface AppDao {
 	@Query("SELECT * FROM app WHERE packageName = :packageName LIMIT 1")
 	suspend fun getByPackageName(packageName: String): App?
 
-	@Insert
-	suspend fun insert(vararg inputs: App)
+	@Insert(entity = App::class)
+	suspend fun insert(vararg inputs: AppSystemDetails)
 
-	@Update
-	suspend fun update(vararg inputs: App)
+	@Update(entity = App::class)
+	suspend fun update(vararg inputs: AppSystemDetails)
+
+	@Update(entity = App::class)
+	suspend fun updateFavorite(vararg inputs: AppFavorite)
 
 	@Query("DELETE FROM app WHERE packageName = :packageName")
 	suspend fun removeByPackageName(packageName: String)
