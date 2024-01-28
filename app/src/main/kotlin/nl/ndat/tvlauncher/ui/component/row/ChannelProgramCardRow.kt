@@ -10,11 +10,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.tv.foundation.lazy.list.items
 import nl.ndat.tvlauncher.R
-import nl.ndat.tvlauncher.data.entity.App
-import nl.ndat.tvlauncher.data.entity.Channel
 import nl.ndat.tvlauncher.data.model.ChannelType
 import nl.ndat.tvlauncher.data.repository.AppRepository
 import nl.ndat.tvlauncher.data.repository.ChannelRepository
+import nl.ndat.tvlauncher.data.sqldelight.App
+import nl.ndat.tvlauncher.data.sqldelight.Channel
 import nl.ndat.tvlauncher.ui.component.card.ChannelProgramCard
 import org.koin.compose.rememberKoinInject
 

@@ -19,5 +19,10 @@ charset = utf-8
 indent_style = tab
 tab_width = 4
 
+[*.sq]
+charset = utf-8
+indent_style = tab
+tab_width = 4
+
 [*.md]
 trim_trailing_whitespace = false

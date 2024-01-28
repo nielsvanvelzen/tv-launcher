@@ -6,7 +6,7 @@ import android.content.pm.PackageManager
 import android.content.pm.PackageManager.ResolveInfoFlags
 import android.content.pm.ResolveInfo
 import android.os.Build
-import nl.ndat.tvlauncher.data.entity.App
+import nl.ndat.tvlauncher.data.sqldelight.App
 
 class AppResolver {
 	companion object {

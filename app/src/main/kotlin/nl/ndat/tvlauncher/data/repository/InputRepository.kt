@@ -1,32 +1,34 @@
 package nl.ndat.tvlauncher.data.repository
 
 import android.content.Context
-import nl.ndat.tvlauncher.data.SharedDatabase
-import nl.ndat.tvlauncher.data.dao.InputDao
-import nl.ndat.tvlauncher.data.entity.Input
+import nl.ndat.tvlauncher.data.DatabaseContainer
+import nl.ndat.tvlauncher.data.executeAsListFlow
 import nl.ndat.tvlauncher.data.resolver.InputResolver
-import nl.ndat.tvlauncher.util.withSingleTransaction
+import nl.ndat.tvlauncher.data.sqldelight.Input
 
 class InputRepository(
 	private val context: Context,
 	private val inputResolver: InputResolver,
-	private val database: SharedDatabase,
-	private val inputDao: InputDao,
+	private val database: DatabaseContainer
 ) {
-	private suspend fun commitInputs(inputs: Collection<Input>) = database.withSingleTransaction {
+	private suspend fun commitInputs(inputs: Collection<Input>) = database.transaction {
 		// Remove missing inputs from database
 		val currentIds = inputs.map { it.id }
-		inputDao.removeNotIn(currentIds)
+		database.inputs.removeNotIn(currentIds)
 
 		// Upsert inputs
 		inputs.map { input -> commitInput(input) }
 	}
 
-	private suspend fun commitInput(input: Input) {
-		val current = inputDao.getById(input.id)
-
-		if (current != null) inputDao.update(input)
-		else inputDao.insert(input)
+	private fun commitInput(input: Input) {
+		database.inputs.upsert(
+			id = input.id,
+			inputId = input.id,
+			displayName = input.displayName,
+			packageName = input.packageName,
+			type = input.type,
+			switchIntentUri = input.switchIntentUri
+		)
 	}
 
 	suspend fun refreshAllInputs() {
@@ -34,5 +36,5 @@ class InputRepository(
 		commitInputs(inputs)
 	}
 
-	fun getInputs() = inputDao.getAll()
+	fun getInputs() = database.inputs.getAll().executeAsListFlow()
 }

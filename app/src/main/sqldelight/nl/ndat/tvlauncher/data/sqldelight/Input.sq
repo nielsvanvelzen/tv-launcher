@@ -1,0 +1,50 @@
+import nl.ndat.tvlauncher.data.model.InputType;
+
+CREATE TABLE Input (
+	id TEXT NOT NULL PRIMARY KEY,
+	inputId TEXT NOT NULL,
+
+	displayName TEXT NOT NULL,
+	packageName TEXT,
+	type TEXT AS InputType NOT NULL,
+
+	switchIntentUri TEXT
+);
+
+getAll:
+SELECT * FROM Input;
+
+getById:
+SELECT * FROM Input WHERE id = :id LIMIT 1;
+
+upsert {
+	UPDATE Input SET
+		inputId = :inputId,
+		displayName = :displayName,
+		packageName = :packageName,
+		type = :type,
+		switchIntentUri = :switchIntentUri
+	WHERE id = :id;
+
+	INSERT OR IGNORE INTO Input (
+		id,
+		inputId,
+        displayName,
+        packageName,
+        type,
+        switchIntentUri
+	) VALUES (
+		:id,
+		:inputId,
+        :displayName,
+        :packageName,
+        :type,
+        :switchIntentUri
+	);
+}
+
+removeByPackageName:
+DELETE FROM Input WHERE packageName = :packageName;
+
+removeNotIn:
+DELETE FROM Input WHERE id NOT IN :ids;

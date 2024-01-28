@@ -1,7 +1,7 @@
 plugins {
 	alias(libs.plugins.android.app)
 	alias(libs.plugins.kotlin.android)
-	alias(libs.plugins.kotlin.ksp)
+	alias(libs.plugins.sqldelight)
 }
 
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
@@ -34,6 +34,14 @@ android {
 	}
 }
 
+sqldelight {
+	databases {
+		create("Database") {
+			packageName.set("nl.ndat.tvlauncher.data.sqldelight")
+		}
+	}
+}
+
 dependencies {
 	// System
 	implementation(libs.androidx.core)
@@ -44,8 +52,8 @@ dependencies {
 	implementation(libs.timber)
 
 	// Data
-	implementation(libs.androidx.room.ktx)
-	ksp(libs.androidx.room.compiler)
+	implementation(libs.sqldelight.android)
+	implementation(libs.sqldelight.coroutines)
 
 	// UI
 	implementation(libs.androidx.appcompat)
