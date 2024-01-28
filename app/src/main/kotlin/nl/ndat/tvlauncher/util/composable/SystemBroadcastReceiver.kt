@@ -7,6 +7,7 @@ import android.content.IntentFilter
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat
 
 @Composable
 fun SystemBroadcastReceiver(
@@ -19,7 +20,7 @@ fun SystemBroadcastReceiver(
 			override fun onReceive(context: Context?, intent: Intent?) = onBroadcastReceive(context, intent)
 		}
 
-		context.registerReceiver(receiver, filter)
+		ContextCompat.registerReceiver(context, receiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED)
 		onDispose { context.unregisterReceiver(receiver) }
 	}
 }
