@@ -16,14 +16,14 @@ import androidx.compose.ui.focus.focusRestorer
 import androidx.compose.ui.unit.dp
 import nl.ndat.tvlauncher.data.model.ToolbarLocation
 import nl.ndat.tvlauncher.data.repository.PreferenceRepository
-import org.koin.compose.rememberKoinInject
+import org.koin.compose.koinInject
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun Toolbar(
 	modifier: Modifier = Modifier,
 ) {
-	val preferenceRepository = rememberKoinInject<PreferenceRepository>()
+	val preferenceRepository = koinInject<PreferenceRepository>()
 	val location by preferenceRepository.toolbarLocation.collectAsState()
 
 	Column(

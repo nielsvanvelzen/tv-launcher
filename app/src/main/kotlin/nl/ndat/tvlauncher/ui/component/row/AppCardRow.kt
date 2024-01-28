@@ -6,11 +6,11 @@ import androidx.compose.runtime.getValue
 import androidx.tv.foundation.lazy.list.items
 import nl.ndat.tvlauncher.data.repository.AppRepository
 import nl.ndat.tvlauncher.ui.component.card.AppCard
-import org.koin.compose.rememberKoinInject
+import org.koin.compose.koinInject
 
 @Composable
 fun AppCardRow() {
-	val appRepository = rememberKoinInject<AppRepository>()
+	val appRepository = koinInject<AppRepository>()
 	val apps by appRepository.getApps().collectAsState(initial = emptyList())
 
 	CardRow {

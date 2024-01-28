@@ -16,14 +16,14 @@ import nl.ndat.tvlauncher.data.repository.ChannelRepository
 import nl.ndat.tvlauncher.data.sqldelight.App
 import nl.ndat.tvlauncher.data.sqldelight.Channel
 import nl.ndat.tvlauncher.ui.component.card.ChannelProgramCard
-import org.koin.compose.rememberKoinInject
+import org.koin.compose.koinInject
 
 @Composable
 fun ChannelProgramCardRow(
 	channel: Channel,
 ) {
-	val channelRepository = rememberKoinInject<ChannelRepository>()
-	val appRepository = rememberKoinInject<AppRepository>()
+	val channelRepository = koinInject<ChannelRepository>()
+	val appRepository = koinInject<AppRepository>()
 	val programs by channelRepository.getProgramsByChannel(channel).collectAsState(initial = emptyList())
 
 	var app by remember { mutableStateOf<App?>(null) }

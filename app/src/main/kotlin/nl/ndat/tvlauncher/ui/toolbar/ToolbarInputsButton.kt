@@ -18,11 +18,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import nl.ndat.tvlauncher.R
 import nl.ndat.tvlauncher.data.repository.InputRepository
-import org.koin.compose.rememberKoinInject
+import org.koin.compose.koinInject
 
 @Composable
 fun ToolbarInputsButton() {
-	val inputRepository = rememberKoinInject<InputRepository>()
+	val inputRepository = koinInject<InputRepository>()
 	val inputs by inputRepository.getInputs().collectAsState(initial = emptyList())
 	val context = LocalContext.current
 
