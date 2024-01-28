@@ -1,5 +1,6 @@
 package nl.ndat.tvlauncher.data.resolver
 
+import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.Context
 import android.database.Cursor
@@ -11,14 +12,15 @@ import androidx.tvprovider.media.tv.PreviewChannel
 import androidx.tvprovider.media.tv.PreviewProgram
 import androidx.tvprovider.media.tv.TvContractCompat
 import androidx.tvprovider.media.tv.WatchNextProgram
-import nl.ndat.tvlauncher.data.entity.Channel
-import nl.ndat.tvlauncher.data.entity.ChannelProgram
 import nl.ndat.tvlauncher.data.model.ChannelProgramAspectRatio
 import nl.ndat.tvlauncher.data.model.ChannelProgramInteractionType
 import nl.ndat.tvlauncher.data.model.ChannelProgramType
 import nl.ndat.tvlauncher.data.model.ChannelType
+import nl.ndat.tvlauncher.data.sqldelight.Channel
+import nl.ndat.tvlauncher.data.sqldelight.ChannelProgram
 import timber.log.Timber
 
+@SuppressLint("RestrictedApi")
 class ChannelResolver {
 	companion object {
 		const val CHANNEL_ID_PREFIX = "channel:"

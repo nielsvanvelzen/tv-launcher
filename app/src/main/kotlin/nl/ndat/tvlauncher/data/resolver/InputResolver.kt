@@ -4,7 +4,7 @@ import android.content.Context
 import android.media.tv.TvInputInfo
 import android.media.tv.TvInputManager
 import androidx.core.content.getSystemService
-import nl.ndat.tvlauncher.data.entity.Input
+import nl.ndat.tvlauncher.data.sqldelight.Input
 import nl.ndat.tvlauncher.util.createSwitchIntent
 import nl.ndat.tvlauncher.util.getInputType
 import nl.ndat.tvlauncher.util.loadPreferredLabel

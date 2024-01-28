@@ -1,0 +1,53 @@
+import kotlin.Long;
+import nl.ndat.tvlauncher.data.model.ChannelType;
+
+CREATE TABLE Channel (
+	id TEXT NOT NULL PRIMARY KEY,
+	type TEXT AS ChannelType NOT NULL,
+	channelId INTEGER NOT NULL,
+	displayName TEXT NOT NULL,
+	description TEXT,
+	packageName TEXT NOT NULL,
+	appLinkIntentUri TEXT
+);
+
+CREATE INDEX channelType ON Channel(type);
+CREATE INDEX channelPackageName ON Channel(packageName);
+
+getAll:
+SELECT * FROM Channel;
+
+getById:
+SELECT * FROM Channel WHERE id = :id LIMIT 1;
+
+upsert {
+	UPDATE Channel SET
+		type = :type,
+        channelId = :channelId,
+        displayName = :displayName,
+        description = :description,
+        packageName = :packageName,
+        appLinkIntentUri = :appLinkIntentUri
+	WHERE id = :id;
+
+	INSERT OR IGNORE INTO Channel (
+		id,
+		type,
+        channelId,
+        displayName,
+        description,
+        packageName,
+        appLinkIntentUri
+	) VALUES (
+		:id,
+		:type,
+        :channelId,
+        :displayName,
+        :description,
+        :packageName,
+        :appLinkIntentUri
+	);
+}
+
+removeNotIn:
+DELETE FROM Channel WHERE type = :type AND id NOT IN :ids;

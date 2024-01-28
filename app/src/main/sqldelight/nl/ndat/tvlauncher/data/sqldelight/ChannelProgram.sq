@@ -1,0 +1,130 @@
+import kotlin.Boolean;
+import kotlin.Int;
+import kotlin.Long;
+import nl.ndat.tvlauncher.data.model.ChannelProgramAspectRatio;
+import nl.ndat.tvlauncher.data.model.ChannelProgramInteractionType;
+import nl.ndat.tvlauncher.data.model.ChannelProgramType;
+import nl.ndat.tvlauncher.data.model.ChannelType;
+
+CREATE TABLE ChannelProgram (
+	id TEXT NOT NULL PRIMARY KEY,
+	channelId TEXT NOT NULL,
+	packageName TEXT NOT NULL,
+	weight INTEGER AS Int NOT NULL,
+	type TEXT AS ChannelProgramType,
+	posterArtUri TEXT,
+	posterArtAspectRatio TEXT AS ChannelProgramAspectRatio,
+	lastPlaybackPositionMillis INTEGER AS Int,
+	durationMillis INTEGER AS Int,
+	releaseDate TEXT,
+	itemCount INTEGER AS Int,
+	interactionType TEXT AS ChannelProgramInteractionType,
+	interactionCount INTEGER AS Long,
+	author TEXT,
+	genre TEXT,
+	live INTEGER AS Boolean,
+	startTimeUtcMillis INTEGER AS Long,
+	endTimeUtcMillis INTEGER AS  Long,
+	title TEXT,
+	episodeTitle TEXT,
+	seasonNumber TEXT,
+	episodeNumber TEXT,
+	description TEXT,
+	intentUri TEXT
+);
+
+CREATE INDEX channelProgramChannelId ON ChannelProgram(channelId);
+CREATE INDEX channelProgramPackageName ON ChannelProgram(packageName);
+CREATE INDEX channelProgramType ON ChannelProgram(type);
+
+getAll:
+SELECT * FROM ChannelProgram;
+
+getById:
+SELECT * FROM ChannelProgram WHERE id = :id LIMIT 1;
+
+getByChannel:
+SELECT * FROM ChannelProgram WHERE channelId = :channelId;
+
+upsert {
+	UPDATE ChannelProgram SET
+		channelId = :channelId,
+        packageName = :packageName,
+        weight = :weight,
+        type = :type,
+        posterArtUri = :posterArtUri,
+        posterArtAspectRatio = :posterArtAspectRatio,
+        lastPlaybackPositionMillis = :lastPlaybackPositionMillis,
+        durationMillis = :durationMillis,
+        releaseDate = :releaseDate,
+        itemCount = :itemCount,
+        interactionType = :interactionType,
+        interactionCount = :interactionCount,
+        author = :author,
+        genre = :genre,
+        live = :live,
+        startTimeUtcMillis = :startTimeUtcMillis,
+        endTimeUtcMillis = :endTimeUtcMillis,
+        title = :title,
+        episodeTitle = :episodeTitle,
+        seasonNumber = :seasonNumber,
+        episodeNumber = :episodeNumber,
+        description = :description,
+        intentUri = :intentUri
+	WHERE id = :id;
+
+	INSERT OR IGNORE INTO ChannelProgram (
+		id,
+		channelId,
+        packageName,
+        weight,
+        type,
+        posterArtUri,
+        posterArtAspectRatio,
+        lastPlaybackPositionMillis,
+        durationMillis,
+        releaseDate,
+        itemCount,
+        interactionType,
+        interactionCount,
+        author,
+        genre,
+        live,
+        startTimeUtcMillis,
+        endTimeUtcMillis,
+        title,
+        episodeTitle,
+        seasonNumber,
+        episodeNumber,
+        description,
+        intentUri
+	) VALUES (
+		:id,
+		:channelId,
+        :packageName,
+        :weight,
+        :type,
+        :posterArtUri,
+        :posterArtAspectRatio,
+        :lastPlaybackPositionMillis,
+        :durationMillis,
+        :releaseDate,
+        :itemCount,
+        :interactionType,
+        :interactionCount,
+        :author,
+        :genre,
+        :live,
+        :startTimeUtcMillis,
+        :endTimeUtcMillis,
+        :title,
+        :episodeTitle,
+        :seasonNumber,
+        :episodeNumber,
+        :description,
+        :intentUri
+	);
+}
+
+removeNotIn:
+DELETE FROM ChannelProgram WHERE channelId = :channelId AND id NOT IN :ids;

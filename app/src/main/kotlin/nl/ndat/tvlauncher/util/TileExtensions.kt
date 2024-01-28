@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
-import nl.ndat.tvlauncher.data.entity.App
+import nl.ndat.tvlauncher.data.sqldelight.App
 
 fun App.createDrawable(context: Context): Drawable {
 	val packageManager = context.packageManager

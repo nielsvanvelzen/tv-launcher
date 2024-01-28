@@ -1,0 +1,48 @@
+CREATE TABLE App (
+	id TEXT NOT NULL PRIMARY KEY,
+	displayName TEXT NOT NULL,
+	packageName TEXT NOT NULL,
+
+	launchIntentUriDefault TEXT,
+	launchIntentUriLeanback TEXT
+);
+
+CREATE INDEX appPackageName ON App(packageName);
+
+getAll:
+SELECT * FROM App;
+
+getById:
+SELECT * FROM App WHERE id = :id LIMIT 1;
+
+getByPackageName:
+SELECT * FROM App WHERE packageName = :packageName;
+
+upsert {
+	UPDATE App SET
+		displayName = :displayName,
+		packageName = :packageName,
+		launchIntentUriDefault = :launchIntentUriDefault,
+		launchIntentUriLeanback = :launchIntentUriLeanback
+	WHERE id = :id;
+
+	INSERT OR IGNORE INTO App (
+		id,
+		displayName,
+		packageName,
+		launchIntentUriDefault,
+		launchIntentUriLeanback
+	) VALUES (
+		:id,
+		:displayName,
+		:packageName,
+		:launchIntentUriDefault,
+		:launchIntentUriLeanback
+	);
+}
+
+removeByPackageName:
+DELETE FROM App WHERE packageName = :packageName;
+
+removeNotIn:
+DELETE FROM App WHERE id NOT IN :ids;

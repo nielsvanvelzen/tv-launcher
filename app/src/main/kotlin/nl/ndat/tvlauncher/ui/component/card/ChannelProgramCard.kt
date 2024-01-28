@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import nl.ndat.tvlauncher.R
-import nl.ndat.tvlauncher.data.entity.ChannelProgram
+import nl.ndat.tvlauncher.data.sqldelight.ChannelProgram
 import nl.ndat.tvlauncher.ui.indication.FocusScaleIndication
 import nl.ndat.tvlauncher.util.ifElse
 

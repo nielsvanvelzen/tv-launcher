@@ -8,20 +8,19 @@ androidx-compose-material3 = "1.2.0-rc01"
 androidx-compose-ui = "1.6.0"
 androidx-core = "1.12.0"
 androidx-core-role = "1.0.0"
-androidx-room = "2.6.1"
 androidx-tv = "1.0.0-alpha10"
 androidx-tvprovider = "1.1.0-alpha01"
 coil = "2.5.0"
 koin-android = "3.5.3"
 koin-compose = "3.5.3"
 kotlin = "1.9.22"
-kotlin-ksp = "1.9.22-1.0.17"
+sqldelight = "2.0.1"
 timber = "5.0.1"
 
 [plugins]
 android-app = { id = "com.android.application", version.ref = "android-plugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "kotlin-ksp" }
+sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
@@ -33,12 +32,12 @@ androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", versi
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-compose-ui" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-core-role = { module = "androidx.core:core-role", version.ref = "androidx-core-role" }
-androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
-androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
 androidx-tv-foundation = { module = "androidx.tv:tv-foundation", version.ref = "androidx-tv" }
 androidx-tv-material = { module = "androidx.tv:tv-material", version.ref = "androidx.tv" }
 androidx-tvprovider = { module = "androidx.tvprovider:tvprovider", version.ref = "androidx-tvprovider" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-android" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin-compose" }
+sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
+sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
