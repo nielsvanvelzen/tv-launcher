@@ -47,7 +47,6 @@ class AppResolver {
 			.map { it.toApp(packageManager) }
 	}
 
-	@Suppress("DEPRECATION")
 	private fun PackageManager.queryIntentActivities(intent: Intent) = when {
 		Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
 			queryIntentActivities(intent, ResolveInfoFlags.of(0L))
