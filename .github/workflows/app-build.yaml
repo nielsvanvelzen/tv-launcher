@@ -22,7 +22,7 @@ jobs:
           distribution: temurin
           java-version: 17
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@aff52e5be96935327d77c5529075184377dc4371 # v3
+        uses: gradle/actions/setup-gradle@ec92e829475ac0c2315ea8f9eced72db85bb337a # v3
       - name: Assemble debug APKs
         run: ./gradlew assembleDebug
       - name: Create publish bundle
