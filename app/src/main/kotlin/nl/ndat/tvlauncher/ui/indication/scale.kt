@@ -1,39 +1,55 @@
 package nl.ndat.tvlauncher.ui.indication
 
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.foundation.Indication
-import androidx.compose.foundation.IndicationInstance
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.spring
+import androidx.compose.foundation.IndicationNodeFactory
 import androidx.compose.foundation.interaction.FocusInteraction
 import androidx.compose.foundation.interaction.InteractionSource
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.graphics.drawscope.scale
+import androidx.compose.ui.node.DelegatableNode
+import androidx.compose.ui.node.DrawModifierNode
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
-private class ScaleIndicationInstance(
-	private val scale: Float,
-) : IndicationInstance {
-	override fun ContentDrawScope.drawIndication() {
-		scale(scale) {
-			this@drawIndication.drawContent()
-		}
-	}
-}
-
-class FocusScaleIndication(
+private class FocusScaleIndicationNode(
+	private val interactionSource: InteractionSource,
 	private val focusedScale: Float,
-) : Indication {
-	@Composable
-	override fun rememberUpdatedInstance(interactionSource: InteractionSource): IndicationInstance {
-		val interaction by interactionSource.interactions.collectAsState(initial = null)
-		val currentScale = when (interaction) {
-			is FocusInteraction.Focus -> focusedScale
-			else -> 1.0f
-		}
+) : Modifier.Node(), DrawModifierNode {
+	val animatedScalePercent = Animatable(1f)
 
-		val scale by animateFloatAsState(currentScale)
-		return remember(scale) { ScaleIndicationInstance(scale) }
+	private suspend fun scaleTo(scale: Float) {
+		animatedScalePercent.animateTo(scale, spring())
+	}
+
+	override fun onAttach() {
+		coroutineScope.launch {
+			interactionSource.interactions.collectLatest { interaction ->
+				when (interaction) {
+					is FocusInteraction.Focus -> scaleTo(focusedScale)
+					else -> scaleTo(1f)
+				}
+			}
+		}
+	}
+
+	override fun ContentDrawScope.draw() {
+		scale(
+			scale = animatedScalePercent.value
+		) {
+			this@draw.drawContent()
+		}
 	}
 }
+
+class FocusScaleIndicationNodeFactory(private val focusedScale: Float) : IndicationNodeFactory {
+	override fun create(interactionSource: InteractionSource): DelegatableNode =
+		FocusScaleIndicationNode(interactionSource, focusedScale)
+
+	override fun hashCode(): Int = -1
+
+	override fun equals(other: Any?) = other === this
+}
+
+val FocusScaleIndication = FocusScaleIndicationNodeFactory(1.125f)

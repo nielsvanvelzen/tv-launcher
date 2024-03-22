@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ripple.LocalRippleTheme
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalRippleConfiguration
+import androidx.compose.material3.RippleConfiguration
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -17,9 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.tv.foundation.lazy.list.TvLazyListScope
 import androidx.tv.foundation.lazy.list.TvLazyRow
-import nl.ndat.tvlauncher.ui.theme.NoRippleTheme
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun CardRow(
 	title: String? = null,
@@ -30,7 +31,7 @@ fun CardRow(
 		.focusRestorer()
 ) {
 	CompositionLocalProvider(
-		LocalRippleTheme provides NoRippleTheme,
+		LocalRippleConfiguration provides RippleConfiguration(isEnabled = false),
 	) {
 		if (title != null) {
 			Text(

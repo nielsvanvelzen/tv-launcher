@@ -1,14 +1,13 @@
 package nl.ndat.tvlauncher.ui.component.card
 
 import android.content.Intent
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.indication
-import androidx.compose.foundation.interaction.FocusInteraction
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,7 +17,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,7 +34,6 @@ import nl.ndat.tvlauncher.ui.indication.FocusScaleIndication
 import nl.ndat.tvlauncher.util.createDrawable
 import nl.ndat.tvlauncher.util.ifElse
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AppCard(
 	app: App,
@@ -44,7 +42,7 @@ fun AppCard(
 	val context = LocalContext.current
 	val image = remember { app.createDrawable(context) }
 	val interactionSource = remember { MutableInteractionSource() }
-	val focused = interactionSource.interactions.collectAsState(initial = null).value is FocusInteraction.Focus
+	val focused by interactionSource.collectIsFocusedAsState()
 
 	val launchIntentUri = app.launchIntentUriLeanback ?: app.launchIntentUriDefault
 
@@ -52,7 +50,7 @@ fun AppCard(
 		modifier = modifier
 			.width(160.dp)
 			.focusable(true, interactionSource)
-			.indication(interactionSource, FocusScaleIndication(1.125f))
+			.indication(interactionSource, FocusScaleIndication)
 			.clickable(enabled = launchIntentUri != null) {
 				if (launchIntentUri != null) context.startActivity(
 					Intent.parseUri(
