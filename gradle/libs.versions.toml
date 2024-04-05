@@ -14,7 +14,7 @@ coil = "2.6.0"
 koin-android = "3.5.4"
 koin-compose = "3.5.4"
 kotlin = "1.9.23"
-sqldelight = "2.0.1"
+sqldelight = "2.0.2"
 timber = "5.0.1"
 
 [plugins]
