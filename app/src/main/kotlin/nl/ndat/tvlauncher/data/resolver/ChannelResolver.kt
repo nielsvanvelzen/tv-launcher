@@ -6,8 +6,8 @@ import android.content.Context
 import android.database.Cursor
 import android.database.CursorIndexOutOfBoundsException
 import android.net.Uri
+import android.os.CancellationSignal
 import androidx.core.content.ContentResolverCompat
-import androidx.core.os.CancellationSignal
 import androidx.tvprovider.media.tv.PreviewChannel
 import androidx.tvprovider.media.tv.PreviewProgram
 import androidx.tvprovider.media.tv.TvContractCompat
