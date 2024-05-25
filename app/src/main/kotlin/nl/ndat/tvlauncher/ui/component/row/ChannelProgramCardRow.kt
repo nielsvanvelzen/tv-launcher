@@ -1,6 +1,6 @@
 package nl.ndat.tvlauncher.ui.component.row
 
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import nl.ndat.tvlauncher.R
 import nl.ndat.tvlauncher.data.model.ChannelType
@@ -17,6 +18,7 @@ import nl.ndat.tvlauncher.data.repository.ChannelRepository
 import nl.ndat.tvlauncher.data.sqldelight.App
 import nl.ndat.tvlauncher.data.sqldelight.Channel
 import nl.ndat.tvlauncher.ui.component.card.ChannelProgramCard
+import nl.ndat.tvlauncher.util.ifElse
 import org.koin.compose.koinInject
 
 @Composable
@@ -44,9 +46,16 @@ fun ChannelProgramCardRow(
 		CardRow(
 			title = title,
 			modifier = modifier,
-		) {
-			items(programs) { program ->
-				ChannelProgramCard(program)
+		) { childFocusRequester ->
+			itemsIndexed(programs) { index, program ->
+				ChannelProgramCard(
+					program = program,
+					modifier = Modifier
+						.ifElse(
+							condition = index == 0,
+							positiveModifier = Modifier.focusRequester(childFocusRequester)
+						),
+				)
 			}
 		}
 	}
