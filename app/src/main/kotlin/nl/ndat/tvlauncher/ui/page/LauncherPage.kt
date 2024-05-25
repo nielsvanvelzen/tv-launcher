@@ -3,6 +3,8 @@ package nl.ndat.tvlauncher.ui.page
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -12,8 +14,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.unit.dp
-import androidx.tv.foundation.lazy.list.TvLazyColumn
-import androidx.tv.foundation.lazy.list.items
 import nl.ndat.tvlauncher.data.repository.ChannelRepository
 import nl.ndat.tvlauncher.ui.component.row.AppCardRow
 import nl.ndat.tvlauncher.ui.component.row.ChannelProgramCardRow
@@ -26,7 +26,7 @@ fun LauncherPage() {
 	val channels by channelRepository.getChannels().collectAsState(initial = emptyList())
 	val defaultFocusRequester = remember { FocusRequester() }
 
-	TvLazyColumn(
+	LazyColumn(
 		verticalArrangement = Arrangement.spacedBy(8.dp),
 		modifier = Modifier
 			.fillMaxSize()
