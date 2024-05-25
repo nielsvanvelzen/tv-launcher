@@ -61,12 +61,12 @@ fun ChannelProgramCard(
 		Box(
 			modifier = Modifier
 				.requiredHeight(90.dp)
-				.aspectRatio(program.posterArtAspectRatio?.floatValue ?: 1f)
-				.clip(MaterialTheme.shapes.medium),
+				.aspectRatio(program.posterArtAspectRatio?.floatValue ?: 1f),
 		) {
 			AsyncImage(
 				modifier = Modifier
 					.fillMaxSize()
+					.clip(MaterialTheme.shapes.medium)
 					.background(colorResource(id = R.color.banner_background)),
 				model = program.posterArtUri,
 				contentDescription = program.packageName

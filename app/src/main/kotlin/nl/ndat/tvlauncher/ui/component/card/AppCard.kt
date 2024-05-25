@@ -63,12 +63,12 @@ fun AppCard(
 	) {
 		Box(
 			modifier = Modifier
-				.requiredSize(160.dp, 90.dp)
-				.clip(MaterialTheme.shapes.medium),
+				.requiredSize(160.dp, 90.dp),
 		) {
 			AsyncImage(
 				modifier = Modifier
 					.fillMaxSize()
+					.clip(MaterialTheme.shapes.medium)
 					.background(colorResource(id = R.color.banner_background)),
 				model = image,
 				contentDescription = app.displayName
