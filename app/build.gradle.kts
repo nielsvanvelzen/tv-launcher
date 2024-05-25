@@ -1,10 +1,13 @@
 plugins {
 	alias(libs.plugins.android.app)
 	alias(libs.plugins.kotlin.android)
+	alias(libs.plugins.kotlin.compose)
 	alias(libs.plugins.sqldelight)
 }
 
-java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+kotlin {
+	jvmToolchain(17)
+}
 
 android {
 	namespace = "nl.ndat.tvlauncher"
@@ -22,15 +25,6 @@ android {
 	buildFeatures {
 		buildConfig = true
 		compose = true
-	}
-
-	composeOptions {
-		kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
-	}
-
-	compileOptions {
-		sourceCompatibility = JavaVersion.VERSION_17
-		targetCompatibility = JavaVersion.VERSION_17
 	}
 }
 
