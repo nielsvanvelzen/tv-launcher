@@ -22,10 +22,11 @@ import androidx.tv.foundation.lazy.list.TvLazyRow
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun CardRow(
+	modifier: Modifier = Modifier,
 	title: String? = null,
 	content: TvLazyListScope.() -> Unit,
 ) = Column(
-	modifier = Modifier
+	modifier = modifier
 		.focusGroup()
 		.focusRestorer()
 ) {

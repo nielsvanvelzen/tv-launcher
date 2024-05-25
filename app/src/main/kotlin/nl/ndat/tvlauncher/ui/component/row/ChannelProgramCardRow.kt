@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.tv.foundation.lazy.list.items
 import nl.ndat.tvlauncher.R
@@ -20,6 +21,7 @@ import org.koin.compose.koinInject
 
 @Composable
 fun ChannelProgramCardRow(
+	modifier: Modifier = Modifier,
 	channel: Channel,
 ) {
 	val channelRepository = koinInject<ChannelRepository>()
@@ -39,7 +41,10 @@ fun ChannelProgramCardRow(
 	}
 
 	if (programs.isNotEmpty()) {
-		CardRow(title) {
+		CardRow(
+			title = title,
+			modifier = modifier,
+		) {
 			items(programs) { program ->
 				ChannelProgramCard(program)
 			}

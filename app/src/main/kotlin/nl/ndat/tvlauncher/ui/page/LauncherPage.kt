@@ -6,7 +6,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusProperties
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.list.TvLazyColumn
 import androidx.tv.foundation.lazy.list.items
@@ -20,11 +24,15 @@ import org.koin.compose.koinInject
 fun LauncherPage() {
 	val channelRepository = koinInject<ChannelRepository>()
 	val channels by channelRepository.getChannels().collectAsState(initial = emptyList())
+	val defaultFocusRequester = remember { FocusRequester() }
 
 	TvLazyColumn(
 		verticalArrangement = Arrangement.spacedBy(8.dp),
 		modifier = Modifier
 			.fillMaxSize()
+			.focusProperties {
+				enter = { defaultFocusRequester }
+			}
 	) {
 		item {
 			Toolbar(
@@ -35,7 +43,14 @@ fun LauncherPage() {
 			)
 		}
 
-		item { AppCardRow() }
-		items(channels) { channel -> ChannelProgramCardRow(channel) }
+		item {
+			AppCardRow(
+				modifier = Modifier.focusRequester(defaultFocusRequester)
+			)
+		}
+
+		items(channels) { channel ->
+			ChannelProgramCardRow(channel = channel)
+		}
 	}
 }
