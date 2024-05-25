@@ -1,6 +1,7 @@
 package nl.ndat.tvlauncher.ui.component.card
 
 import android.content.Intent
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
@@ -31,7 +32,6 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import nl.ndat.tvlauncher.R
 import nl.ndat.tvlauncher.data.sqldelight.ChannelProgram
-import nl.ndat.tvlauncher.ui.indication.FocusScaleIndication
 import nl.ndat.tvlauncher.util.ifElse
 
 @Composable
@@ -47,7 +47,7 @@ fun ChannelProgramCard(
 		modifier = modifier
 			.width(90.dp * (program.posterArtAspectRatio?.floatValue ?: 1f))
 			.focusable(true, interactionSource)
-			.indication(interactionSource, FocusScaleIndication)
+			.indication(interactionSource, LocalIndication.current)
 			.clickable(enabled = program.intentUri != null) {
 				if (program.intentUri != null) context.startActivity(
 					Intent.parseUri(

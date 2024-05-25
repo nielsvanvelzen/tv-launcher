@@ -1,6 +1,7 @@
 package nl.ndat.tvlauncher.ui.component.card
 
 import android.content.Intent
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
@@ -30,7 +31,6 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import nl.ndat.tvlauncher.R
 import nl.ndat.tvlauncher.data.sqldelight.App
-import nl.ndat.tvlauncher.ui.indication.FocusScaleIndication
 import nl.ndat.tvlauncher.util.createDrawable
 import nl.ndat.tvlauncher.util.ifElse
 
@@ -50,7 +50,7 @@ fun AppCard(
 		modifier = modifier
 			.width(160.dp)
 			.focusable(true, interactionSource)
-			.indication(interactionSource, FocusScaleIndication)
+			.indication(interactionSource, LocalIndication.current)
 			.clickable(enabled = launchIntentUri != null) {
 				if (launchIntentUri != null) context.startActivity(
 					Intent.parseUri(
