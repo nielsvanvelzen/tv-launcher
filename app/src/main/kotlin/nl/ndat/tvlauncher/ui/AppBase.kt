@@ -8,7 +8,7 @@ import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Shapes
 import androidx.tv.material3.Surface
 import androidx.tv.material3.darkColorScheme
-import nl.ndat.tvlauncher.ui.page.LauncherPage
+import nl.ndat.tvlauncher.ui.screen.LauncherScreen
 
 @Composable
 fun AppBase() {
@@ -24,7 +24,7 @@ fun AppBase() {
 		),
 	) {
 		Surface {
-			LauncherPage()
+			LauncherScreen()
 		}
 	}
 }

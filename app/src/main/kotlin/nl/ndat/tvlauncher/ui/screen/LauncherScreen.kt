@@ -1,4 +1,4 @@
-package nl.ndat.tvlauncher.ui.page
+package nl.ndat.tvlauncher.ui.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,7 +21,7 @@ import nl.ndat.tvlauncher.ui.toolbar.Toolbar
 import org.koin.compose.koinInject
 
 @Composable
-fun LauncherPage() {
+fun LauncherScreen() {
 	val channelRepository = koinInject<ChannelRepository>()
 	val channels by channelRepository.getChannels().collectAsState(initial = emptyList())
 	val defaultFocusRequester = remember { FocusRequester() }
