@@ -29,7 +29,7 @@ class AppResolver {
 				packageManager.queryIntentActivities(intent)
 			}
 			.flatten()
-			.distinctBy { it.activityInfo.name }
+			.distinctBy { it.activityInfo.packageName }
 			.map { it.toApp(packageManager) }
 			.firstOrNull()
 	}
@@ -43,7 +43,7 @@ class AppResolver {
 				packageManager.queryIntentActivities(intent)
 			}
 			.flatten()
-			.distinctBy { it.activityInfo.name }
+			.distinctBy { it.activityInfo.packageName }
 			.map { it.toApp(packageManager) }
 	}
 
@@ -56,7 +56,7 @@ class AppResolver {
 	}
 
 	private fun ResolveInfo.toApp(packageManager: PackageManager) = App(
-		id = "$APP_ID_PREFIX${activityInfo.name}",
+		id = "$APP_ID_PREFIX${activityInfo.packageName}",
 
 		displayName = activityInfo.loadLabel(packageManager).toString(),
 		packageName = activityInfo.packageName,
