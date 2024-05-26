@@ -31,7 +31,7 @@ import nl.ndat.tvlauncher.util.ifElse
 fun AppCard(
 	app: App,
 	modifier: Modifier = Modifier,
-	baseHeight: Dp = 110.dp,
+	baseHeight: Dp = 90.dp,
 ) {
 	val context = LocalContext.current
 	val image = remember { app.createDrawable(context) }
