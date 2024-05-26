@@ -5,7 +5,6 @@ import android.content.IntentFilter
 import android.icu.text.DateTimePatternGenerator
 import android.os.Build
 import android.text.format.DateFormat
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -15,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.sp
 import androidx.core.os.ConfigurationCompat
+import androidx.tv.material3.Text
 import nl.ndat.tvlauncher.util.composable.SystemBroadcastReceiver
 import java.util.Calendar
 
