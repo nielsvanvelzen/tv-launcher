@@ -15,20 +15,17 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusRestorer
 import androidx.compose.ui.unit.dp
-import nl.ndat.tvlauncher.data.repository.AppRepository
-import nl.ndat.tvlauncher.data.repository.ChannelRepository
 import nl.ndat.tvlauncher.ui.component.row.AppCardRow
 import nl.ndat.tvlauncher.ui.component.row.ChannelProgramCardRow
 import nl.ndat.tvlauncher.ui.toolbar.Toolbar
-import org.koin.compose.koinInject
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LauncherScreen() {
-	val channelRepository = koinInject<ChannelRepository>()
-	val appRepository = koinInject<AppRepository>()
-	val channels by channelRepository.getChannels().collectAsState(initial = emptyList())
-	val apps by appRepository.getApps().collectAsState(initial = emptyList())
+	val viewModel = koinViewModel<LauncherScreenViewModel>()
+	val apps by viewModel.apps.collectAsState()
+	val channels by viewModel.channels.collectAsState()
 
 	val childFocusRequester = remember { FocusRequester() }
 
@@ -49,14 +46,23 @@ fun LauncherScreen() {
 
 		item {
 			AppCardRow(
-				apps,
+				apps = apps,
 				modifier = Modifier
 					.focusRequester(childFocusRequester)
 			)
 		}
 
 		items(channels) { channel ->
-			ChannelProgramCardRow(channel = channel)
+			val app = remember(channel.packageName, apps) {
+				apps.firstOrNull { app -> app.packageName == channel.packageName }
+			}
+			val programs by viewModel.channelPrograms(channel).collectAsState(initial = emptyList())
+
+			ChannelProgramCardRow(
+				channel = channel,
+				app = app,
+				programs = programs,
+			)
 		}
 	}
 }

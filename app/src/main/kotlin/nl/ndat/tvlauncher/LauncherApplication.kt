@@ -12,9 +12,11 @@ import nl.ndat.tvlauncher.data.repository.PreferenceRepository
 import nl.ndat.tvlauncher.data.resolver.AppResolver
 import nl.ndat.tvlauncher.data.resolver.ChannelResolver
 import nl.ndat.tvlauncher.data.resolver.InputResolver
+import nl.ndat.tvlauncher.ui.screen.LauncherScreenViewModel
 import nl.ndat.tvlauncher.util.DefaultLauncherHelper
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import org.koin.dsl.module
@@ -33,14 +35,13 @@ private val launcherModule = module {
 	single { InputResolver() }
 
 	single { PreferenceRepository() }
+
+	viewModel { LauncherScreenViewModel(get(), get()) }
 }
 
 private val databaseModule = module {
 	// Create database(s)
 	single { DatabaseContainer(get()) }
-
-	// Add DAOs for easy access
-
 }
 
 class LauncherApplication : Application(), ImageLoaderFactory {
@@ -57,7 +58,7 @@ class LauncherApplication : Application(), ImageLoaderFactory {
 		}
 	}
 
-	override fun newImageLoader()= ImageLoader.Builder(this)
+	override fun newImageLoader() = ImageLoader.Builder(this)
 		.logger(DebugLogger())
 		.build()
 }
