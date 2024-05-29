@@ -12,9 +12,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.focusRestorer
 import androidx.compose.ui.unit.dp
+import nl.ndat.tvlauncher.data.repository.AppRepository
 import nl.ndat.tvlauncher.data.repository.ChannelRepository
 import nl.ndat.tvlauncher.ui.component.row.AppCardRow
 import nl.ndat.tvlauncher.ui.component.row.ChannelProgramCardRow
@@ -25,16 +26,17 @@ import org.koin.compose.koinInject
 @Composable
 fun LauncherScreen() {
 	val channelRepository = koinInject<ChannelRepository>()
+	val appRepository = koinInject<AppRepository>()
 	val channels by channelRepository.getChannels().collectAsState(initial = emptyList())
-	val defaultFocusRequester = remember { FocusRequester() }
+	val apps by appRepository.getApps().collectAsState(initial = emptyList())
+
+	val childFocusRequester = remember { FocusRequester() }
 
 	LazyColumn(
 		verticalArrangement = Arrangement.spacedBy(8.dp),
 		modifier = Modifier
 			.fillMaxSize()
-			.focusProperties {
-				enter = { defaultFocusRequester }
-			}
+			.focusRestorer { childFocusRequester }
 	) {
 		item {
 			Toolbar(
@@ -47,7 +49,9 @@ fun LauncherScreen() {
 
 		item {
 			AppCardRow(
-				modifier = Modifier.focusRequester(defaultFocusRequester)
+				apps,
+				modifier = Modifier
+					.focusRequester(childFocusRequester)
 			)
 		}
 

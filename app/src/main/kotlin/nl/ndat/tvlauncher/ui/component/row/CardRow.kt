@@ -40,14 +40,14 @@ fun CardRow(
 	val childFocusRequester = remember { FocusRequester() }
 
 	LazyRow(
-		modifier = Modifier
-			.fillMaxWidth()
-			.focusRestorer { childFocusRequester },
 		contentPadding = PaddingValues(
 			vertical = 16.dp,
 			horizontal = 48.dp,
 		),
 		horizontalArrangement = Arrangement.spacedBy(14.dp),
+		modifier = Modifier
+			.fillMaxWidth()
+			.focusRestorer { childFocusRequester },
 	) {
 		content(childFocusRequester)
 	}
