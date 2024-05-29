@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusProperties
@@ -20,6 +21,7 @@ import nl.ndat.tvlauncher.ui.component.row.ChannelProgramCardRow
 import nl.ndat.tvlauncher.ui.toolbar.Toolbar
 import org.koin.compose.koinInject
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LauncherScreen() {
 	val channelRepository = koinInject<ChannelRepository>()
