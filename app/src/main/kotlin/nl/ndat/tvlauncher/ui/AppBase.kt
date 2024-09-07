@@ -8,7 +8,7 @@ import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Shapes
 import androidx.tv.material3.Surface
 import androidx.tv.material3.darkColorScheme
-import nl.ndat.tvlauncher.ui.screen.LauncherScreen
+import nl.ndat.tvlauncher.ui.screen.launcher.LauncherScreen
 
 @Composable
 fun AppBase() {

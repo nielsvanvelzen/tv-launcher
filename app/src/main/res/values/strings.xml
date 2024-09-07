@@ -6,4 +6,6 @@
     <string name="settings_system">System settings</string>
 	<string name="settings_launcher">Launcher settings</string>
 	<string name="input_switch">Switch input</string>
+	<string name="tab_home">Home</string>
+	<string name="tab_apps">All apps</string>
 </resources>

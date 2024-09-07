@@ -8,11 +8,12 @@ import nl.ndat.tvlauncher.data.DatabaseContainer
 import nl.ndat.tvlauncher.data.repository.AppRepository
 import nl.ndat.tvlauncher.data.repository.ChannelRepository
 import nl.ndat.tvlauncher.data.repository.InputRepository
-import nl.ndat.tvlauncher.data.repository.PreferenceRepository
 import nl.ndat.tvlauncher.data.resolver.AppResolver
 import nl.ndat.tvlauncher.data.resolver.ChannelResolver
 import nl.ndat.tvlauncher.data.resolver.InputResolver
-import nl.ndat.tvlauncher.ui.screen.LauncherScreenViewModel
+import nl.ndat.tvlauncher.ui.screen.launcher.LauncherScreenViewModel
+import nl.ndat.tvlauncher.ui.tab.apps.AppsTabViewModel
+import nl.ndat.tvlauncher.ui.tab.home.HomeTabViewModel
 import nl.ndat.tvlauncher.util.DefaultLauncherHelper
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -34,9 +35,9 @@ private val launcherModule = module {
 	single { InputRepository(get(), get(), get()) }
 	single { InputResolver() }
 
-	single { PreferenceRepository() }
-
-	viewModel { LauncherScreenViewModel(get(), get()) }
+	viewModel { LauncherScreenViewModel() }
+	viewModel { HomeTabViewModel(get(), get()) }
+	viewModel { AppsTabViewModel(get()) }
 }
 
 private val databaseModule = module {
