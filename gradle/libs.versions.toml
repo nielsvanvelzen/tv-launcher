@@ -6,6 +6,7 @@ androidx-compose-foundation = "1.7.0"
 androidx-compose-ui = "1.7.0"
 androidx-core = "1.13.1"
 androidx-core-role = "1.0.0"
+androidx-palette = "1.0.0"
 androidx-tv = "1.0.0"
 androidx-tvprovider = "1.1.0-alpha01"
 coil = "2.7.0"
@@ -29,6 +30,7 @@ androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", versi
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-compose-ui" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-core-role = { module = "androidx.core:core-role", version.ref = "androidx-core-role" }
+androidx-palette = { module = "androidx.palette:palette-ktx", version.ref = "androidx-palette" }
 androidx-tv-material = { module = "androidx.tv:tv-material", version.ref = "androidx-tv" }
 androidx-tvprovider = { module = "androidx.tvprovider:tvprovider", version.ref = "androidx-tvprovider" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }

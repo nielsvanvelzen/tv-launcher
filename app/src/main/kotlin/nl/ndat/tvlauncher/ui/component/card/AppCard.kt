@@ -11,14 +11,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.core.graphics.drawable.toBitmap
+import androidx.palette.graphics.Palette
+import androidx.tv.material3.Border
 import androidx.tv.material3.Card
+import androidx.tv.material3.CardDefaults
+import androidx.tv.material3.Glow
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.StandardCardContainer
 import androidx.tv.material3.Text
@@ -35,6 +43,7 @@ fun AppCard(
 ) {
 	val context = LocalContext.current
 	val image = remember { app.createDrawable(context) }
+	var imagePrimaryColor by remember { mutableStateOf<Color?>(null) }
 	val interactionSource = remember { MutableInteractionSource() }
 	val focused by interactionSource.collectIsFocusedAsState()
 
@@ -70,6 +79,13 @@ fun AppCard(
 					.height(baseHeight)
 					.aspectRatio(16f / 9f),
 				interactionSource = interactionSource,
+				glow = CardDefaults.glow(
+					focusedGlow = Glow(
+						elevationColor = imagePrimaryColor ?: MaterialTheme.colorScheme.border,
+						elevation = 10.dp
+					)
+				),
+				border = CardDefaults.border(focusedBorder = Border.None),
 				onClick = {
 					if (launchIntentUri != null) {
 						context.startActivity(Intent.parseUri(launchIntentUri, 0))
@@ -80,6 +96,10 @@ fun AppCard(
 					modifier = Modifier.fillMaxSize(),
 					model = image,
 					contentDescription = app.displayName,
+					onSuccess = {
+						val palette = Palette.from(it.result.drawable.toBitmap()).generate()
+						imagePrimaryColor = palette.dominantSwatch?.rgb?.let(::Color)
+					}
 				)
 			}
 		}

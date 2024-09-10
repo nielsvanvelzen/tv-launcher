@@ -56,5 +56,6 @@ dependencies {
 	implementation(libs.androidx.compose.ui.tooling.preview)
 	debugImplementation(libs.androidx.compose.ui.tooling)
 	implementation(libs.androidx.tv.material)
+	implementation(libs.androidx.palette)
 	implementation(libs.coil.compose)
 }
