@@ -98,7 +98,7 @@ fun AppCard(
 					contentDescription = app.displayName,
 					onSuccess = {
 						val palette = Palette.from(it.result.drawable.toBitmap()).generate()
-						imagePrimaryColor = palette.dominantSwatch?.rgb?.let(::Color)
+						imagePrimaryColor = palette.mutedSwatch?.rgb?.let(::Color)
 					}
 				)
 			}
