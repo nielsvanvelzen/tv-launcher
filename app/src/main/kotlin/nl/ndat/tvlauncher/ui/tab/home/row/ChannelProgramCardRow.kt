@@ -31,14 +31,14 @@ import nl.ndat.tvlauncher.util.ifElse
 fun ChannelProgramCardRow(
 	modifier: Modifier = Modifier,
 	channel: Channel,
-	app: App?,
+	app: App,
 	programs: List<ChannelProgram>,
 ) {
 	val title = when (channel.type) {
 		ChannelType.WATCH_NEXT -> stringResource(R.string.channel_watch_next)
 		ChannelType.PREVIEW -> stringResource(
 			R.string.channel_preview,
-			app?.displayName ?: channel.packageName,
+			app.displayName,
 			channel.displayName
 		)
 	}

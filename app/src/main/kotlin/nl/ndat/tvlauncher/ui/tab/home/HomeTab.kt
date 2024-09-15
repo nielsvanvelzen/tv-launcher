@@ -42,11 +42,13 @@ fun HomeTab(
 			}
 			val programs by viewModel.channelPrograms(channel).collectAsState(initial = emptyList())
 
-			ChannelProgramCardRow(
-				channel = channel,
-				app = app,
-				programs = programs,
-			)
+			if (app != null) {
+				ChannelProgramCardRow(
+					channel = channel,
+					app = app,
+					programs = programs,
+				)
+			}
 		}
 	}
 }

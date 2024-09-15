@@ -17,6 +17,9 @@ CREATE INDEX channelPackageName ON Channel(packageName);
 getAll:
 SELECT * FROM Channel;
 
+getFavoriteAppChannels:
+SELECT * FROM Channel WHERE (SELECT favoriteOrder FROM App WHERE App.packageName = Channel.packageName) IS NOT NULL;
+
 getById:
 SELECT * FROM Channel WHERE id = :id LIMIT 1;
 
