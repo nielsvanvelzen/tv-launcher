@@ -1,4 +1,4 @@
-package nl.ndat.tvlauncher.ui.component.row
+package nl.ndat.tvlauncher.ui.tab.home.row
 
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable

@@ -4,13 +4,19 @@ CREATE TABLE App (
 	packageName TEXT NOT NULL,
 
 	launchIntentUriDefault TEXT,
-	launchIntentUriLeanback TEXT
+	launchIntentUriLeanback TEXT,
+
+	favoriteOrder INTEGER
 );
 
 CREATE INDEX appPackageName ON App(packageName);
+CREATE INDEX appFavoriteOrder ON App(favoriteOrder);
 
 getAll:
-SELECT * FROM App;
+SELECT * FROM App ORDER BY displayName ASC;
+
+getAllFavorites:
+SELECT * FROM App WHERE favoriteOrder IS NOT NULL ORDER BY favoriteOrder ASC;
 
 getById:
 SELECT * FROM App WHERE id = :id LIMIT 1;
@@ -39,6 +45,25 @@ upsert {
 		:launchIntentUriDefault,
 		:launchIntentUriLeanback
 	);
+}
+
+updateFavoriteAdd:
+UPDATE App SET favoriteOrder = COALESCE((SELECT MAX(favoriteOrder) FROM App), -1) + 1 WHERE id = :id;
+
+updateFavoriteRemove {
+	-- Decrease the order for all items after this item
+	UPDATE App SET favoriteOrder = favoriteOrder - 1 WHERE favoriteOrder > (SELECT favoriteOrder FROM App WHERE id = :id) AND id != :id;
+	-- Update requested item
+	UPDATE App SET favoriteOrder = NULL WHERE id = :id;
+}
+
+updateFavoriteOrder {
+	-- Decrease the order for all items after the old order
+	UPDATE App SET favoriteOrder = favoriteOrder - 1 WHERE favoriteOrder > (SELECT favoriteOrder FROM App WHERE id = :id) AND id != :id;
+	-- Increase the order for all items after the new order
+	UPDATE App SET favoriteOrder = favoriteOrder + 1 WHERE favoriteOrder >= :order AND id != :id;
+	-- Update requested item
+	UPDATE App SET favoriteOrder = :order WHERE id = :id;
 }
 
 removeByPackageName:

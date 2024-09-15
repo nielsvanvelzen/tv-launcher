@@ -35,6 +35,14 @@ fun AppsTab(
 		items(apps) { app ->
 			AppCard(
 				app = app,
+				popupContent = {
+					AppPopup(
+						isFavorite = app.favoriteOrder != null,
+						onToggleFavorite = { favorite ->
+							viewModel.favoriteApp(app, favorite)
+						}
+					)
+				}
 			)
 		}
 	}

@@ -63,5 +63,7 @@ class AppResolver {
 
 		launchIntentUriDefault = packageManager.getLaunchIntentForPackage(activityInfo.packageName)?.toUri(0),
 		launchIntentUriLeanback = packageManager.getLeanbackLaunchIntentForPackage(activityInfo.packageName)?.toUri(0),
+
+		favoriteOrder = null,
 	)
 }

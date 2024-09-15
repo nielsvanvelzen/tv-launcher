@@ -43,5 +43,10 @@ class AppRepository(
 	}
 
 	fun getApps() = database.apps.getAll().executeAsListFlow()
+	fun getFavoriteApps() = database.apps.getAllFavorites(::App).executeAsListFlow()
 	suspend fun getByPackageName(packageName: String) = database.apps.getByPackageName(packageName).executeAsOneOrNull()
+
+	fun favorite(id: String) = database.apps.updateFavoriteAdd(id)
+	fun unfavorite(id: String) = database.apps.updateFavoriteRemove(id)
+	fun updateFavoriteOrder(id: String, order: Int) = database.apps.updateFavoriteOrder(id, order.toLong())
 }
