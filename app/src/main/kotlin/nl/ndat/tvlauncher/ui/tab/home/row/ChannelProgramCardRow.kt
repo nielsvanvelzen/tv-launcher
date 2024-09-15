@@ -1,5 +1,6 @@
 package nl.ndat.tvlauncher.ui.tab.home.row
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -34,15 +35,23 @@ fun ChannelProgramCardRow(
 			title = title,
 			modifier = modifier,
 		) { childFocusRequester ->
-			itemsIndexed(programs) { index, program ->
-				ChannelProgramCard(
-					program = program,
+			itemsIndexed(
+				items = programs,
+				key = { _, program -> program.id },
+			) { index, program ->
+				Box(
 					modifier = Modifier
-						.ifElse(
-							condition = index == 0,
-							positiveModifier = Modifier.focusRequester(childFocusRequester)
-						),
-				)
+						.animateItem()
+				) {
+					ChannelProgramCard(
+						program = program,
+						modifier = Modifier
+							.ifElse(
+								condition = index == 0,
+								positiveModifier = Modifier.focusRequester(childFocusRequester)
+							),
+					)
+				}
 			}
 		}
 	}

@@ -1,6 +1,7 @@
 package nl.ndat.tvlauncher.ui.tab.apps
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -32,18 +33,26 @@ fun AppsTab(
 		modifier = modifier
 			.fillMaxSize()
 	) {
-		items(apps) { app ->
-			AppCard(
-				app = app,
-				popupContent = {
-					AppPopup(
-						isFavorite = app.favoriteOrder != null,
-						onToggleFavorite = { favorite ->
-							viewModel.favoriteApp(app, favorite)
-						}
-					)
-				}
-			)
+		items(
+			items = apps,
+			key = { app -> app.id },
+		) { app ->
+			Box(
+				modifier = Modifier
+					.animateItem()
+			) {
+				AppCard(
+					app = app,
+					popupContent = {
+						AppPopup(
+							isFavorite = app.favoriteOrder != null,
+							onToggleFavorite = { favorite ->
+								viewModel.favoriteApp(app, favorite)
+							}
+						)
+					}
+				)
+			}
 		}
 	}
 }

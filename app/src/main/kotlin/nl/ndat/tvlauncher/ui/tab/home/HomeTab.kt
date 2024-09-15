@@ -27,13 +27,16 @@ fun HomeTab(
 		modifier = modifier
 			.fillMaxSize()
 	) {
-		item {
+		item(key = "apps") {
 			AppCardRow(
 				apps = apps
 			)
 		}
 
-		items(channels) { channel ->
+		items(
+			items = channels,
+			key = { channel -> channel.id }
+		) { channel ->
 			val app = remember(channel.packageName, apps) {
 				apps.firstOrNull { app -> app.packageName == channel.packageName }
 			}

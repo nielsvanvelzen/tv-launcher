@@ -1,5 +1,6 @@
 package nl.ndat.tvlauncher.ui.tab.home.row
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -25,28 +26,33 @@ fun AppCardRow(
 			items = apps,
 			key = { _, app -> app.id },
 		) { index, app ->
-			AppCard(
-				app = app,
+			Box(
 				modifier = Modifier
-					.ifElse(
-						condition = index == 0,
-						positiveModifier = Modifier.focusRequester(childFocusRequester)
-					),
-				popupContent = {
-					AppPopup(
-						isFirst = index == 0,
-						isLast = index == apps.size - 1,
-						isFavorite = app.favoriteOrder != null,
-						onToggleFavorite = { favorite ->
-							viewModel.favoriteApp(app, favorite)
-						},
-						onMove = { relativePosition ->
-							val newIndex = index + relativePosition
-							viewModel.setFavoriteOrder(app, newIndex)
-						}
-					)
-				}
-			)
+					.animateItem()
+			) {
+				AppCard(
+					app = app,
+					modifier = Modifier
+						.ifElse(
+							condition = index == 0,
+							positiveModifier = Modifier.focusRequester(childFocusRequester)
+						),
+					popupContent = {
+						AppPopup(
+							isFirst = index == 0,
+							isLast = index == apps.size - 1,
+							isFavorite = app.favoriteOrder != null,
+							onToggleFavorite = { favorite ->
+								viewModel.favoriteApp(app, favorite)
+							},
+							onMove = { relativePosition ->
+								val newIndex = index + relativePosition
+								viewModel.setFavoriteOrder(app, newIndex)
+							}
+						)
+					}
+				)
+			}
 		}
 	}
 }
