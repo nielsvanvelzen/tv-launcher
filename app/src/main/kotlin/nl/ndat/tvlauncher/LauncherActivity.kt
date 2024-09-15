@@ -1,7 +1,10 @@
 package nl.ndat.tvlauncher
 
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.SystemClock
+import android.view.KeyEvent
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.app.ActivityCompat
@@ -50,5 +53,23 @@ class LauncherActivity : ComponentActivity() {
 			@Suppress("DEPRECATION")
 			if (intent != null) startActivityForResult(intent, 0)
 		}
+	}
+
+	@SuppressLint("RestrictedApi")
+	override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+		// Map "menu" key to a long press on the dpad because the compose TV library doesn't do that yet
+		if (keyCode == KeyEvent.KEYCODE_MENU) {
+			event.startTracking()
+			val longPressEvent = KeyEvent(
+				SystemClock.uptimeMillis(),
+				SystemClock.uptimeMillis(),
+				KeyEvent.ACTION_DOWN,
+				KeyEvent.KEYCODE_DPAD_CENTER,
+				1
+			)
+			return dispatchKeyEvent(longPressEvent)
+		}
+
+		return super.onKeyDown(keyCode, event)
 	}
 }
