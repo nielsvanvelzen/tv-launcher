@@ -1,5 +1,6 @@
 package nl.ndat.tvlauncher.ui.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupPositionProvider
 import androidx.compose.ui.window.PopupProperties
-import androidx.tv.material3.Glow
+import androidx.tv.material3.Border
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Surface
 import androidx.tv.material3.SurfaceDefaults
@@ -69,7 +70,10 @@ fun PopupContainer(
 						contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
 					),
 					shape = RoundedCornerShape(8.dp),
-					glow = Glow(Color.White, 6.dp),
+					border = Border(
+						border = BorderStroke(2.dp, Color.White),
+						shape = RoundedCornerShape(8.dp),
+					),
 				) {
 					Box(modifier = Modifier.padding(8.dp)) {
 						popupContent()

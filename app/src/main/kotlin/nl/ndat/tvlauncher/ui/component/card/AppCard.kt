@@ -1,6 +1,7 @@
 package nl.ndat.tvlauncher.ui.component.card
 
 import android.content.Intent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
@@ -26,7 +27,6 @@ import androidx.palette.graphics.Palette
 import androidx.tv.material3.Border
 import androidx.tv.material3.Card
 import androidx.tv.material3.CardDefaults
-import androidx.tv.material3.Glow
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.StandardCardContainer
 import androidx.tv.material3.Text
@@ -87,13 +87,11 @@ fun AppCard(
 							.height(baseHeight)
 							.aspectRatio(16f / 9f),
 						interactionSource = interactionSource,
-						glow = CardDefaults.glow(
-							focusedGlow = Glow(
-								elevationColor = imagePrimaryColor ?: MaterialTheme.colorScheme.border,
-								elevation = 10.dp
+						border = CardDefaults.border(
+							focusedBorder = Border(
+								border = BorderStroke(2.dp, imagePrimaryColor ?: MaterialTheme.colorScheme.border),
 							)
 						),
-						border = CardDefaults.border(focusedBorder = Border.None),
 						onClick = {
 							if (launchIntentUri != null) {
 								context.startActivity(Intent.parseUri(launchIntentUri, 0))

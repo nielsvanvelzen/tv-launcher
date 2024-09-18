@@ -1,6 +1,7 @@
 package nl.ndat.tvlauncher.ui.component.card
 
 import android.content.Intent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -20,7 +21,6 @@ import androidx.palette.graphics.Palette
 import androidx.tv.material3.Border
 import androidx.tv.material3.Card
 import androidx.tv.material3.CardDefaults
-import androidx.tv.material3.Glow
 import androidx.tv.material3.MaterialTheme
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -39,13 +39,11 @@ fun ChannelProgramCard(
 		modifier = modifier
 			.height(baseHeight)
 			.aspectRatio(program.posterArtAspectRatio?.floatValue ?: 1f),
-		glow = CardDefaults.glow(
-			focusedGlow = Glow(
-				elevationColor = imagePrimaryColor ?: MaterialTheme.colorScheme.border,
-				elevation = 10.dp
+		border = CardDefaults.border(
+			focusedBorder = Border(
+				border = BorderStroke(2.dp, imagePrimaryColor ?: MaterialTheme.colorScheme.border),
 			)
 		),
-		border = CardDefaults.border(focusedBorder = Border.None),
 		onClick = {
 			if (program.intentUri != null) {
 				context.startActivity(Intent.parseUri(program.intentUri, 0))
