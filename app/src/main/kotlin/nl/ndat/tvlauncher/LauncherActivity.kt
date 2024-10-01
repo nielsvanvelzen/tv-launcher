@@ -7,7 +7,7 @@ import android.os.SystemClock
 import android.view.KeyEvent
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.core.app.ActivityCompat
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -20,11 +20,21 @@ import nl.ndat.tvlauncher.ui.AppBase
 import nl.ndat.tvlauncher.util.DefaultLauncherHelper
 import org.koin.android.ext.android.inject
 
+@SuppressLint("RestrictedApi")
+val PERMISSION_READ_CHANNELS = TvContractCompat.PERMISSION_READ_TV_LISTINGS
+val PERMISSIONS = listOf(PERMISSION_READ_CHANNELS)
+
 class LauncherActivity : ComponentActivity() {
 	private val defaultLauncherHelper: DefaultLauncherHelper by inject()
 	private val appRepository: AppRepository by inject()
 	private val inputRepository: InputRepository by inject()
 	private val channelRepository: ChannelRepository by inject()
+
+	private val permissionsLauncher =
+		registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+			// Refresh channels when permission is granted
+			if (permissions[PERMISSION_READ_CHANNELS] == true) lifecycleScope.launch { channelRepository.refreshAllChannels() }
+		}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -42,9 +52,16 @@ class LauncherActivity : ComponentActivity() {
 				channelRepository.refreshAllChannels()
 			}
 		}
+	}
 
-		if (checkCallingOrSelfPermission(TvContractCompat.PERMISSION_READ_TV_LISTINGS) != PackageManager.PERMISSION_GRANTED)
-			ActivityCompat.requestPermissions(this, arrayOf(TvContractCompat.PERMISSION_READ_TV_LISTINGS), 0)
+	override fun onResume() {
+		super.onResume()
+
+		// Request missing permissions
+		val missingPermissions = PERMISSIONS
+			.filter { permission -> checkCallingOrSelfPermission(permission) != PackageManager.PERMISSION_GRANTED }
+			.toTypedArray()
+		if (missingPermissions.isNotEmpty()) permissionsLauncher.launch(missingPermissions)
 	}
 
 	private fun validateDefaultLauncher() {
