@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import nl.ndat.tvlauncher.data.repository.AppRepository
 import nl.ndat.tvlauncher.data.repository.ChannelRepository
 import nl.ndat.tvlauncher.data.sqldelight.App
@@ -21,15 +22,15 @@ class HomeTabViewModel(
 
 	fun channelPrograms(channel: Channel) = channelRepository.getProgramsByChannel(channel)
 
-	fun favoriteApp(app: App, favorite: Boolean) {
+	fun favoriteApp(app: App, favorite: Boolean) = viewModelScope.launch {
 		// Return is state is already satisfied
-		if ((app.favoriteOrder != null) == favorite) return
+		if ((app.favoriteOrder != null) == favorite) return@launch
 
 		if (favorite) appRepository.favorite(app.id)
 		else appRepository.unfavorite(app.id)
 	}
 
-	fun setFavoriteOrder(app: App, order: Int) {
+	fun setFavoriteOrder(app: App, order: Int) = viewModelScope.launch {
 		// Make sure app is favorite first
 		if (app.favoriteOrder == null) appRepository.favorite(app.id)
 		appRepository.updateFavoriteOrder(app.id, order)
