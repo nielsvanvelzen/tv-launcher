@@ -12,6 +12,8 @@ import androidx.tvprovider.media.tv.PreviewChannel
 import androidx.tvprovider.media.tv.PreviewProgram
 import androidx.tvprovider.media.tv.TvContractCompat
 import androidx.tvprovider.media.tv.WatchNextProgram
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import nl.ndat.tvlauncher.data.model.ChannelProgramAspectRatio
 import nl.ndat.tvlauncher.data.model.ChannelProgramInteractionType
 import nl.ndat.tvlauncher.data.model.ChannelProgramType
@@ -50,16 +52,16 @@ class ChannelResolver {
 		null
 	}
 
-	fun getPreviewChannels(context: Context): List<Channel> {
+	suspend fun getPreviewChannels(context: Context): List<Channel> = withContext(Dispatchers.IO) {
 		val cursor = context.contentResolver.tryQuery(
 			TvContractCompat.Channels.CONTENT_URI,
 			PreviewChannel.Columns.PROJECTION,
-		) ?: return emptyList()
+		) ?: return@withContext emptyList()
 
-		return buildList {
+		buildList {
 			if (!cursor.moveToFirst()) {
 				Timber.w("Unable to move cursor")
-				return emptyList()
+				return@buildList
 			}
 
 			do {
@@ -86,16 +88,16 @@ class ChannelResolver {
 		}
 	}
 
-	fun getChannelPrograms(context: Context, channelId: Long): List<ChannelProgram> {
+	suspend fun getChannelPrograms(context: Context, channelId: Long): List<ChannelProgram> = withContext(Dispatchers.IO) {
 		val cursor = context.contentResolver.tryQuery(
 			TvContractCompat.buildPreviewProgramsUriForChannel(channelId),
 			PreviewProgram.PROJECTION,
-		) ?: return emptyList()
+		) ?: return@withContext emptyList()
 
-		return buildList {
+		buildList {
 			if (!cursor.moveToFirst()) {
 				Timber.w("Unable to move cursor")
-				return emptyList()
+				return@buildList
 			}
 
 			do {
@@ -112,16 +114,16 @@ class ChannelResolver {
 		}
 	}
 
-	fun getWatchNextPrograms(context: Context): List<ChannelProgram> {
+	suspend fun getWatchNextPrograms(context: Context): List<ChannelProgram> = withContext(Dispatchers.IO) {
 		val cursor = context.contentResolver.tryQuery(
 			TvContractCompat.WatchNextPrograms.CONTENT_URI,
 			WatchNextProgram.PROJECTION,
-		) ?: return emptyList()
+		) ?: return@withContext emptyList()
 
-		return buildList {
+		buildList {
 			if (!cursor.moveToFirst()) {
 				Timber.w("Unable to move cursor")
-				return emptyList()
+				return@buildList
 			}
 
 			do {

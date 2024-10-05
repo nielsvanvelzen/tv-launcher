@@ -32,6 +32,7 @@ sqldelight {
 	databases {
 		create("Database") {
 			packageName.set("nl.ndat.tvlauncher.data.sqldelight")
+			generateAsync.set(true)
 		}
 	}
 }

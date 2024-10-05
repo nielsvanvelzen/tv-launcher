@@ -1,6 +1,9 @@
 package nl.ndat.tvlauncher.data.repository
 
 import android.content.Context
+import app.cash.sqldelight.async.coroutines.awaitAsOneOrNull
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import nl.ndat.tvlauncher.data.DatabaseContainer
 import nl.ndat.tvlauncher.data.executeAsListFlow
 import nl.ndat.tvlauncher.data.resolver.AppResolver
@@ -11,16 +14,18 @@ class AppRepository(
 	private val appResolver: AppResolver,
 	private val database: DatabaseContainer,
 ) {
-	private suspend fun commitApps(apps: Collection<App>) = database.transaction {
-		// Remove missing apps from database
-		val currentIds = apps.map { it.id }
-		database.apps.removeNotIn(currentIds)
+	private suspend fun commitApps(apps: Collection<App>) = withContext(Dispatchers.IO) {
+		database.transaction {
+			// Remove missing apps from database
+			val currentIds = apps.map { it.id }
+			database.apps.removeNotIn(currentIds)
 
-		// Upsert apps
-		apps.map { app -> commitApp(app) }
+			// Upsert apps
+			apps.map { app -> commitApp(app) }
+		}
 	}
 
-	private fun commitApp(app: App) {
+	private suspend fun commitApp(app: App) = withContext(Dispatchers.IO) {
 		database.apps.upsert(
 			displayName = app.displayName,
 			packageName = app.packageName,
@@ -30,12 +35,12 @@ class AppRepository(
 		)
 	}
 
-	suspend fun refreshAllApplications() {
+	suspend fun refreshAllApplications() = withContext(Dispatchers.IO) {
 		val apps = appResolver.getApplications(context)
 		commitApps(apps)
 	}
 
-	suspend fun refreshApplication(packageName: String) {
+	suspend fun refreshApplication(packageName: String) = withContext(Dispatchers.IO) {
 		val app = appResolver.getApplication(context, packageName)
 
 		if (app == null) database.apps.removeByPackageName(packageName)
@@ -44,9 +49,9 @@ class AppRepository(
 
 	fun getApps() = database.apps.getAll().executeAsListFlow()
 	fun getFavoriteApps() = database.apps.getAllFavorites(::App).executeAsListFlow()
-	suspend fun getByPackageName(packageName: String) = database.apps.getByPackageName(packageName).executeAsOneOrNull()
+	suspend fun getByPackageName(packageName: String) = withContext(Dispatchers.IO) { database.apps.getByPackageName(packageName).awaitAsOneOrNull() }
 
-	fun favorite(id: String) = database.apps.updateFavoriteAdd(id)
-	fun unfavorite(id: String) = database.apps.updateFavoriteRemove(id)
-	fun updateFavoriteOrder(id: String, order: Int) = database.apps.updateFavoriteOrder(id, order.toLong())
+	suspend fun favorite(id: String) = withContext(Dispatchers.IO) { database.apps.updateFavoriteAdd(id) }
+	suspend fun unfavorite(id: String) = withContext(Dispatchers.IO) { database.apps.updateFavoriteRemove(id) }
+	suspend fun updateFavoriteOrder(id: String, order: Int) = withContext(Dispatchers.IO) { database.apps.updateFavoriteOrder(id, order.toLong()) }
 }

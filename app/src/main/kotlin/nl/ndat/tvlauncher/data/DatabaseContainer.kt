@@ -3,8 +3,9 @@ package nl.ndat.tvlauncher.data
 import android.content.Context
 import app.cash.sqldelight.ColumnAdapter
 import app.cash.sqldelight.EnumColumnAdapter
-import app.cash.sqldelight.TransactionWithReturn
-import app.cash.sqldelight.TransactionWithoutReturn
+import app.cash.sqldelight.SuspendingTransactionWithReturn
+import app.cash.sqldelight.SuspendingTransactionWithoutReturn
+import app.cash.sqldelight.async.coroutines.synchronous
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import nl.ndat.tvlauncher.data.sqldelight.Channel
 import nl.ndat.tvlauncher.data.sqldelight.ChannelProgram
@@ -18,7 +19,7 @@ class DatabaseContainer(
 		const val DB_FILE = "data.db"
 	}
 
-	private val driver = AndroidSqliteDriver(Database.Schema, context, DB_FILE)
+	private val driver = AndroidSqliteDriver(Database.Schema.synchronous(), context, DB_FILE)
 	private val database = Database(
 		driver = driver,
 		ChannelAdapter = Channel.Adapter(
@@ -43,8 +44,8 @@ class DatabaseContainer(
 	val channels = database.channelQueries
 	val channelPrograms = database.channelProgramQueries
 
-	fun transaction(body: TransactionWithoutReturn.() -> Unit) = database.transaction { body() }
-	fun <T> transactionForResult(body: TransactionWithReturn<T>.() -> T) = database.transactionWithResult { body() }
+	suspend fun transaction(body: suspend SuspendingTransactionWithoutReturn.() -> Unit) = database.transaction { body() }
+	suspend fun <T> transactionForResult(body: suspend SuspendingTransactionWithReturn<T>.() -> T) = database.transactionWithResult { body() }
 }
 
 class IntColumnAdapter : ColumnAdapter<Int, Long> {

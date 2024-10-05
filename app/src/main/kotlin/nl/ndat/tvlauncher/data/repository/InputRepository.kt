@@ -1,6 +1,8 @@
 package nl.ndat.tvlauncher.data.repository
 
 import android.content.Context
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import nl.ndat.tvlauncher.data.DatabaseContainer
 import nl.ndat.tvlauncher.data.executeAsListFlow
 import nl.ndat.tvlauncher.data.resolver.InputResolver
@@ -11,16 +13,18 @@ class InputRepository(
 	private val inputResolver: InputResolver,
 	private val database: DatabaseContainer
 ) {
-	private suspend fun commitInputs(inputs: Collection<Input>) = database.transaction {
-		// Remove missing inputs from database
-		val currentIds = inputs.map { it.id }
-		database.inputs.removeNotIn(currentIds)
+	private suspend fun commitInputs(inputs: Collection<Input>) = withContext(Dispatchers.IO) {
+		database.transaction {
+			// Remove missing inputs from database
+			val currentIds = inputs.map { it.id }
+			database.inputs.removeNotIn(currentIds)
 
-		// Upsert inputs
-		inputs.map { input -> commitInput(input) }
+			// Upsert inputs
+			inputs.map { input -> commitInput(input) }
+		}
 	}
 
-	private fun commitInput(input: Input) {
+	private suspend fun commitInput(input: Input) = withContext(Dispatchers.IO) {
 		database.inputs.upsert(
 			id = input.id,
 			inputId = input.id,

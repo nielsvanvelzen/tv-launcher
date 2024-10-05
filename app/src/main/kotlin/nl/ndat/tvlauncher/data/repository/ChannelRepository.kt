@@ -1,6 +1,8 @@
 package nl.ndat.tvlauncher.data.repository
 
 import android.content.Context
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import nl.ndat.tvlauncher.data.DatabaseContainer
 import nl.ndat.tvlauncher.data.executeAsListFlow
 import nl.ndat.tvlauncher.data.model.ChannelType
@@ -13,7 +15,7 @@ class ChannelRepository(
 	private val channelResolver: ChannelResolver,
 	private val database: DatabaseContainer,
 ) {
-	private suspend fun commitChannels(type: ChannelType, channels: Collection<Channel>) =
+	private suspend fun commitChannels(type: ChannelType, channels: Collection<Channel>) = withContext(Dispatchers.IO) {
 		database.transaction {
 			// Remove missing channels from database
 			val currentIds = channels.map { it.id }
@@ -22,8 +24,10 @@ class ChannelRepository(
 			// Upsert channels
 			channels.map { channel -> commitChannel(channel) }
 		}
+	}
 
-	private fun commitChannel(channel: Channel) {
+
+	private suspend fun commitChannel(channel: Channel) = withContext(Dispatchers.IO) {
 		database.channels.upsert(
 			id = channel.id,
 			type = channel.type,
@@ -38,16 +42,18 @@ class ChannelRepository(
 	private suspend fun commitChannelPrograms(
 		channelId: String,
 		programs: Collection<ChannelProgram>,
-	) = database.transaction {
-		// Remove missing channels from database
-		val currentIds = programs.map { it.id }
-		database.channelPrograms.removeNotIn(channelId, currentIds)
+	) =  withContext(Dispatchers.IO) {
+		database.transaction {
+			// Remove missing channels from database
+			val currentIds = programs.map { it.id }
+			database.channelPrograms.removeNotIn(channelId, currentIds)
 
-		// Upsert channels
-		programs.map { program -> commitChannelProgram(program) }
+			// Upsert channels
+			programs.map { program -> commitChannelProgram(program) }
+		}
 	}
 
-	private fun commitChannelProgram(program: ChannelProgram) {
+	private suspend fun commitChannelProgram(program: ChannelProgram) = withContext(Dispatchers.IO) {
 		database.channelPrograms.upsert(
 			id = program.id,
 			channelId = program.channelId,
