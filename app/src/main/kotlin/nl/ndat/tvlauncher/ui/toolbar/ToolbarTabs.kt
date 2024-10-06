@@ -19,7 +19,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun ToolbarTabs() {
+fun ToolbarTabs(modifier: Modifier) {
 	val viewModel = koinViewModel<LauncherScreenViewModel>()
 	val selectedTabIndex by viewModel.tabIndex.collectAsState()
 
@@ -30,8 +30,7 @@ fun ToolbarTabs() {
 
 	TabRow(
 		selectedTabIndex = selectedTabIndex,
-		modifier = Modifier
-			.focusRestorer(),
+		modifier = modifier.focusRestorer(),
 	) {
 		tabs.forEachIndexed { tabIndex, name ->
 			key(tabIndex) {
