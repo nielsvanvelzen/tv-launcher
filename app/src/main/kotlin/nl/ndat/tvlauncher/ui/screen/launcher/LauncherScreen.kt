@@ -54,7 +54,7 @@ fun LauncherScreen() {
 				.focusProperties { next = second },
 			label = "content"
 		) { tabIndex ->
-			if (tabIndex == 0) HomeTab(modifier = Modifier.focusRestorer())
+			if (tabIndex == 0) HomeTab()
 			else if (tabIndex == 1) AppsTab(modifier = Modifier.focusRestorer())
 		}
 	}
