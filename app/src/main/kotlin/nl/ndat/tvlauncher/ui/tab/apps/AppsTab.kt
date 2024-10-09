@@ -10,11 +10,14 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusRestorer
 import androidx.compose.ui.unit.dp
 import nl.ndat.tvlauncher.ui.component.card.AppCard
 import org.koin.androidx.compose.koinViewModel
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun AppsTab(
 	modifier: Modifier = Modifier
@@ -31,6 +34,7 @@ fun AppsTab(
 		horizontalArrangement = Arrangement.spacedBy(14.dp),
 		columns = GridCells.Adaptive(90.dp * (16f / 9f)),
 		modifier = modifier
+			.focusRestorer()
 			.fillMaxSize()
 	) {
 		items(
