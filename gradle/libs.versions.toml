@@ -12,7 +12,7 @@ androidx-tvprovider = "1.1.0-alpha01"
 coil = "2.7.0"
 koin-android = "4.0.0"
 koin-compose = "4.0.0"
-kotlin = "2.0.20"
+kotlin = "2.0.21"
 sqldelight = "2.0.2"
 timber = "5.0.1"
 
