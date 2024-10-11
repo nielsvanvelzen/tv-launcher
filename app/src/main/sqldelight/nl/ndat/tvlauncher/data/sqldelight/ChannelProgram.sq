@@ -126,5 +126,8 @@ upsert {
 	);
 }
 
-removeNotIn:
-DELETE FROM ChannelProgram WHERE channelId = :channelId AND id NOT IN :ids;
+removeById:
+DELETE FROM ChannelProgram WHERE id = :id;
+
+removeByChannelId:
+DELETE FROM ChannelProgram WHERE channelId = :channelId;

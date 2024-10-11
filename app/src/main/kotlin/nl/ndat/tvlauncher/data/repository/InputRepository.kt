@@ -15,9 +15,12 @@ class InputRepository(
 ) {
 	private suspend fun commitInputs(inputs: Collection<Input>) = withContext(Dispatchers.IO) {
 		database.transaction {
-			// Remove missing inputs from database
-			val currentIds = inputs.map { it.id }
-			database.inputs.removeNotIn(currentIds)
+			// Remove inputs found in database but not in committed list
+			database.inputs.getAll()
+				.executeAsList()
+				.map { it.id }
+				.subtract(inputs.map { it.id }.toSet())
+				.map { id -> database.inputs.removeById(id) }
 
 			// Upsert inputs
 			inputs.map { input -> commitInput(input) }

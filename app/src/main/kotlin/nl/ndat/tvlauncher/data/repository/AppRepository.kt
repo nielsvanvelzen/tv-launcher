@@ -16,11 +16,14 @@ class AppRepository(
 ) {
 	private suspend fun commitApps(apps: Collection<App>) = withContext(Dispatchers.IO) {
 		database.transaction {
-			// Remove missing apps from database
-			val currentIds = apps.map { it.id }
-			database.apps.removeNotIn(currentIds)
+			// Remove apps found in database but not in committed list
+			database.apps.getAll()
+				.executeAsList()
+				.map { it.id }
+				.subtract(apps.map { it.id }.toSet())
+				.map { id -> database.apps.removeById(id) }
 
-			// Upsert apps
+			// Upsert all found
 			apps.map { app -> commitApp(app) }
 		}
 	}

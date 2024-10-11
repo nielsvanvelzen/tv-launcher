@@ -66,8 +66,8 @@ updateFavoriteOrder {
 	UPDATE App SET favoriteOrder = :order WHERE id = :id;
 }
 
+removeById:
+DELETE FROM App WHERE id = :id;
+
 removeByPackageName:
 DELETE FROM App WHERE packageName = :packageName;
-
-removeNotIn:
-DELETE FROM App WHERE id NOT IN :ids;

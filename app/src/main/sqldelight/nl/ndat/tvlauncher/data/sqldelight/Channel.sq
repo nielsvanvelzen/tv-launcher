@@ -23,6 +23,9 @@ SELECT * FROM Channel WHERE (SELECT favoriteOrder FROM App WHERE App.packageName
 getById:
 SELECT * FROM Channel WHERE id = :id LIMIT 1;
 
+getByType:
+SELECT * FROM Channel WHERE type = :type;
+
 upsert {
 	UPDATE Channel SET
 		type = :type,
@@ -52,5 +55,8 @@ upsert {
 	);
 }
 
-removeNotIn:
-DELETE FROM Channel WHERE type = :type AND id NOT IN :ids;
+removeById:
+DELETE FROM Channel WHERE id = :id;
+
+removeByType:
+DELETE FROM Channel WHERE type = :type;

@@ -43,8 +43,9 @@ upsert {
 	);
 }
 
+removeById:
+DELETE FROM Input WHERE id = :id;
+
 removeByPackageName:
 DELETE FROM Input WHERE packageName = :packageName;
 
-removeNotIn:
-DELETE FROM Input WHERE id NOT IN :ids;

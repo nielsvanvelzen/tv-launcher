@@ -17,15 +17,17 @@ class ChannelRepository(
 ) {
 	private suspend fun commitChannels(type: ChannelType, channels: Collection<Channel>) = withContext(Dispatchers.IO) {
 		database.transaction {
-			// Remove missing channels from database
-			val currentIds = channels.map { it.id }
-			database.channels.removeNotIn(type, currentIds)
+			// Remove channels found in database but not in committed list
+			database.channels.getByType(type)
+				.executeAsList()
+				.map { it.id }
+				.subtract(channels.map { it.id }.toSet())
+				.map { id -> database.channels.removeById(id) }
 
 			// Upsert channels
 			channels.map { channel -> commitChannel(channel) }
 		}
 	}
-
 
 	private suspend fun commitChannel(channel: Channel) = withContext(Dispatchers.IO) {
 		database.channels.upsert(
@@ -44,9 +46,12 @@ class ChannelRepository(
 		programs: Collection<ChannelProgram>,
 	) =  withContext(Dispatchers.IO) {
 		database.transaction {
-			// Remove missing channels from database
-			val currentIds = programs.map { it.id }
-			database.channelPrograms.removeNotIn(channelId, currentIds)
+			// Remove channels found in database but not in committed list
+			database.channelPrograms.getByChannel(channelId)
+				.executeAsList()
+				.map { it.id }
+				.subtract(programs.map { it.id }.toSet())
+				.map { id -> database.channelPrograms.removeById(id) }
 
 			// Upsert channels
 			programs.map { program -> commitChannelProgram(program) }
