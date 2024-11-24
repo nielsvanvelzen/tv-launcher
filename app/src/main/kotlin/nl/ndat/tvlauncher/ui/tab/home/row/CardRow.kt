@@ -47,7 +47,7 @@ fun CardRow(
 		horizontalArrangement = Arrangement.spacedBy(14.dp),
 		modifier = Modifier
 			.fillMaxWidth()
-			.focusRestorer { childFocusRequester },
+			.focusRestorer(childFocusRequester),
 	) {
 		content(childFocusRequester)
 	}

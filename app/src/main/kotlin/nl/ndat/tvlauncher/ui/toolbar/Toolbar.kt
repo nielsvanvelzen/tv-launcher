@@ -23,7 +23,7 @@ fun Toolbar(
 	Row(
 		modifier = Modifier
 			.fillMaxWidth()
-			.focusRestorer { focusRequester }
+			.focusRestorer(focusRequester)
 			.then(modifier),
 		horizontalArrangement = Arrangement.spacedBy(10.dp),
 		verticalAlignment = Alignment.CenterVertically,
