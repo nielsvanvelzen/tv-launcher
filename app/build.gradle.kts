@@ -6,16 +6,16 @@ plugins {
 }
 
 kotlin {
-	jvmToolchain(21)
+	jvmToolchain(libs.versions.java.jdk.get().toInt())
 }
 
 android {
 	namespace = "nl.ndat.tvlauncher"
-	compileSdk = 34
+	compileSdk = libs.versions.android.compileSdk.get().toInt()
 
 	defaultConfig {
-		minSdk = 21
-		targetSdk = 34
+		minSdk = libs.versions.android.minSdk.get().toInt()
+		targetSdk = libs.versions.android.targetSdk.get().toInt()
 
 		applicationId = "nl.ndat.tvlauncher"
 		versionCode = 1_00_00
