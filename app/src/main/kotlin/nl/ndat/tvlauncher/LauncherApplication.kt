@@ -17,9 +17,9 @@ import nl.ndat.tvlauncher.ui.tab.home.HomeTabViewModel
 import nl.ndat.tvlauncher.util.DefaultLauncherHelper
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 import timber.log.Timber
 
@@ -35,7 +35,7 @@ private val launcherModule = module {
 	single { InputRepository(get(), get(), get()) }
 	single { InputResolver() }
 
-	viewModel { LauncherScreenViewModel() }
+	viewModel() { LauncherScreenViewModel() }
 	viewModel { HomeTabViewModel(get(), get()) }
 	viewModel { AppsTabViewModel(get()) }
 }
