@@ -35,7 +35,7 @@ private val launcherModule = module {
 	single { InputRepository(get(), get(), get()) }
 	single { InputResolver() }
 
-	viewModel() { LauncherScreenViewModel() }
+	viewModel { LauncherScreenViewModel() }
 	viewModel { HomeTabViewModel(get(), get()) }
 	viewModel { AppsTabViewModel(get()) }
 }
