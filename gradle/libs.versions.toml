@@ -16,7 +16,7 @@ coil = "2.7.0"
 java-jdk = "21"
 koin-android = "4.0.2"
 koin-compose = "4.0.2"
-kotlin = "2.1.0"
+kotlin = "2.1.10"
 sqldelight = "2.0.2"
 timber = "5.0.1"
 
