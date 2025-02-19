@@ -44,7 +44,7 @@ fun AppCard(
 	popupContent: (@Composable () -> Unit)? = null,
 ) {
 	val context = LocalContext.current
-	val image = remember { app.createDrawable(context) }
+	val image = remember(app.id) { app.createDrawable(context) }
 	var imagePrimaryColor by remember { mutableStateOf<Color?>(null) }
 	val interactionSource = remember { MutableInteractionSource() }
 	val focused by interactionSource.collectIsFocusedAsState()
