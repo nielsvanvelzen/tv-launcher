@@ -10,33 +10,49 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRestorer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavGraph
+import androidx.navigation.get
 import androidx.tv.material3.Tab
 import androidx.tv.material3.TabRow
 import androidx.tv.material3.Text
+import kotlinx.coroutines.flow.map
 import nl.ndat.tvlauncher.R
-import nl.ndat.tvlauncher.ui.screen.launcher.LauncherScreenViewModel
-import org.koin.androidx.compose.koinViewModel
+import nl.ndat.tvlauncher.data.Destinations
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun ToolbarTabs(modifier: Modifier) {
-	val viewModel = koinViewModel<LauncherScreenViewModel>()
-	val selectedTabIndex by viewModel.tabIndex.collectAsState()
-
-	val tabs = listOf(
-		stringResource(R.string.tab_home),
-		stringResource(R.string.tab_apps),
+fun ToolbarTabs(
+	navController: NavController,
+	navGraph: NavGraph,
+	modifier: Modifier,
+) {
+	val currentDestinationId by navController.currentBackStackEntryFlow.map { it.destination.id }.collectAsState(null)
+	val tabs = mapOf(
+		Destinations.Home to stringResource(R.string.tab_home),
+		Destinations.Apps to stringResource(R.string.tab_apps),
 	)
 
 	TabRow(
-		selectedTabIndex = selectedTabIndex,
+		selectedTabIndex = tabs.keys.indexOfFirst { destination -> navGraph[destination].id == currentDestinationId },
 		modifier = modifier.focusRestorer(),
 	) {
-		tabs.forEachIndexed { tabIndex, name ->
-			key(tabIndex) {
+		tabs.toList().forEachIndexed { index, (destination, name) ->
+			key(index) {
+				val selected = navGraph[destination].id == currentDestinationId
 				Tab(
-					selected = selectedTabIndex == tabIndex,
-					onFocus = { viewModel.setTabIndex(tabIndex) },
+					selected = selected,
+					onFocus = {
+						if (!selected) {
+							navController.navigate(destination) {
+								if (currentDestinationId != null) {
+									popUpTo(currentDestinationId!!) {
+										inclusive = true
+									}
+								}
+							}
+						}
+					},
 					modifier = Modifier.padding(16.dp, 8.dp)
 				) {
 					Text(name)

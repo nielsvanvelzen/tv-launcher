@@ -13,10 +13,14 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.focusRestorer
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavGraph
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun Toolbar(
+	navController: NavController,
+	navGraph: NavGraph,
 	modifier: Modifier = Modifier,
 ) {
 	val focusRequester = remember { FocusRequester() }
@@ -29,6 +33,8 @@ fun Toolbar(
 		verticalAlignment = Alignment.CenterVertically,
 	) {
 		ToolbarTabs(
+			navController = navController,
+			navGraph = navGraph,
 			modifier = Modifier
 				.focusRequester(focusRequester)
 		)

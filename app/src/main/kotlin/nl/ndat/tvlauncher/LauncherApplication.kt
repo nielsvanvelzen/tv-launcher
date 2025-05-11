@@ -11,7 +11,6 @@ import nl.ndat.tvlauncher.data.repository.InputRepository
 import nl.ndat.tvlauncher.data.resolver.AppResolver
 import nl.ndat.tvlauncher.data.resolver.ChannelResolver
 import nl.ndat.tvlauncher.data.resolver.InputResolver
-import nl.ndat.tvlauncher.ui.screen.launcher.LauncherScreenViewModel
 import nl.ndat.tvlauncher.ui.tab.apps.AppsTabViewModel
 import nl.ndat.tvlauncher.ui.tab.home.HomeTabViewModel
 import nl.ndat.tvlauncher.util.DefaultLauncherHelper
@@ -35,7 +34,6 @@ private val launcherModule = module {
 	single { InputRepository(get(), get(), get()) }
 	single { InputResolver() }
 
-	viewModel { LauncherScreenViewModel() }
 	viewModel { HomeTabViewModel(get(), get()) }
 	viewModel { AppsTabViewModel(get()) }
 }
