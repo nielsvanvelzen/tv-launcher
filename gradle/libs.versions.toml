@@ -9,6 +9,7 @@ androidx-compose-foundation = "1.8.1"
 androidx-compose-ui = "1.8.1"
 androidx-core = "1.16.0"
 androidx-core-role = "1.1.0"
+androidx-navigation = "2.9.0"
 androidx-palette = "1.0.0"
 androidx-tv = "1.0.0"
 androidx-tvprovider = "1.1.0"
@@ -17,6 +18,7 @@ java-jdk = "21"
 koin-android = "4.0.4"
 koin-compose = "4.0.4"
 kotlin = "2.1.20"
+kotlinx-serialization = "1.8.1"
 sqldelight = "2.0.2"
 timber = "5.0.1"
 
@@ -24,6 +26,7 @@ timber = "5.0.1"
 android-app = { id = "com.android.application", version.ref = "android-plugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 
 [libraries]
@@ -35,12 +38,16 @@ androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", versi
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-compose-ui" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-core-role = { module = "androidx.core:core-role", version.ref = "androidx-core-role" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
+androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "androidx-navigation" }
+androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "androidx-navigation" }
 androidx-palette = { module = "androidx.palette:palette-ktx", version.ref = "androidx-palette" }
 androidx-tv-material = { module = "androidx.tv:tv-material", version.ref = "androidx-tv" }
 androidx-tvprovider = { module = "androidx.tvprovider:tvprovider", version.ref = "androidx-tvprovider" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-android" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin-compose" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }

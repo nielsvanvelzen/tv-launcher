@@ -3,6 +3,7 @@ plugins {
 	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.kotlin.compose)
 	alias(libs.plugins.sqldelight)
+	alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -40,19 +41,21 @@ sqldelight {
 dependencies {
 	// System
 	implementation(libs.bundles.androidx.core)
-	implementation(libs.androidx.tvprovider)
 	implementation(libs.bundles.koin)
+	implementation(libs.androidx.tvprovider)
 	implementation(libs.timber)
 
 	// Data
 	implementation(libs.bundles.sqldelight)
+	implementation(libs.kotlinx.serialization.json)
 
 	// UI
-	implementation(libs.androidx.appcompat)
-	implementation(libs.androidx.activity.compose)
 	implementation(libs.bundles.androidx.compose)
-	debugImplementation(libs.androidx.compose.ui.tooling)
-	implementation(libs.androidx.tv.material)
+	implementation(libs.androidx.activity.compose)
+	implementation(libs.androidx.appcompat)
+	implementation(libs.androidx.navigation.compose)
 	implementation(libs.androidx.palette)
+	implementation(libs.androidx.tv.material)
 	implementation(libs.coil.compose)
+	debugImplementation(libs.androidx.compose.ui.tooling)
 }
