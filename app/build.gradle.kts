@@ -39,22 +39,18 @@ sqldelight {
 
 dependencies {
 	// System
-	implementation(libs.androidx.core)
-	implementation(libs.androidx.core.role)
+	implementation(libs.bundles.androidx.core)
 	implementation(libs.androidx.tvprovider)
-	implementation(libs.koin.android)
-	implementation(libs.koin.androidx.compose)
+	implementation(libs.bundles.koin)
 	implementation(libs.timber)
 
 	// Data
-	implementation(libs.sqldelight.android)
-	implementation(libs.sqldelight.coroutines)
+	implementation(libs.bundles.sqldelight)
 
 	// UI
 	implementation(libs.androidx.appcompat)
 	implementation(libs.androidx.activity.compose)
-	implementation(libs.androidx.compose.foundation)
-	implementation(libs.androidx.compose.ui.tooling.preview)
+	implementation(libs.bundles.androidx.compose)
 	debugImplementation(libs.androidx.compose.ui.tooling)
 	implementation(libs.androidx.tv.material)
 	implementation(libs.androidx.palette)

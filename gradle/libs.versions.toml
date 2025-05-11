@@ -30,6 +30,7 @@ sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose-foundation" }
+androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidx-compose-ui" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-compose-ui" }
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-compose-ui" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
@@ -43,3 +44,22 @@ koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", versi
 sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+
+[bundles]
+androidx-compose = [
+    "androidx-compose-foundation",
+    "androidx-compose-ui",
+    "androidx-compose-ui-tooling-preview",
+]
+androidx-core = [
+    "androidx-core",
+    "androidx-core-role",
+]
+koin = [
+    "koin-android",
+    "koin-androidx-compose",
+]
+sqldelight = [
+    "sqldelight-android",
+    "sqldelight-coroutines",
+]
