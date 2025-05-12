@@ -1,5 +1,7 @@
 package nl.ndat.tvlauncher.ui.screen.launcher
 
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -36,6 +38,8 @@ fun LauncherScreen() {
 				NavHost(
 					navController = LocalNavController.current,
 					graph = LocalNavGraph.current,
+					enterTransition = { fadeIn() },
+					exitTransition = { fadeOut() }
 				)
 			}
 		}
