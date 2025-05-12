@@ -1,4 +1,4 @@
-package nl.ndat.tvlauncher.util
+package nl.ndat.tvlauncher.util.modifier
 
 import androidx.compose.ui.Modifier
 
