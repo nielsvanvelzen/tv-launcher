@@ -9,7 +9,7 @@ import nl.ndat.tvlauncher.data.sqldelight.App
 import nl.ndat.tvlauncher.ui.component.card.AppCard
 import nl.ndat.tvlauncher.ui.tab.home.AppPopup
 import nl.ndat.tvlauncher.ui.tab.home.HomeTabViewModel
-import nl.ndat.tvlauncher.util.ifElse
+import nl.ndat.tvlauncher.util.modifier.ifElse
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

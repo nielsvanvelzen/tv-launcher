@@ -34,7 +34,7 @@ import coil.compose.AsyncImage
 import nl.ndat.tvlauncher.data.sqldelight.App
 import nl.ndat.tvlauncher.ui.component.PopupContainer
 import nl.ndat.tvlauncher.util.createDrawable
-import nl.ndat.tvlauncher.util.ifElse
+import nl.ndat.tvlauncher.util.modifier.ifElse
 
 @Composable
 fun AppCard(
