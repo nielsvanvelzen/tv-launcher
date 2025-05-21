@@ -51,10 +51,12 @@ dependencies {
 
 	// UI
 	implementation(libs.bundles.androidx.compose)
+	implementation(libs.androidx.activity)
 	implementation(libs.androidx.activity.compose)
 	implementation(libs.androidx.appcompat)
-	implementation(libs.androidx.navigation.compose)
+	implementation(libs.androidx.navigation3.ui)
 	implementation(libs.androidx.palette)
+	implementation(libs.androidx.savedstate)
 	implementation(libs.androidx.tv.material)
 	implementation(libs.coil.compose)
 	debugImplementation(libs.androidx.compose.ui.tooling)
