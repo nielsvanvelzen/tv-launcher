@@ -1,22 +1,27 @@
 package nl.ndat.tvlauncher.data
 
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
+import androidx.compose.runtime.Composable
 import kotlinx.serialization.Serializable
 import nl.ndat.tvlauncher.ui.tab.apps.AppsTab
 import nl.ndat.tvlauncher.ui.tab.home.HomeTab
 
+interface Destination {
+	@Composable
+	fun Content()
+}
+
 object Destinations {
 	@Serializable
-	object Home
+	object Home : Destination {
+		@Composable
+		override fun Content() = HomeTab()
+	}
 
 	@Serializable
-	object Apps
+	object Apps : Destination {
+		@Composable
+		override fun Content() = AppsTab()
+	}
 }
 
 val DefaultDestination = Destinations.Home
-
-fun NavGraphBuilder.createDestinationsGraph() {
-	composable<Destinations.Home> { HomeTab() }
-	composable<Destinations.Apps> { AppsTab() }
-}

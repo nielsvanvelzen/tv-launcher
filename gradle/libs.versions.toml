@@ -3,14 +3,16 @@ android-compileSdk = "36"
 android-minSdk = "21"
 android-plugin = "8.10.1"
 android-targetSdk = "36"
-androidx-activity = "1.10.1"
+androidx-activity = "1.12.0-alpha03"
 androidx-appcompat = "1.7.1"
-androidx-compose-foundation = "1.8.3"
-androidx-compose-ui = "1.8.3"
+androidx-compose-foundation = "1.9.0-beta01"
+androidx-compose-runtime = "1.9.0-beta01"
+androidx-compose-ui = "1.9.0-beta01"
 androidx-core = "1.16.0"
 androidx-core-role = "1.1.0"
-androidx-navigation = "2.9.0"
+androidx-navigation3 = "1.0.0-alpha04"
 androidx-palette = "1.0.0"
+androidx-savedstate = "1.3.0"
 androidx-tv = "1.0.0"
 androidx-tvprovider = "1.1.0"
 coil = "2.7.0"
@@ -30,18 +32,20 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 
 [libraries]
+androidx-activity = { module = "androidx.activity:activity", version.ref = "androidx-activity" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose-foundation" }
+androidx-compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "androidx-compose-runtime" }
+androidx-compose-runtime-savable = { module = "androidx.compose.runtime:runtime-saveable", version.ref = "androidx-compose-runtime" }
 androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidx-compose-ui" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-compose-ui" }
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-compose-ui" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-core-role = { module = "androidx.core:core-role", version.ref = "androidx-core-role" }
-androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
-androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "androidx-navigation" }
-androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "androidx-navigation" }
+androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "androidx-navigation3" }
 androidx-palette = { module = "androidx.palette:palette-ktx", version.ref = "androidx-palette" }
+androidx-savedstate = { module = "androidx.savedstate:savedstate", version.ref = "androidx-savedstate" }
 androidx-tv-material = { module = "androidx.tv:tv-material", version.ref = "androidx-tv" }
 androidx-tvprovider = { module = "androidx.tvprovider:tvprovider", version.ref = "androidx-tvprovider" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
@@ -55,6 +59,8 @@ timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 [bundles]
 androidx-compose = [
     "androidx-compose-foundation",
+    "androidx-compose-runtime",
+    "androidx-compose-runtime-savable",
     "androidx-compose-ui",
     "androidx-compose-ui-tooling-preview",
 ]
