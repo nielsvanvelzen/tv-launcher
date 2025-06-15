@@ -15,14 +15,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
-import nl.ndat.tvlauncher.R
-import nl.ndat.tvlauncher.data.model.ChannelType
-import nl.ndat.tvlauncher.data.sqldelight.App
-import nl.ndat.tvlauncher.data.sqldelight.Channel
 import nl.ndat.tvlauncher.data.sqldelight.ChannelProgram
 import nl.ndat.tvlauncher.ui.component.card.ChannelProgramCard
 import nl.ndat.tvlauncher.util.modifier.ifElse
@@ -30,19 +25,9 @@ import nl.ndat.tvlauncher.util.modifier.ifElse
 @Composable
 fun ChannelProgramCardRow(
 	modifier: Modifier = Modifier,
-	channel: Channel,
-	app: App,
+	title: String,
 	programs: List<ChannelProgram>,
 ) {
-	val title = when (channel.type) {
-		ChannelType.WATCH_NEXT -> stringResource(R.string.channel_watch_next)
-		ChannelType.PREVIEW -> stringResource(
-			R.string.channel_preview,
-			app.displayName,
-			channel.displayName
-		)
-	}
-
 	var focusedProgram by remember { mutableStateOf<ChannelProgram?>(null) }
 
 	if (programs.isNotEmpty()) {
