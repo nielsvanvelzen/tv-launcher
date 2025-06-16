@@ -123,5 +123,5 @@ class ChannelRepository(
 	fun getChannels() = database.channels.getAll().executeAsListFlow()
 	fun getFavoriteAppChannels() = database.channels.getFavoriteAppChannels(::Channel).executeAsListFlow()
 	fun getProgramsByChannel(channel: Channel) = database.channelPrograms.getByChannel(channel.id).executeAsListFlow()
-	fun getWatchNextPrograms() = database.channels.getById(ChannelResolver.CHANNEL_ID_WATCH_NEXT).executeAsListFlow()
+	fun getWatchNextPrograms() = database.channelPrograms.getByChannel(ChannelResolver.CHANNEL_ID_WATCH_NEXT).executeAsListFlow()
 }
