@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import nl.ndat.tvlauncher.R
+import nl.ndat.tvlauncher.data.resolver.ChannelResolver
 import nl.ndat.tvlauncher.ui.tab.home.row.AppCardRow
 import nl.ndat.tvlauncher.ui.tab.home.row.ChannelProgramCardRow
 import org.koin.androidx.compose.koinViewModel
@@ -23,7 +24,7 @@ fun HomeTab(
 	val viewModel = koinViewModel<HomeTabViewModel>()
 	val apps by viewModel.apps.collectAsState()
 	val channels by viewModel.channels.collectAsState()
-	val watchNext by viewModel.watchNext.collectAsState()
+	val watchNextPrograms by viewModel.watchNextPrograms.collectAsState()
 
 	LazyColumn(
 		verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -36,15 +37,12 @@ fun HomeTab(
 			)
 		}
 
-		items(
-			items = watchNext,
-			key = { channel -> channel.id }
-		) { channel ->
-			val programs by viewModel.channelPrograms(channel).collectAsState(initial = emptyList())
-
+		item(
+			key = ChannelResolver.CHANNEL_ID_WATCH_NEXT
+		) {
 			ChannelProgramCardRow(
 				title = stringResource(R.string.channel_watch_next),
-				programs = programs,
+				programs = watchNextPrograms,
 			)
 		}
 
