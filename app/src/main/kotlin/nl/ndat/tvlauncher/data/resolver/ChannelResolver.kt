@@ -56,7 +56,7 @@ class ChannelResolver {
 		val cursor = context.contentResolver.tryQuery(
 			TvContractCompat.Channels.CONTENT_URI,
 			PreviewChannel.Columns.PROJECTION,
-		) ?: return@withContext emptyList()
+ 		)?.takeIf { it.count > 0 } ?: return@withContext emptyList()
 
 		buildList {
 			if (!cursor.moveToFirst()) {
@@ -94,7 +94,7 @@ class ChannelResolver {
 			val cursor = context.contentResolver.tryQuery(
 				TvContractCompat.buildPreviewProgramsUriForChannel(channelId),
 				PreviewProgram.PROJECTION,
-			) ?: return@withContext emptyList()
+			)?.takeIf { it.count > 0 } ?: return@withContext emptyList()
 
 			buildList {
 				if (!cursor.moveToFirst()) {
@@ -120,7 +120,7 @@ class ChannelResolver {
 		val cursor = context.contentResolver.tryQuery(
 			TvContractCompat.WatchNextPrograms.CONTENT_URI,
 			WatchNextProgram.PROJECTION,
-		) ?: return@withContext emptyList()
+		)?.takeIf { it.count > 0 } ?: return@withContext emptyList()
 
 		buildList {
 			if (!cursor.moveToFirst()) {
