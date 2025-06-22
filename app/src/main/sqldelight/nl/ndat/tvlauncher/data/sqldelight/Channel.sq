@@ -1,4 +1,3 @@
-import kotlin.Long;
 import nl.ndat.tvlauncher.data.model.ChannelType;
 
 CREATE TABLE Channel (
