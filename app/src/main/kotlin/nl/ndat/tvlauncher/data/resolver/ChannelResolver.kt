@@ -72,7 +72,11 @@ class ChannelResolver {
 						Timber.d("Ignoring channel ${cursor.getString(PreviewChannel.Columns.COL_PACKAGE_NAME)} due to missing display name")
 					} else {
 						val channel = PreviewChannel.fromCursor(cursor)?.toChannel()
-						if (channel != null) add(channel)
+						if (channel == null) {
+							Timber.d("Ignoring channel ${cursor.getString(PreviewChannel.Columns.COL_PACKAGE_NAME)} due to failing to parse")
+						} else {
+							add(channel)
+						}
 					}
 				} catch (err: NullPointerException) {
 					Timber.e(err, "Unable to parse channel")
