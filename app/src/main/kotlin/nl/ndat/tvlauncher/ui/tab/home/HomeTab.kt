@@ -43,6 +43,7 @@ fun HomeTab(
 			ChannelProgramCardRow(
 				title = stringResource(R.string.channel_watch_next),
 				programs = watchNextPrograms,
+				app = null,
 			)
 		}
 
@@ -61,6 +62,7 @@ fun HomeTab(
 				ChannelProgramCardRow(
 					title = title,
 					programs = programs,
+					app = app,
 				)
 			}
 		}
