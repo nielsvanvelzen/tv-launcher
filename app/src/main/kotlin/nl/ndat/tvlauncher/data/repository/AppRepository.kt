@@ -52,9 +52,14 @@ class AppRepository(
 
 	fun getApps() = database.apps.getAll().executeAsListFlow()
 	fun getFavoriteApps() = database.apps.getAllFavorites(::App).executeAsListFlow()
+	fun getAutoStartApps() = database.apps.getAllAutoStartApps(::App).executeAsListFlow()
 	suspend fun getByPackageName(packageName: String) = withContext(Dispatchers.IO) { database.apps.getByPackageName(packageName).awaitAsOneOrNull() }
 
 	suspend fun favorite(id: String) = withContext(Dispatchers.IO) { database.apps.updateFavoriteAdd(id) }
 	suspend fun unfavorite(id: String) = withContext(Dispatchers.IO) { database.apps.updateFavoriteRemove(id) }
 	suspend fun updateFavoriteOrder(id: String, order: Int) = withContext(Dispatchers.IO) { database.apps.updateFavoriteOrder(id, order.toLong()) }
+
+	suspend fun addAutoStart(id: String) = withContext(Dispatchers.IO) { database.apps.updateAutoStartAdd(id) }
+	suspend fun removeAutoStart(id: String) = withContext(Dispatchers.IO) { database.apps.updateAutoStartRemove(id) }
+	suspend fun updateAutoStartOrder(id: String, order: Int) = withContext(Dispatchers.IO) { database.apps.updateAutoStartOrder(id, order.toLong()) }
 }

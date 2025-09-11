@@ -45,6 +45,10 @@ fun AppCardRow(
 							onToggleFavorite = { favorite ->
 								viewModel.favoriteApp(app, favorite)
 							},
+							isAutoStart = app.autoStartOrder != null,
+							onToggleAutoStart = { autoStart ->
+								viewModel.toggleAutoStart(app, autoStart)
+							},
 							onMove = { relativePosition ->
 								val newIndex = index + relativePosition
 								viewModel.setFavoriteOrder(app, newIndex)

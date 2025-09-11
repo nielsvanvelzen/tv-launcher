@@ -4,6 +4,7 @@ plugins {
 	alias(libs.plugins.kotlin.compose)
 	alias(libs.plugins.sqldelight)
 	alias(libs.plugins.kotlin.serialization)
+	id("com.google.devtools.ksp") version "2.2.10-1.0.13"
 }
 
 kotlin {
@@ -60,4 +61,6 @@ dependencies {
 	implementation(libs.androidx.tv.material)
 	implementation(libs.coil.compose)
 	debugImplementation(libs.androidx.compose.ui.tooling)
+
+	ksp("androidx.room:room-compiler:2.6.1")
 }

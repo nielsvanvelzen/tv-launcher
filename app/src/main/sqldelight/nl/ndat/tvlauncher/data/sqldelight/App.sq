@@ -6,17 +6,22 @@ CREATE TABLE App (
 	launchIntentUriDefault TEXT,
 	launchIntentUriLeanback TEXT,
 
-	favoriteOrder INTEGER
+	favoriteOrder INTEGER,
+	autoStartOrder INTEGER
 );
 
 CREATE INDEX appPackageName ON App(packageName);
 CREATE INDEX appFavoriteOrder ON App(favoriteOrder);
+CREATE INDEX appAutoStartOrder ON App(autoStartOrder);
 
 getAll:
 SELECT * FROM App ORDER BY displayName ASC;
 
 getAllFavorites:
 SELECT * FROM App WHERE favoriteOrder IS NOT NULL ORDER BY favoriteOrder ASC;
+
+getAllAutoStartApps:
+SELECT * FROM App WHERE autoStartOrder IS NOT NULL ORDER BY autoStartOrder ASC;
 
 getById:
 SELECT * FROM App WHERE id = :id LIMIT 1;
@@ -64,6 +69,25 @@ updateFavoriteOrder {
 	UPDATE App SET favoriteOrder = favoriteOrder + 1 WHERE favoriteOrder >= :order AND id != :id;
 	-- Update requested item
 	UPDATE App SET favoriteOrder = :order WHERE id = :id;
+}
+
+updateAutoStartAdd:
+UPDATE App SET autoStartOrder = COALESCE((SELECT MAX(autoStartOrder) FROM App), -1) + 1 WHERE id = :id;
+
+updateAutoStartRemove {
+	-- Decrease the order for all items after this item
+	UPDATE App SET autoStartOrder = autoStartOrder - 1 WHERE autoStartOrder > (SELECT autoStartOrder FROM App WHERE id = :id) AND id != :id;
+	-- Update requested item
+	UPDATE App SET autoStartOrder = NULL WHERE id = :id;
+}
+
+updateAutoStartOrder {
+	-- Decrease the order for all items after the old order
+	UPDATE App SET autoStartOrder = autoStartOrder - 1 WHERE autoStartOrder > (SELECT autoStartOrder FROM App WHERE id = :id) AND id != :id;
+	-- Increase the order for all items after the new order
+	UPDATE App SET autoStartOrder = autoStartOrder + 1 WHERE autoStartOrder >= :order AND id != :id;
+	-- Update requested item
+	UPDATE App SET autoStartOrder = :order WHERE id = :id;
 }
 
 removeById:

@@ -38,4 +38,9 @@ class HomeTabViewModel(
 		if (app.favoriteOrder == null) appRepository.favorite(app.id)
 		appRepository.updateFavoriteOrder(app.id, order)
 	}
+
+	fun toggleAutoStart(app: App, autoStart: Boolean) = viewModelScope.launch {
+		if (autoStart) appRepository.addAutoStart(app.id)
+		else appRepository.removeAutoStart(app.id)
+	}
 }

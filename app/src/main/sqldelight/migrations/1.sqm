@@ -1,2 +1,5 @@
 ALTER TABLE App ADD COLUMN favoriteOrder INTEGER;
 CREATE INDEX appFavoriteOrder ON App(favoriteOrder);
+
+ALTER TABLE App ADD COLUMN autoStartOrder INTEGER;
+CREATE INDEX appAutoStartOrder ON App(autoStartOrder);

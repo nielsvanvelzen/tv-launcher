@@ -22,4 +22,9 @@ class AppsTabViewModel(
 		if (favorite) appRepository.favorite(app.id)
 		else appRepository.unfavorite(app.id)
 	}
+
+	fun toggleAutoStart(app: App, autoStart: Boolean) = viewModelScope.launch {
+		if (autoStart) appRepository.addAutoStart(app.id)
+		else appRepository.removeAutoStart(app.id)
+	}
 }

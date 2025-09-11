@@ -52,6 +52,10 @@ fun AppsTab(
 							isFavorite = app.favoriteOrder != null,
 							onToggleFavorite = { favorite ->
 								viewModel.favoriteApp(app, favorite)
+							},
+							isAutoStart = app.autoStartOrder != null,
+							onToggleAutoStart = { autoStart ->
+								viewModel.toggleAutoStart(app, autoStart)
 							}
 						)
 					}

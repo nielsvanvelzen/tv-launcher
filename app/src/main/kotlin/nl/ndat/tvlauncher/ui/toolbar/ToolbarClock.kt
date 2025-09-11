@@ -11,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.sp
 import androidx.core.os.ConfigurationCompat
@@ -21,8 +22,9 @@ import java.util.Calendar
 @Composable
 fun ToolbarClock() {
 	val context = LocalContext.current
-	val pattern = remember(context) {
-		val locale = requireNotNull(ConfigurationCompat.getLocales(context.resources.configuration)[0])
+	val configuration = LocalConfiguration.current
+	val pattern = remember(configuration) {
+		val locale = requireNotNull(ConfigurationCompat.getLocales(configuration)[0])
 		val is24HourFormat = DateFormat.is24HourFormat(context)
 		val pattern = when {
 			is24HourFormat -> "Hm"

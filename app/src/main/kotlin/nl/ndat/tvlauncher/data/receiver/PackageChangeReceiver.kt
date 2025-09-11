@@ -7,6 +7,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import nl.ndat.tvlauncher.data.repository.AppRepository
+import nl.ndat.tvlauncher.service.AutoStartService
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -21,6 +22,7 @@ class PackageChangeReceiver : BroadcastReceiver(), KoinComponent {
 	}
 
 	private val appRepository: AppRepository by inject()
+	private val autoStartService: AutoStartService by inject()
 
 	override fun onReceive(context: Context, intent: Intent) {
 		val pendingIntent = goAsync()
@@ -28,13 +30,20 @@ class PackageChangeReceiver : BroadcastReceiver(), KoinComponent {
 		@OptIn(DelicateCoroutinesApi::class)
 		GlobalScope.launch {
 			try {
-				val packageName = when {
-					intent.action in packageActions && intent.data?.scheme == "package" -> intent.data?.schemeSpecificPart
-					else -> null
-				}
+				when (intent.action) {
+					Intent.ACTION_BOOT_COMPLETED -> {
+						// 系统启动完成，启动自启动应用
+						autoStartService.startAutoStartApps(context)
+					}
+					in packageActions -> {
+						val packageName = if (intent.data?.scheme == "package") {
+							intent.data?.schemeSpecificPart
+						} else null
 
-				if (packageName != null) appRepository.refreshApplication(packageName)
-				else appRepository.refreshAllApplications()
+						if (packageName != null) appRepository.refreshApplication(packageName)
+						else appRepository.refreshAllApplications()
+					}
+				}
 			} finally {
 				pendingIntent.finish()
 			}
