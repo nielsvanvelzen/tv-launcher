@@ -20,7 +20,7 @@ java-jdk = "21"
 koin-android = "4.2.0"
 koin-compose = "4.2.0"
 kotlin = "2.3.20"
-kotlinx-serialization = "1.10.0"
+kotlinx-serialization = "1.11.0"
 sqldelight = "2.3.2"
 timber = "5.0.1"
 
