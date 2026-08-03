@@ -54,7 +54,7 @@ class ChannelRepository(
 				.map { id -> database.channelPrograms.removeById(id) }
 
 			// Upsert channels
-			programs.map { program -> commitChannelProgram(program) }
+			programs.map { program -> commitChannelProgram(program).await() }
 		}
 	}
 

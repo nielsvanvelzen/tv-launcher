@@ -24,7 +24,7 @@ class AppRepository(
 				.map { id -> database.apps.removeById(id) }
 
 			// Upsert all found
-			apps.map { app -> commitApp(app) }
+			apps.map { app -> commitApp(app).await() }
 		}
 	}
 
@@ -55,6 +55,6 @@ class AppRepository(
 	suspend fun getByPackageName(packageName: String) = withContext(Dispatchers.IO) { database.apps.getByPackageName(packageName).awaitAsOneOrNull() }
 
 	suspend fun favorite(id: String) = withContext(Dispatchers.IO) { database.apps.updateFavoriteAdd(id) }
-	suspend fun unfavorite(id: String) = withContext(Dispatchers.IO) { database.apps.updateFavoriteRemove(id) }
-	suspend fun updateFavoriteOrder(id: String, order: Int) = withContext(Dispatchers.IO) { database.apps.updateFavoriteOrder(id, order.toLong()) }
+	suspend fun unfavorite(id: String) = withContext(Dispatchers.IO) { database.apps.updateFavoriteRemove(id).await() }
+	suspend fun updateFavoriteOrder(id: String, order: Int) = withContext(Dispatchers.IO) { database.apps.updateFavoriteOrder(id, order.toLong()).await() }
 }
