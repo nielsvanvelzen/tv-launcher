@@ -33,7 +33,7 @@ class HomeTabViewModel(
 		else appRepository.unfavorite(app.id)
 	}
 
-	fun setFavoriteOrder(app: App, order: Int) = viewModelScope.launch {
+	fun setFavoriteOrder(app: App, order: Long) = viewModelScope.launch {
 		// Make sure app is favorite first
 		if (app.favoriteOrder == null) appRepository.favorite(app.id)
 		appRepository.updateFavoriteOrder(app.id, order)

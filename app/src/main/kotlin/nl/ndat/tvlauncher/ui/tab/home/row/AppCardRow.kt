@@ -46,7 +46,13 @@ fun AppCardRow(
 								viewModel.favoriteApp(app, favorite)
 							},
 							onMove = { relativePosition ->
-								val newIndex = index + relativePosition
+								// Get the favorite order of the app at the new index
+								// in case the database has gaps in the order of favorited apps
+								val destinationApp = apps.getOrNull(index + relativePosition)
+								val newIndex = when {
+									destinationApp?.favoriteOrder != null -> destinationApp.favoriteOrder
+									else -> index + relativePosition.toLong()
+								}
 								viewModel.setFavoriteOrder(app, newIndex)
 							}
 						)

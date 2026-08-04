@@ -66,8 +66,16 @@ updateFavoriteOrder {
 	UPDATE App SET favoriteOrder = :order WHERE id = :id;
 }
 
-removeById:
-DELETE FROM App WHERE id = :id;
+removeById {
+	-- Decrease the order for all items after this item
+	UPDATE App SET favoriteOrder = favoriteOrder - 1 WHERE favoriteOrder > (SELECT favoriteOrder FROM App WHERE id = :id) AND id != :id;
+	-- Delete the item
+	DELETE FROM App WHERE id = :id;
+}
 
-removeByPackageName:
-DELETE FROM App WHERE packageName = :packageName;
+removeByPackageName {
+	-- Decrease the order for all items after this item
+	UPDATE App SET favoriteOrder = favoriteOrder - 1 WHERE favoriteOrder > (SELECT favoriteOrder FROM App WHERE packageName = :packageName) AND packageName != :packageName;
+	-- Delete the item
+	DELETE FROM App WHERE packageName = :packageName;
+}

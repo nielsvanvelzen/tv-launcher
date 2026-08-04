@@ -66,7 +66,7 @@ class AppRepository(
 		database.apps.updateFavoriteRemove(id).await()
 	}
 
-	suspend fun updateFavoriteOrder(id: String, order: Int) = withContext(Dispatchers.IO) {
-		database.apps.updateFavoriteOrder(id, order.toLong()).await()
+	suspend fun updateFavoriteOrder(id: String, order: Long) = withContext(Dispatchers.IO) {
+		database.apps.updateFavoriteOrder(id, order).await()
 	}
 }
