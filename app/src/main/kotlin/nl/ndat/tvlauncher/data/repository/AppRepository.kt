@@ -21,10 +21,10 @@ class AppRepository(
 				.executeAsList()
 				.map { it.id }
 				.subtract(apps.map { it.id }.toSet())
-				.map { id -> database.apps.removeById(id) }
+				.forEach { id -> database.apps.removeById(id) }
 
 			// Upsert all found
-			apps.map { app -> commitApp(app).await() }
+			apps.forEach { app -> commitApp(app) }
 		}
 	}
 
@@ -35,7 +35,7 @@ class AppRepository(
 			launchIntentUriDefault = app.launchIntentUriDefault,
 			launchIntentUriLeanback = app.launchIntentUriLeanback,
 			id = app.id
-		)
+		).await()
 	}
 
 	suspend fun refreshAllApplications() = withContext(Dispatchers.IO) {
@@ -51,10 +51,22 @@ class AppRepository(
 	}
 
 	fun getApps() = database.apps.getAll().executeAsListFlow()
-	fun getFavoriteApps() = database.apps.getAllFavorites(::App).executeAsListFlow()
-	suspend fun getByPackageName(packageName: String) = withContext(Dispatchers.IO) { database.apps.getByPackageName(packageName).awaitAsOneOrNull() }
 
-	suspend fun favorite(id: String) = withContext(Dispatchers.IO) { database.apps.updateFavoriteAdd(id) }
-	suspend fun unfavorite(id: String) = withContext(Dispatchers.IO) { database.apps.updateFavoriteRemove(id).await() }
-	suspend fun updateFavoriteOrder(id: String, order: Int) = withContext(Dispatchers.IO) { database.apps.updateFavoriteOrder(id, order.toLong()).await() }
+	fun getFavoriteApps() = database.apps.getAllFavorites(::App).executeAsListFlow()
+
+	suspend fun getByPackageName(packageName: String) = withContext(Dispatchers.IO) {
+		database.apps.getByPackageName(packageName).awaitAsOneOrNull()
+	}
+
+	suspend fun favorite(id: String) = withContext(Dispatchers.IO) {
+		database.apps.updateFavoriteAdd(id)
+	}
+
+	suspend fun unfavorite(id: String) = withContext(Dispatchers.IO) {
+		database.apps.updateFavoriteRemove(id).await()
+	}
+
+	suspend fun updateFavoriteOrder(id: String, order: Int) = withContext(Dispatchers.IO) {
+		database.apps.updateFavoriteOrder(id, order.toLong()).await()
+	}
 }

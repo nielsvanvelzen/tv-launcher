@@ -22,10 +22,10 @@ class ChannelRepository(
 				.executeAsList()
 				.map { it.id }
 				.subtract(channels.map { it.id }.toSet())
-				.map { id -> database.channels.removeById(id) }
+				.forEach { id -> database.channels.removeById(id) }
 
 			// Upsert channels
-			channels.map { channel -> commitChannel(channel) }
+			channels.forEach { channel -> commitChannel(channel) }
 		}
 	}
 
@@ -38,23 +38,23 @@ class ChannelRepository(
 			description = channel.description,
 			packageName = channel.packageName,
 			appLinkIntentUri = channel.appLinkIntentUri,
-		)
+		).await()
 	}
 
 	private suspend fun commitChannelPrograms(
 		channelId: String,
 		programs: Collection<ChannelProgram>,
-	) =  withContext(Dispatchers.IO) {
+	) = withContext(Dispatchers.IO) {
 		database.transaction {
 			// Remove channels found in database but not in committed list
 			database.channelPrograms.getByChannel(channelId)
 				.executeAsList()
 				.map { it.id }
 				.subtract(programs.map { it.id }.toSet())
-				.map { id -> database.channelPrograms.removeById(id) }
+				.forEach { id -> database.channelPrograms.removeById(id) }
 
 			// Upsert channels
-			programs.map { program -> commitChannelProgram(program).await() }
+			programs.forEach { program -> commitChannelProgram(program) }
 		}
 	}
 
@@ -84,7 +84,7 @@ class ChannelRepository(
 			episodeNumber = program.episodeNumber,
 			description = program.description,
 			intentUri = program.intentUri,
-		)
+		).await()
 	}
 
 	suspend fun refreshAllChannels() {
@@ -121,7 +121,11 @@ class ChannelRepository(
 	}
 
 	fun getChannels() = database.channels.getAll().executeAsListFlow()
+
 	fun getFavoriteAppChannels() = database.channels.getFavoriteAppChannels(::Channel).executeAsListFlow()
+
 	fun getProgramsByChannel(channel: Channel) = database.channelPrograms.getByChannel(channel.id).executeAsListFlow()
-	fun getWatchNextPrograms() = database.channelPrograms.getByChannel(ChannelResolver.CHANNEL_ID_WATCH_NEXT).executeAsListFlow()
+
+	fun getWatchNextPrograms() =
+		database.channelPrograms.getByChannel(ChannelResolver.CHANNEL_ID_WATCH_NEXT).executeAsListFlow()
 }

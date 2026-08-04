@@ -20,10 +20,10 @@ class InputRepository(
 				.executeAsList()
 				.map { it.id }
 				.subtract(inputs.map { it.id }.toSet())
-				.map { id -> database.inputs.removeById(id) }
+				.forEach { id -> database.inputs.removeById(id) }
 
 			// Upsert inputs
-			inputs.map { input -> commitInput(input) }
+			inputs.forEach { input -> commitInput(input) }
 		}
 	}
 
@@ -35,7 +35,7 @@ class InputRepository(
 			packageName = input.packageName,
 			type = input.type,
 			switchIntentUri = input.switchIntentUri
-		)
+		).await()
 	}
 
 	suspend fun refreshAllInputs() {
