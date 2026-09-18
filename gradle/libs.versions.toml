@@ -21,7 +21,7 @@ koin-android = "4.2.2"
 koin-compose = "4.2.2"
 kotlin = "2.4.20"
 kotlinx-serialization = "1.11.0"
-sqldelight = "2.3.2"
+sqldelight = "2.4.0"
 timber = "5.0.1"
 
 [plugins]
