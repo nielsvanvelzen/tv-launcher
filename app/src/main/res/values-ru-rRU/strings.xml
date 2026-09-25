@@ -1,0 +1,11 @@
+<resources>
+	<string name="app_name">TV Launcher</string>
+	<string name="settings">Настройки</string>
+    <string name="channel_watch_next">Смотреть далее</string>
+	<string name="channel_preview">%1$s: %2$s</string>
+    <string name="settings_system">Системные настройки</string>
+	<string name="settings_launcher">Настройки лаунчера</string>
+	<string name="input_switch">Сменить источник</string>
+	<string name="tab_home">Главная</string>
+	<string name="tab_apps">Все приложения</string>
+</resources>
