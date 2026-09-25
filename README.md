@@ -1,6 +1,6 @@
 # TV Launcher
 
-English · [Русский](README_RU.md)
+English | [Русский](README_RU.md)
 
 TV Launcher (name to be determined) is an Android launcher meant for big screens like televisions. It can be used as a
 replacement for the default Leanback or Google TV launcher on various Android TV devices like the Nvidia Shield or
